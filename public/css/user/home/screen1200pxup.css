@@ -1,0 +1,189 @@
+.banner {
+    height: 40vw;
+    background: url("http://localhost/cnaf/public/images/home/banner.jpg") no-repeat center;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.banner .banner-content h1 {
+    font-size: 4.8vw;
+}
+
+.simulasi {
+    margin-top: -140px;
+}
+.simulasi .simulasi-content {
+    background: white;
+    padding: 2vw 3vw 2vw 3vw;
+    -webkit-box-shadow: 0px 10px 5px #cccccc;
+    -moz-box-shadow: 0px 10px 5px #cccccc;
+    box-shadow: 0px 10px 10px 5px #cccccc;
+}
+
+.lima-item {
+    margin: 100px 0;
+}
+.lima-item .item {
+    width: 20%;
+    flex-wrap: wrap;
+}
+.lima-item .item:nth-child(1) {
+    padding-right: 5px;
+}
+.lima-item .item:nth-child(2) {
+    padding: 0 5px;
+}
+.lima-item .item:nth-child(3) {
+    padding: 0 5px;
+}
+.lima-item .item:nth-child(4) {
+    padding: 0 5px;
+}
+.lima-item .item:nth-child(5) {
+    padding-left: 5px;
+}
+.lima-item .item .item-image-content {
+    width: 100%;
+}
+
+.banner2 {
+    height: 40vw;
+    background: url("http://localhost/cnaf/public/images/home/banner2.png") no-repeat center;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.banner2 .banner2-content h1 {
+    font-size: 2.8rem;
+}
+.banner2 .banner2-content h2 {
+    font-size: 1.8rem;
+}
+.banner2 .banner2-content p {
+    font-size: 1rem;
+}
+.banner2 .banner2-content a {
+    font-size: 1rem;
+}
+
+.proses-leasing {
+    margin: 100px 0;
+}
+.proses-leasing h1 {
+    font-size: 2.8rem;
+}
+.proses-leasing h6 {
+    font-size: 1.2rem;
+}
+.proses-leasing h4 {
+    font-size: 1.4rem;
+}
+.proses-leasing p {
+    font-size: 1rem;
+}
+
+.banner3 {
+    height: 200px;
+    background: url("http://localhost/cnaf/public/images/home/banner3.jpg") no-repeat center;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.banner3 a {
+    font-size: 1rem;
+}
+
+.article {
+    margin: 100px 0;
+}
+.article h1 {
+    font-size: 2.5rem;
+}
+/*.article .card h5 {
+    font-size: 1rem;
+}
+.article .card p {
+    font-size: 0.8rem;
+}
+.article .card a {
+    font-size: 1rem;
+}*/
+
+.banner4 {
+    height: 800px;
+    background: url("http://localhost/cnaf/public/images/home/banner4.jpg");
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.banner4 h6 {
+    font-size: 1rem;
+}
+.banner4 h2 {
+    font-size: 2rem;
+}
+.banner4 p {
+    font-size: 1rem;
+}
+.banner4 a {
+    font-size: 1rem;
+}
+.banner4 .hp {
+    width: 500px;
+    height: auto;
+}
+.banner4 .google-play {
+    width: 180px;
+    height: auto;
+}
+
+footer {
+    background-color: #881a1b;
+}
+footer h6 {
+    margin-top: 100px;
+}
+footer hr {
+    border: 1px solid white;
+    margin-top: 100px;
+}
+
+.reset, .btn-simulasi {
+    height: calc(1.5em + 1.5rem + 2px) !important;
+}
+.reset {
+    border: 1px solid #ced4da !important;
+}
+.bg-881a1b {
+    color: white !important;
+    background-color: #881a1b !important;
+    border-color: #881a1b !important;
+}
+.bg-881a1b:hover {
+    color: white !important;
+    background-color: #881a1b !important;
+    border-color: #881a1b !important;
+}
+.bg-outline-881a1b {
+    color: #881a1b !important;
+    border-color: #881a1b !important;
+}
+.bg-outline-881a1b:hover {
+    color: white !important;
+    background-color: #881a1b !important;
+    border-color: #881a1b !important;
+}
+.card {
+    height: 600px !important;
+}
+.card img {
+    height: 240px !important;
+}
+.selengkapnya {
+    position: absolute !important;
+    bottom: 20px !important;
+}

@@ -1,0 +1,167 @@
+.banner {
+    height: 50vw;
+    background: url("http://localhost/cnaf/public/images/home/banner.jpg") no-repeat center;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.banner .banner-content h1 {
+    font-size: 7vw;
+}
+
+.simulasi {
+    background-color: #f7f7f7;
+}
+.simulasi .simulasi-content {
+    padding: 2vw 3vw 2vw 3vw;
+}
+.simulasi .simulasi-content h3 {
+    font-size: 1.2rem;
+}
+
+.lima-item {
+    margin: 50px 0;
+}
+.lima-item .item {
+    width: 50%;
+    flex-wrap: wrap;
+}
+.lima-item .item:nth-child(1) {
+    padding-right: 5px;
+}
+.lima-item .item:nth-child(2) {
+    padding-left: 5px;
+}
+.lima-item .item:nth-child(3) {
+    padding-right: 5px;
+}
+.lima-item .item:nth-child(4) {
+    padding-left: 5px;
+}
+.lima-item .item:nth-child(5) {
+    width: 100% !important;
+    padding: 0 25% !important;
+}
+.lima-item .item .item-image-content {
+    width: 100%;
+}
+
+.banner2 {
+    height: 400px;
+    background: url("http://localhost/cnaf/public/images/home/banner2.png") no-repeat center;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.banner2 .banner2-content h1 {
+    font-size: 1.6rem;
+}
+.banner2 .banner2-content h2 {
+    font-size: 1.4rem;
+}
+.banner2 .banner2-content a {
+    font-size: 0.8rem;
+}
+
+.proses-leasing {
+    margin: 50px 0;
+}
+.proses-leasing h1 {
+    font-size: 1.8rem;
+}
+.proses-leasing h6 {
+    font-size: 1rem;
+}
+.proses-leasing h4 {
+    font-size: 1.4rem;
+}
+
+.banner3 {
+    height: 180px;
+    background: url("http://localhost/cnaf/public/images/home/banner3.jpg");
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.article {
+    margin: 50px 0;
+}
+
+.banner4 {
+    height: 540px;
+    background: url("http://localhost/cnaf/public/images/home/banner4.jpg") no-repeat center;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.banner4 h6 {
+    font-size: 1rem;
+}
+.banner4 h2 {
+    font-size: 1.2rem;
+}
+.banner4 p {
+    font-size: 0.8rem;
+}
+.banner4 a {
+    font-size: 0.8rem;
+}
+.banner4 .hp {
+    width: 200px;
+    height: auto;
+}
+.banner4 .google-play {
+    width: 100px;
+    height: auto;
+}
+
+footer {
+    background-color: #881a1b;
+}
+footer h6 {
+    margin-top: 40px;
+}
+footer hr {
+    border: 1px solid white;
+    margin-top: 30px;
+}
+
+.reset, .btn-simulasi {
+    height: calc(1.5em + 1.5rem + 2px) !important;
+}
+.reset {
+    border: 1px solid #ced4da !important;
+}
+.bg-881a1b {
+    color: white !important;
+    background-color: #881a1b !important;
+    border-color: #881a1b !important;
+}
+.bg-881a1b:hover {
+    color: white !important;
+    background-color: #881a1b !important;
+    border-color: #881a1b !important;
+}
+.bg-outline-881a1b {
+    color: #881a1b !important;
+    border-color: #881a1b !important;
+}
+.bg-outline-881a1b:hover {
+    color: white !important;
+    background-color: #881a1b !important;
+    border-color: #881a1b !important;
+}
+.card {
+    height: 600px !important;
+}
+.card img {
+    height: 320px !important;
+}
+.selengkapnya {
+    visibility: hidden;
+}

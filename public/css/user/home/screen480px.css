@@ -1,0 +1,151 @@
+.banner {
+    height: 56vw;
+    background: url("http://localhost/cnaf/public/images/home/banner.jpg") no-repeat center;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.banner .banner-content h1 {
+    font-size: 6vw;
+}
+
+.simulasi {
+    background-color: #f7f7f7;
+}
+.simulasi .simulasi-content {
+    padding: 2vw 3vw 2vw 3vw;
+}
+.simulasi .simulasi-content h3 {
+    font-size: 1.2rem;
+}
+
+.lima-item {
+    margin: 35px 0;
+}
+.lima-item .item {
+    width: 100%;
+    flex-wrap: wrap;
+}
+.lima-item .item .item-image-content {
+    width: 100%;
+}
+
+.banner2 {
+    height: 500px;
+    background: url("http://localhost/cnaf/public/images/home/banner2.png") no-repeat center;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.banner2 .banner2-content h1 {
+    font-size: 1.6rem;
+}
+.banner2 .banner2-content h2 {
+    font-size: 1.4rem;
+}
+.banner2 .banner2-content a {
+    font-size: 0.8rem;
+}
+
+.proses-leasing {
+    margin: 35px 0;
+}
+.proses-leasing h1 {
+    font-size: 1.6rem;
+}
+
+.banner3 {
+    height: 160px;
+    background: url("http://localhost/cnaf/public/images/home/banner3.jpg");
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.article {
+    margin: 35px 0;
+}
+.article h1 {
+    font-size: 2rem;
+}
+.article .article-content {
+    /*height: 100px;*/
+}
+
+.banner4 {
+    height: 600px;
+    background: url("http://localhost/cnaf/public/images/home/banner4.jpg") no-repeat center;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.banner4 h6 {
+    font-size: 1rem;
+}
+.banner4 h2 {
+    font-size: 1.2rem;
+}
+.banner4 p {
+    font-size: 0.8rem;
+}
+.banner4 a {
+    font-size: 0.8rem;
+}
+.banner4 .hp {
+    width: 200px;
+    height: auto;
+}
+.banner4 .google-play {
+    width: 100px;
+    height: auto;
+}
+
+footer {
+    background-color: #881a1b;
+}
+footer h6 {
+    margin-top: 40px;
+}
+footer hr {
+    border: 1px solid white;
+    margin-top: 40px;
+}
+
+.reset, .btn-simulasi {
+    height: calc(1.5em + 1rem + 2px) !important;
+}
+.reset {
+    border: 1px solid #ced4da !important;
+}
+.bg-881a1b {
+    color: white !important;
+    background-color: #881a1b !important;
+    border-color: #881a1b !important;
+}
+.bg-881a1b:hover {
+    color: white !important;
+    background-color: #881a1b !important;
+    border-color: #881a1b !important;
+}
+.bg-outline-881a1b {
+    color: #881a1b !important;
+    border-color: #881a1b !important;
+}
+.bg-outline-881a1b:hover {
+    color: white !important;
+    background-color: #881a1b !important;
+    border-color: #881a1b !important;
+}
+.card {
+    height: 600px !important;
+}
+.card img {
+    height: 280px !important;
+}
+.selengkapnya {
+    visibility: hidden;
+}
