@@ -1,0 +1,23 @@
+.bg-881a1b {
+    color: white !important;
+    background-color: #881a1b !important;
+    border-color: #881a1b !important;
+}
+.bg-881a1b:hover {
+    color: white !important;
+    background-color: #881a1b !important;
+    border-color: #881a1b !important;
+}
+.bg-outline-881a1b {
+    color: #881a1b !important;
+    border-color: #881a1b !important;
+}
+.bg-outline-881a1b:hover {
+    color: white !important;
+    background-color: #881a1b !important;
+    border-color: #881a1b !important;
+}
+
+footer {
+    background-color: #881a1b;
+}

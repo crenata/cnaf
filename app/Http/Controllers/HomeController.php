@@ -36,4 +36,34 @@ class HomeController extends Controller
         $blogs = Blog::orderBy('id', 'desc')->limit(3)->get();
         return view('pages.home')->withBlogs($blogs);
     }
+
+    public function tentangkami() {
+        return view('pages.tentangkami');
+    }
+
+    public function shop() {
+        $vendors = Vendor::orderBy('id', 'desc')->paginate(7);
+        return view('pages.shop.home')->withVendors($vendors);
+    }
+
+    public function shopVendorDetails($slug) {
+        $vendor = Vendor::where('slug', $slug)->firstOrFail();
+        $brands = Brand::where('vendor_id', $vendor->id)->orderBy('id', 'desc')->paginate(7);
+
+        return view('pages.shop.vendordetails')->withVendor($vendor)->withBrands($brands);
+    }
+
+    public function products($slug, $slugbrand) {
+        $vendors = Vendor::orderBy('id', 'desc')->paginate(15);
+        $currentvendor = Vendor::where('slug', $slug)->firstOrFail();
+        $currentbrand = Brand::where('slug', $slugbrand)->firstOrFail();
+
+        if ($currentbrand->vendor_id == $currentvendor->id) {
+            $items = Item::where('brand_id', $currentbrand->id)->orderBy('id', 'desc')->paginate(15);
+
+            return view('pages.shop.product.productlist')->withVendors($vendors)->withCurrentVendor($currentvendor)->withCurrentBrand($currentbrand)->withItems($items);
+        } else {
+            return abort(404);
+        }
+    }
 }

@@ -1,0 +1,14 @@
+.banner {
+    height: 20rem;
+    background: url("http://localhost/cnaf/public/images/tentangkami/banner.png") no-repeat center;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.story .info img {
+    width: 100%;
+    height: auto;
+    align-self: center;
+}

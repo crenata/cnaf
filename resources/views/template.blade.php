@@ -4,9 +4,13 @@
     @include('partials.body.head')
 </head>
 <body>
-    <div class="container">
-        @include('partials.attributs.nav')
+    <div class="shadow">
+        <div class="container">
+            @include('partials.attributs.nav')
+        </div>
+    </div>
 
+    <div class="container">
         @yield('content-container')
     </div>
 

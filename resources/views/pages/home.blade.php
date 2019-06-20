@@ -2,6 +2,15 @@
 
 @section('title', 'Home')
 
+@section('stylesheets')
+    <link rel="stylesheet" href="{{ asset('public/css/user/home/screen480px.css') }}" media="screen and (min-width: 1px) and (max-width: 480px)">
+    <link rel="stylesheet" href="{{ asset('public/css/user/home/screen576px.css') }}" media="screen and (min-width: 481px) and (max-width: 576px)">
+    <link rel="stylesheet" href="{{ asset('public/css/user/home/screen768px.css') }}" media="screen and (min-width: 577px) and (max-width: 768px)">
+    <link rel="stylesheet" href="{{ asset('public/css/user/home/screen992px.css') }}" media="screen and (min-width: 769px) and (max-width: 992px)">
+    <link rel="stylesheet" href="{{ asset('public/css/user/home/screen1200px.css') }}" media="screen and (min-width: 993px) and (max-width: 1200px)">
+    <link rel="stylesheet" href="{{ asset('public/css/user/home/screen1200pxup.css') }}" media="screen and (min-width: 1201px)">
+@endsection
+
 @section('content')
     <div class="banner d-flex" id="banner">
         <div class="container align-self-center">
