@@ -54,7 +54,7 @@ class HomeController extends Controller
     }
 
     public function products($slug, $slugbrand) {
-        $vendors = Vendor::orderBy('id', 'desc')->paginate(15);
+        $vendors = Vendor::orderBy('id', 'desc')->get();
         $currentvendor = Vendor::where('slug', $slug)->firstOrFail();
         $currentbrand = Brand::where('slug', $slugbrand)->firstOrFail();
 
@@ -62,6 +62,23 @@ class HomeController extends Controller
             $items = Item::where('brand_id', $currentbrand->id)->orderBy('id', 'desc')->paginate(15);
 
             return view('pages.shop.product.productlist')->withVendors($vendors)->withCurrentVendor($currentvendor)->withCurrentBrand($currentbrand)->withItems($items);
+        } else {
+            return abort(404);
+        }
+    }
+
+    public function itemDetail($slug, $slugbrand, $slugitem) {
+        $vendors = Vendor::orderBy('id', 'desc')->get();
+        $currentvendor = Vendor::where('slug', $slug)->firstOrFail();
+        $currentbrand = Brand::where('slug', $slugbrand)->firstOrFail();
+        $currentitem = Item::where('slug', $slugitem)->firstOrFail();
+
+        if ($currentbrand->vendor_id == $currentvendor->id) {
+            if ($currentitem->brand_id == $currentbrand->id) {
+                return view('pages.shop.product.itemdetail')->withVendors($vendors)->withCurrentVendor($currentvendor)->withCurrentBrand($currentbrand)->withItem($currentitem);
+            } else {
+                return abort(404);
+            }
         } else {
             return abort(404);
         }

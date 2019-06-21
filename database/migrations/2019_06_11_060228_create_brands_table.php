@@ -20,6 +20,7 @@ class CreateBrandsTable extends Migration
             $table->longText('image')->nullable();
             $table->bigInteger('vendor_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -21,6 +21,7 @@ class CreateBlogsTable extends Migration
             $table->longText('body');
             $table->longText('keyword')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -21,6 +21,7 @@ class CreateVendorsTable extends Migration
             $table->longText('image')->nullable();
             $table->longText('image_logo')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

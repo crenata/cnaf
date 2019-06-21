@@ -28,6 +28,7 @@ class CreateItemsTable extends Migration
             $table->longText('image4')->nullable();
             $table->longText('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
