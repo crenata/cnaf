@@ -27,7 +27,7 @@
                 <h6 class="font-weight-bold">Product Categories</h6>
                 <ul class="file-tree ml-0">
                     @foreach($vendors as $vendor)
-                        <li>
+                        <li class="{{ $currentVendor->id == $vendor->id ? 'open' : '' }}">
                             <a href="#">{{ $vendor->name }}</a>
                             <ul>
                                 @foreach($vendor->brands as $brand)
@@ -58,7 +58,7 @@
                     @if(count($items) > 0)
                         @foreach($items as $item)
                             <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 text-center">
-                                @if($item->price_after_discount != null || $item->price_after_discount != '')
+                                @if($item->price_after_discount != null || $item->price_after_discount != 0)
                                     <a href="{{ route('item.detail', ['slug' => $currentVendor->slug, 'slugbrand' => $currentBrand->slug, 'slugitem' => $item->slug]) }}" class="d-block text-decoration-none mt-4 item-content">
                                         <div class="ui black label">-{{ (($item->normal_price - $item->price_after_discount) / $item->normal_price) * 100 }}%</div>
                                         <img src="{{ $item->image1 }}" alt="" class="img-fluid">

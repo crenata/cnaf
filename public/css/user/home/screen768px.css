@@ -51,6 +51,10 @@
     width: 100%;
 }
 
+.slider h4 {
+    font-size: 1rem;
+}
+
 .banner2 {
     height: 56vw;
     background: url("http://localhost/cnaf/public/images/home/banner2.png") no-repeat center;

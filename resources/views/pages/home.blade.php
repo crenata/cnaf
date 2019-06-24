@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="{{ asset('public/css/user/home/screen992px.css') }}" media="screen and (min-width: 769px) and (max-width: 992px)">
     <link rel="stylesheet" href="{{ asset('public/css/user/home/screen1200px.css') }}" media="screen and (min-width: 993px) and (max-width: 1200px)">
     <link rel="stylesheet" href="{{ asset('public/css/user/home/screen1200pxup.css') }}" media="screen and (min-width: 1201px)">
+
+    {{ Html::style('public/plugin//OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css') }}
+    {{ Html::style('public/plugin//OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css') }}
 @endsection
 
 @section('content')
@@ -103,6 +106,37 @@
                     </div>
                     <h5 class="font-weight-bold mt-5 text-center">Limit Hingga 80%</h5>
                     <p class="text-center mt-3">Limit kredit hingga 80% dari nilai jaminan dan jangka waktu cicilan yang fleksibel dari 1-4 tahun.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slider mb-5">
+        <div class="container">
+            <div class="text-center">
+                <h4 class="font-weight-bold text-danger">Dapatkan Penawaran Menarik dari Merchant Kerjasama Kami!</h4>
+                <div class="loop owl-carousel owl-theme mt-4">
+                    <div class="item">
+                        <img src="http://localhost/storage/cnaf/vendors/CNAF-20190621-IMAGE-2a2c573c88ad8af06d2080c21fb282155d0c4095a7848.jpg" alt="">
+                    </div>
+                    <div class="item">
+                        <img src="http://localhost/storage/cnaf/vendors/CNAF-20190621-IMAGE-596c89b759a0d5f7607bcb5cc92d3e655d0c407e3587c.jpg" alt="">
+                    </div>
+                    <div class="item">
+                        <img src="http://localhost/storage/cnaf/vendors/CNAF-20190624-IMAGE-7c25e09888e0f1069a1dafcae2eaca985d1088adf14f8.jpg" alt="">
+                    </div>
+                    <div class="item">
+                        <img src="http://localhost/storage/cnaf/vendors/CNAF-20190621-IMAGE-2a2c573c88ad8af06d2080c21fb282155d0c4095a7848.jpg" alt="">
+                    </div>
+                    <div class="item">
+                        <img src="http://localhost/storage/cnaf/vendors/CNAF-20190621-IMAGE-596c89b759a0d5f7607bcb5cc92d3e655d0c407e3587c.jpg" alt="">
+                    </div>
+                    <div class="item">
+                        <img src="http://localhost/storage/cnaf/vendors/CNAF-20190624-IMAGE-7c25e09888e0f1069a1dafcae2eaca985d1088adf14f8.jpg" alt="">
+                    </div>
+                    <div class="item">
+                        <img src="http://localhost/storage/cnaf/vendors/CNAF-20190624-IMAGE-7c25e09888e0f1069a1dafcae2eaca985d1088adf14f8.jpg" alt="">
+                    </div>
                 </div>
             </div>
         </div>
@@ -243,4 +277,37 @@
             <img src="{{ asset('public/images/home/logo.png') }}" width="320" class="" alt="">
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    {{ Html::script('public/plugin/OwlCarousel2-2.3.4/dist/owl.carousel.min.js') }}
+
+    <script>
+        $('.loop').owlCarousel({
+            center: true,
+            items: 2,
+            loop: true,
+            margin: 10,
+            autoplay: true,
+            autoplayTimeout: 2000,
+            autoplayHoverPause: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                576: {
+                    items: 2
+                },
+                768: {
+                    items: 2
+                },
+                992: {
+                    items: 2
+                },
+                1200: {
+                    items: 2
+                }
+            }
+        });
+    </script>
 @endsection
