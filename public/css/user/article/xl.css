@@ -1,0 +1,45 @@
+.tab-article, .tab-activity, .tab-promo {
+    width: 6rem;
+}
+.tab-slider-tabs {
+    width: fit-content;
+    width: -moz-fit-content;
+    width: -webkit-fit-content;
+    width: -ms-fit-content;
+    width: -o-fit-content;
+    position: relative;
+    border-radius: 35px;
+    height: 35px;
+}
+.tab-slider-tabs:after {
+    content: "";
+    width: 6rem;
+    background: #345F90;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 250ms ease-in-out;
+    border-radius: 35px;
+}
+.tab-slider-tabs.slide:after {
+    left: 6.3rem;
+}
+.tab-slider-tabs.slide3:after {
+    left: 12.55rem;
+}
+.tab-slider-trigger {
+    font-size: 12px;
+    line-height: 1;
+    font-weight: bold;
+    color: #345F90;
+    text-transform: uppercase;
+    padding: 11px 20px;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    transition: color 250ms ease-in-out;
+}
+.tab-slider-trigger.active {
+    color: white;
+}

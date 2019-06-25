@@ -10,8 +10,8 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="mr-auto"></ul>
         <ul class="navbar-nav">
-            <li class="nav-item {{ Request::is('article') ? 'active' : '' }}">
-                <a class="nav-link" href="#">Artikel</a>
+            <li class="nav-item {{ Request::is('articles') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('articles') }}">Artikel</a>
             </li>
             <li class="nav-item {{ Request::is('simulation') ? 'active' : '' }}">
                 <a class="nav-link" href="#">Simulasi</a>

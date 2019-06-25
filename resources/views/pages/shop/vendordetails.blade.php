@@ -12,7 +12,7 @@
 
 @section('content-container')
     <nav aria-label="breadcrumb" class="mt-4 bg-white">
-        <ol class="breadcrumb bg-white">
+        <ol class="breadcrumb bg-white pl-0">
             <li class="breadcrumb-item"><a href="{{ route('shop') }}" class="text-decoration-none text-danger">Shop</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ $vendor->name }}</li>
         </ol>

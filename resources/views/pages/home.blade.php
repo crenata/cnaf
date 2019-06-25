@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="{{ asset('public/css/user/home/screen1200px.css') }}" media="screen and (min-width: 993px) and (max-width: 1200px)">
     <link rel="stylesheet" href="{{ asset('public/css/user/home/screen1200pxup.css') }}" media="screen and (min-width: 1201px)">
 
-    {{ Html::style('public/plugin//OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css') }}
-    {{ Html::style('public/plugin//OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css') }}
+    {{ Html::style('public/plugin/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css') }}
+    {{ Html::style('public/plugin/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css') }}
 @endsection
 
 @section('content')

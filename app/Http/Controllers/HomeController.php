@@ -41,6 +41,11 @@ class HomeController extends Controller
         return view('pages.tentangkami');
     }
 
+    public function articles() {
+        $blogs = Blog::orderBy('id', 'desc')->paginate(7);
+        return view('pages.articles')->withBlogs($blogs);
+    }
+
     public function shop() {
         $vendors = Vendor::orderBy('id', 'desc')->paginate(7);
         return view('pages.shop.home')->withVendors($vendors);
