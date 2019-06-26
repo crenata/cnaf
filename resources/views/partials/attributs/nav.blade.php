@@ -13,8 +13,8 @@
             <li class="nav-item {{ Request::is('articles') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('articles') }}">Artikel</a>
             </li>
-            <li class="nav-item {{ Request::is('simulation') ? 'active' : '' }}">
-                <a class="nav-link" href="#">Simulasi</a>
+            <li class="nav-item {{ Request::is('simulasi') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('simulasi') }}">Simulasi</a>
             </li>
             <li class="nav-item {{ Request::is('tentang-kami') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('tentangkami') }}">Tentang Kami</a>

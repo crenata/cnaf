@@ -31,17 +31,17 @@
                 <h6 class="text-white font-weight-bold pull-right">Leasing</h6>
                 <div class="info text-white mt-xl-5 mt-lg-5 mt-md-4 mt-sm-3">
                     <p><a href="#" class="text-white"><small>Panduan Leasing</small></a></p>
-                    <p><a href="#" class="text-white"><small>Simulasi Leasing</small></a></p>
-                    <p><a href="#" class="text-white"><small>FAQ</small></a></p>
+                    <p><a href="{{ route('simulasi') }}" class="text-white"><small>Simulasi Leasing</small></a></p>
+                    <p><a href="{{ route('faq') }}" class="text-white"><small>FAQ</small></a></p>
                 </div>
             </div>
 
             <div class="col-lg-3 col-md-3 col-sm-7 col-7">
                 <h6 class="text-white font-weight-bold">Lebih Banyak</h6>
                 <div class="info text-white mt-xl-5 mt-lg-5 mt-md-4 mt-sm-3">
-                    <p><a href="#" class="text-white"><small>Tentang Kami</small></a></p>
-                    <p><a href="#" class="text-white"><small>Artikel</small></a></p>
-                    <p><a href="#" class="text-white"><small>Kegiatan</small></a></p>
+                    <p><a href="{{ route('tentangkami') }}" class="text-white"><small>Tentang Kami</small></a></p>
+                    <p><a href="{{ route('articles') }}" class="text-white"><small>Artikel</small></a></p>
+                    <p><a href="{{ route('articles') }}" class="text-white"><small>Kegiatan</small></a></p>
                 </div>
             </div>
 
@@ -66,7 +66,7 @@
                 <div class="text-center">
                     <p class="float-lg-left float-md-left float-sm-left float-none"><a href="#" class="text-white"><small><b>Terms and Conditions</b></small></a></p>
                     <p class="float-lg-left float-md-left float-sm-left float-none ml-md-4 ml-sm-4 ml-0"><a href="#" class="text-white"><small><b>Complaints</b></small></a></p>
-                    <p class="float-lg-left float-md-left float-sm-left float-none ml-md-4 ml-sm-4 ml-0"><a href="#" class="text-white"><small><b>Privacy Policy</b></small></a></p>
+                    <p class="float-lg-left float-md-left float-sm-left float-none ml-md-4 ml-sm-4 ml-0"><a href="{{ route('privacy.policy') }}" class="text-white"><small><b>Privacy Policy</b></small></a></p>
                 </div>
             </div>
         </div>

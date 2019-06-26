@@ -99,8 +99,8 @@
                             <div class="row no-gutters" style="height: 15rem;">
                                 <div class="col-md-8 col-lg-7 col-xl-7 align-self-center">
                                     <div class="card-body">
-                                        <a href="#" class="text-decoration-none text-body"><h6 class="card-title font-weight-bold m-0">{{ $blog->name }}</h6></a>
-                                        <p class="card-text my-2">{{ substr(strip_tags($blog->body), 0, 150) }}{{ strlen(strip_tags($blog->body)) > 150 ? "..." : "" }}</p>
+                                        <a href="#" class="text-decoration-none text-body"><h6 class="card-title font-weight-bold text-black-50 m-0">{{ $blog->name }}</h6></a>
+                                        <p class="card-text text-black-50 mt-2">{{ substr(strip_tags($blog->body), 0, 150) }}{{ strlen(strip_tags($blog->body)) > 150 ? "..." : "" }}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-lg-5 col-xl-5">

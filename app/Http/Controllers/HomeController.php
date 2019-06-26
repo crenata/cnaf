@@ -46,6 +46,19 @@ class HomeController extends Controller
         return view('pages.articles')->withBlogs($blogs);
     }
 
+    public function faq() {
+        return view('pages.faq');
+    }
+
+    public function privacypolicy() {
+        return view('pages.privacypolicy');
+    }
+
+    public function simulasi() {
+        $vendors = Vendor::orderBy('name', 'asc')->get();
+        return view('pages.simulasi')->withVendors($vendors);
+    }
+
     public function shop() {
         $vendors = Vendor::orderBy('id', 'desc')->paginate(7);
         return view('pages.shop.home')->withVendors($vendors);

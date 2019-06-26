@@ -295,7 +295,7 @@
 	{{ Html::script('public/plugin/mui-trade-template/global/vendor/dropify/dropify.min.js') }}
 	{{ Html::script('public/plugin/mui-trade-template/global/js/Plugin/dropify.js') }}
 
-	<script src="https://cdn.ckeditor.com/ckeditor5/12.0.0/classic/ckeditor.js"></script>
+	{{ Html::script('public/plugin/ckeditor5-build-classic/ckeditor.js') }}
 
 	<script type="text/javascript">
 		$(document).ready(function() {

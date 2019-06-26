@@ -15,7 +15,10 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('articles', 'HomeController@articles')->name('articles');
+Route::get('simulasi', 'HomeController@simulasi')->name('simulasi');
 Route::get('tentang-kami', 'HomeController@tentangkami')->name('tentangkami');
+Route::get('faq', 'HomeController@faq')->name('faq');
+Route::get('privacy-policy', 'HomeController@privacypolicy')->name('privacy.policy');
 Route::get('shop', 'HomeController@shop')->name('shop');
 Route::get('shop/{slug}', 'HomeController@shopVendorDetails')->name('shop.vendor.show');
 Route::get('shop/{slug}/{slugbrand}', 'HomeController@products')->name('products');

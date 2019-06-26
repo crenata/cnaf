@@ -25,7 +25,7 @@
 
     <div class="simulasi py-4">
         <div class="container">
-            <div class="simulasi-content rounded">
+            <form class="simulasi-content rounded">
                 <h3>Kredit Multi Guna CIMB Niaga Auto Finance</h3>
                 <div class="row">
                     <div class="col-md-4 col-sm-4 col-12 mt-3">
@@ -38,7 +38,7 @@
                     </div>
                     <div class="col-md-4 col-sm-4 col-12 mt-3">
                         <select class="form-control">
-                            <option value="">Pilih Modek</option>
+                            <option value="">Pilih Model</option>
                             <option value="">A</option>
                             <option value="">B</option>
                             <option value="">C</option>
@@ -55,13 +55,13 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-6">
-                        <button class="btn reset mt-3 px-xl-4 px-lg-4 px-md-3">Reset &emsp; <i class="fas fa-redo-alt"></i></button>
+                        <button class="btn reset mt-3 px-xl-4 px-lg-4 px-md-3" type="reset">Reset &emsp; <i class="fas fa-redo-alt"></i></button>
                     </div>
                     <div class="col-md-6 col-sm-6 col-6 clearfix">
                         <button class="bg-881a1b btn-simulasi btn mt-3 float-right font-weight-bold px-xl-4 px-lg-4 px-md-3">Simulasikan</button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 
@@ -213,7 +213,7 @@
                 <div class="col-12 align-self-center">
                     <div class="text-center p-0 m-0">
                         <h6 class="text-white">Masih ada pertanyaan?</h6>
-                        <a href="#" class="bg-881a1b btn py-xl-3 py-lg-3 py-md-2 px-xl-5 px-lg-5 px-md-4 mt-4 font-weight-bold">Halaman FAQ &emsp; <i class="fas fa-arrow-right"></i></a>
+                        <a href="{{ route('faq') }}" class="bg-881a1b btn py-xl-3 py-lg-3 py-md-2 px-xl-5 px-lg-5 px-md-4 mt-4 font-weight-bold">Halaman FAQ &emsp; <i class="fas fa-arrow-right"></i></a>
                         <p class="text-white mt-4 mb-0">atau <a href="#" class="text-white font-weight-bold"><ins>kontak kami</ins></a></p>
                     </div>
                 </div>
@@ -235,7 +235,7 @@
                                     <img src="{{ $blog->image }}" class="card-img-top" alt="">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ $blog->name }}</h5>
-                                        <p class="card-text">{!! $blog->body !!}</p>
+                                        <div class="card-text">{!! $blog->body !!}</div>
                                         <a href="#" class="btn bg-881a1b py-xl-3 py-lg-2 py-md-1 px-xl-5 px-lg-4 px-md-3 font-weight-bold selengkapnya">Selengkapnya &emsp; <i class="fas fa-arrow-right"></i></a>
                                     </div>
                                 </div>
