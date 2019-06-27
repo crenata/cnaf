@@ -34,6 +34,33 @@
             </ul>
         </li>
 
+        <li class="site-menu-item has-sub {{ Request::is('admin/carregion', 'admin/carbrand', 'admin/cartype') ? 'active' : '' }}">
+            <a href="javascript:void(0)">
+                <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+                <span class="site-menu-title">Car</span>
+                <span class="site-menu-arrow"></span>
+            </a>
+            <ul class="site-menu-sub">
+                <li class="site-menu-item {{ Request::is('admin/carregion') ? 'active' : '' }}">
+                    <a class="animsition-link" href="{{ route('carregion.index') }}">
+                        <span class="site-menu-title">Car Region</span>
+                    </a>
+                </li>
+
+                <li class="site-menu-item {{ Request::is('admin/carbrand') ? 'active' : '' }}">
+                    <a class="animsition-link" href="{{ route('carbrand.index') }}">
+                        <span class="site-menu-title">Car Brand</span>
+                    </a>
+                </li>
+
+                <li class="site-menu-item {{ Request::is('admin/cartype') ? 'active' : '' }}">
+                    <a class="animsition-link" href="{{ route('item.index') }}">
+                        <span class="site-menu-title">Car Type</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
         <li class="site-menu-item {{ Request::is('admin/blog') ? 'active' : '' }}">
             <a class="animsition-link" href="{{ route('blog.index') }}">
                 <i class="site-menu-icon md-view-dashboard" aria-hidden="true"></i>

@@ -30,10 +30,10 @@
                 <div class="row">
                     <div class="col-md-4 col-sm-4 col-12 mt-3">
                         <select class="form-control">
-                            <option value="">Pabrik Produksi</option>
-                            <option value="">A</option>
-                            <option value="">B</option>
-                            <option value="">C</option>
+                            <option value="">Asal Daerah</option>
+                            @foreach($carRegions as $region)
+                                <option value="{{ $region->id }}">{{ $region->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-md-4 col-sm-4 col-12 mt-3">

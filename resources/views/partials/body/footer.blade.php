@@ -64,7 +64,7 @@
             </div>
             <div class="col-lg-6 col-md-7 col-sm-12 col-12 d-flex justify-content-lg-end justify-content-md-end justify-content-sm-center justify-content-center">
                 <div class="text-center">
-                    <p class="float-lg-left float-md-left float-sm-left float-none"><a href="#" class="text-white"><small><b>Terms and Conditions</b></small></a></p>
+                    <p class="float-lg-left float-md-left float-sm-left float-none"><a href="{{ route('terms.and.condition') }}" class="text-white"><small><b>Terms and Conditions</b></small></a></p>
                     <p class="float-lg-left float-md-left float-sm-left float-none ml-md-4 ml-sm-4 ml-0"><a href="#" class="text-white"><small><b>Complaints</b></small></a></p>
                     <p class="float-lg-left float-md-left float-sm-left float-none ml-md-4 ml-sm-4 ml-0"><a href="{{ route('privacy.policy') }}" class="text-white"><small><b>Privacy Policy</b></small></a></p>
                 </div>

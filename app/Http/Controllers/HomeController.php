@@ -11,6 +11,8 @@ use App\Models\Admin\Brand;
 use App\Models\Admin\Item;
 use App\Models\Admin\Blog;
 
+use App\Models\Admin\CarRegion;
+
 use Session;
 use Validator;
 
@@ -34,7 +36,8 @@ class HomeController extends Controller
     public function index()
     {
         $blogs = Blog::orderBy('id', 'desc')->limit(3)->get();
-        return view('pages.home')->withBlogs($blogs);
+        $carregions = CarRegion::orderBy('name', 'asc')->get();
+        return view('pages.home')->withBlogs($blogs)->withCarRegions($carregions);
     }
 
     public function tentangkami() {
@@ -52,6 +55,10 @@ class HomeController extends Controller
 
     public function privacypolicy() {
         return view('pages.privacypolicy');
+    }
+
+    public function termsandcondition() {
+        return view('pages.termsandcondition');
     }
 
     public function simulasi() {

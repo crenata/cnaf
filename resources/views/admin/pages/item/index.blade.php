@@ -67,7 +67,15 @@
 								<div class="form-group row">
 									{{ Form::label('normal_price', 'Normal Price', array('class' => 'col-sm-6 col-form-label')) }}
 									<div class="col-sm-12">
-										{{ Form::number('normal_price', null, array('class' => 'form-control', 'id' => 'add-normal-price', 'required' => '', 'placeholder' => 'Normal Price')) }}
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text bg-info text-white">Rp.</span>
+											</div>
+											{{ Form::number('normal_price', null, array('class' => 'form-control', 'id' => 'add-normal-price', 'required' => '', 'placeholder' => 'Normal Price')) }}
+											<div class="input-group-append">
+												<span class="input-group-text bg-info text-white">.00</span>
+											</div>
+										</div>
 										<div class="alert alert-danger hidden error-add-normal-price p-2 mt-2"></div>
 									</div>
 								</div>
@@ -77,7 +85,15 @@
 								<div class="form-group row">
 									{{ Form::label('price_after_discount', 'Price After Discount', array('class' => 'col-sm-6 col-form-label')) }}
 									<div class="col-sm-12">
-										{{ Form::number('price_after_discount', null, array('class' => 'form-control', 'id' => 'add-price-after-discount', 'placeholder' => 'Price After Discount')) }}
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text bg-info text-white">Rp.</span>
+											</div>
+											{{ Form::number('price_after_discount', null, array('class' => 'form-control', 'id' => 'add-price-after-discount', 'placeholder' => 'Price After Discount')) }}
+											<div class="input-group-append">
+												<span class="input-group-text bg-info text-white">.00</span>
+											</div>
+										</div>
 										<div class="alert alert-danger hidden error-add-price-after-discount p-2 mt-2"></div>
 									</div>
 								</div>
@@ -307,7 +323,15 @@
 								<div class="form-group row">
 									{{ Form::label('normal_price', 'Normal Price', array('class' => 'col-sm-6 col-form-label')) }}
 									<div class="col-sm-12">
-										{{ Form::number('normal_price', null, array('class' => 'form-control', 'id' => 'edit-normal-price', 'placeholder' => 'Normal Price')) }}
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text bg-info text-white">Rp.</span>
+											</div>
+											{{ Form::number('normal_price', null, array('class' => 'form-control', 'id' => 'edit-normal-price', 'placeholder' => 'Normal Price')) }}
+											<div class="input-group-append">
+												<span class="input-group-text bg-info text-white">.00</span>
+											</div>
+										</div>
 										<div class="alert alert-danger hidden error-edit-normal-price p-2 mt-2"></div>
 									</div>
 								</div>
@@ -317,7 +341,15 @@
 								<div class="form-group row">
 									{{ Form::label('price_after_discount', 'Price After Discount', array('class' => 'col-sm-6 col-form-label')) }}
 									<div class="col-sm-12">
-										{{ Form::number('price_after_discount', null, array('class' => 'form-control', 'id' => 'edit-price-after-discount', 'placeholder' => 'Price After Discount')) }}
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text bg-info text-white">Rp.</span>
+											</div>
+											{{ Form::number('price_after_discount', null, array('class' => 'form-control', 'id' => 'edit-price-after-discount', 'placeholder' => 'Price After Discount')) }}
+											<div class="input-group-append">
+												<span class="input-group-text bg-info text-white">.00</span>
+											</div>
+										</div>
 										<div class="alert alert-danger hidden error-edit-price-after-discount p-2 mt-2"></div>
 									</div>
 								</div>
@@ -574,8 +606,8 @@
 		$(document).on('click', '.show-item', function() {
 			$('.show-name').text($(this).data('name'));
 			$('.show-qty').text($(this).data('qty'));
-			$('.show-normal-price').text($(this).data('normalprice'));
-			$('.show-price-after-discount').text($(this).data('priceafterdiscount'));
+			$('.show-normal-price').text('Rp. ' + format_money($(this).data('normalprice')) + ',-');
+			$('.show-price-after-discount').text('Rp. ' + format_money($(this).data('priceafterdiscount')) + ',-');
 			$('.show-vendor').text($(this).data('vendor'));
 			$('.show-brand').text($(this).data('brand'));
 			$('.show-image1').attr('src', $(this).data('image1'));
@@ -1052,6 +1084,10 @@
 					toastr.error(data.errors, 'Error Alert', {timeOut: 5000});
 				}
 			});
+		}
+
+		function format_money(n) {
+			return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '');
 		}
 	</script>
 @endsection

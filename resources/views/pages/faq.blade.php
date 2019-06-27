@@ -16,7 +16,7 @@
         <div class="faq-item">
             <div class="" id="heading1">
                 <h6 class="font-weight-bold">
-                    <a class="d-block text-danger collapsed" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                    <a href="#" class="d-block text-danger collapsed" data-toggle="collapse" data-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
                         Apakah SobatCNAF itu?
                     </a>
                 </h6>
@@ -30,7 +30,7 @@
         <div class="faq-item">
             <div class="" id="heading2">
                 <h6 class="font-weight-bold">
-                    <a class="d-block text-danger collapsed" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                    <a href="#" class="d-block text-danger collapsed" data-toggle="collapse" data-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
                         Apa yang dimaksud dengan Kredit Multi Guna dan apa saja keuntungannya?
                     </a>
                 </h6>
@@ -49,7 +49,7 @@
         <div class="faq-item">
             <div class="" id="heading3">
                 <h6 class="font-weight-bold">
-                    <a class="d-block text-danger collapsed" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                    <a href="#" class="d-block text-danger collapsed" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
                         Apa kelebihan yang diperoleh dengan mengajukan fasilitas pembiayaan melalui SobatCNAF?
                     </a>
                 </h6>
@@ -71,7 +71,7 @@
         <div class="faq-item">
             <div class="" id="heading4">
                 <h6 class="font-weight-bold">
-                    <a class="d-block text-danger collapsed" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                    <a href="#" class="d-block text-danger collapsed" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
                         Apakah pengguna harus mendaftarkan diri menjadi anggota sobatcnaf?
                     </a>
                 </h6>
@@ -85,7 +85,7 @@
         <div class="faq-item">
             <div class="" id="heading5">
                 <h6 class="font-weight-bold">
-                    <a class="d-block text-danger collapsed" data-toggle="collapse" data-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                    <a href="#" class="d-block text-danger collapsed" data-toggle="collapse" data-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
                         Apa keuntungan mengikuti program Member Get Member?
                     </a>
                 </h6>
@@ -99,7 +99,7 @@
         <div class="faq-item">
             <div class="" id="heading6">
                 <h6 class="font-weight-bold">
-                    <a class="d-block text-danger collapsed" data-toggle="collapse" data-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                    <a href="#" class="d-block text-danger collapsed" data-toggle="collapse" data-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
                         Bagaimana cara mengikuti program MGM sobatcnaf?
                     </a>
                 </h6>
@@ -122,7 +122,7 @@
         <div class="faq-item">
             <div class="" id="heading7">
                 <h6 class="font-weight-bold">
-                    <a class="d-block text-danger collapsed" data-toggle="collapse" data-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+                    <a href="#" class="d-block text-danger collapsed" data-toggle="collapse" data-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
                         Bagaimana cara mengajukan fasilitas pembiayaan melalui sobatcnaf? (Create image process flow)
                     </a>
                 </h6>
