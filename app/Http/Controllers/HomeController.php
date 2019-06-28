@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin\CarBrand;
+use App\Models\Admin\CarType;
 use Illuminate\Http\Request;
 
 use App\Helpers\Helper;
@@ -107,5 +109,15 @@ class HomeController extends Controller
         } else {
             return abort(404);
         }
+    }
+
+    public function carBrandByCarRegion($id) {
+        $carbrand = CarBrand::where('car_region_id', $id)->get();
+        return response()->json($carbrand);
+    }
+
+    public function carTypeByCarBrand($id) {
+        $cartype = CarType::where('car_brand_id', $id)->get();
+        return response()->json($cartype);
     }
 }

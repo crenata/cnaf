@@ -29,7 +29,7 @@
                 <h3>Kredit Multi Guna CIMB Niaga Auto Finance</h3>
                 <div class="row">
                     <div class="col-md-4 col-sm-4 col-12 mt-3">
-                        <select class="form-control">
+                        <select name="car_region_id" id="simulasi-car-region" class="form-control" required="">
                             <option value="">Asal Daerah</option>
                             @foreach($carRegions as $region)
                                 <option value="{{ $region->id }}">{{ $region->name }}</option>
@@ -37,19 +37,13 @@
                         </select>
                     </div>
                     <div class="col-md-4 col-sm-4 col-12 mt-3">
-                        <select class="form-control">
-                            <option value="">Pilih Model</option>
-                            <option value="">A</option>
-                            <option value="">B</option>
-                            <option value="">C</option>
+                        <select name="car_brand_id" id="simulasi-car-brand" class="form-control" required="">
+                            <option value="">Pilih Wilayah Dulu</option>
                         </select>
                     </div>
                     <div class="col-md-4 col-sm-4 col-12 mt-3">
-                        <select class="form-control">
-                            <option value="">Asal Daerah</option>
-                            <option value="">A</option>
-                            <option value="">B</option>
-                            <option value="">C</option>
+                        <select name="car_type_id" id="simulasi-car-type" class="form-control" required="">
+                            <option value="">Pilih Merk Dulu</option>
                         </select>
                     </div>
                 </div>
@@ -282,7 +276,7 @@
 @section('scripts')
     {{ Html::script('public/plugin/OwlCarousel2-2.3.4/dist/owl.carousel.min.js') }}
 
-    <script>
+    <script type="text/javascript">
         $('.loop').owlCarousel({
             center: true,
             items: 2,
@@ -308,6 +302,69 @@
                     items: 2
                 }
             }
+        });
+
+        /* Region Selected */
+        $('#simulasi-car-region').change(function() {
+            $.ajax({
+                type: 'GET',
+                url: 'simulasi/carbrand/' + $(this).val(),
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    if (data.errors) {
+
+                    } else {
+                        // toastr.success('Successfully loaded Brand!', 'Success Alert', {timeOut: 5000});
+                        $('#simulasi-car-brand').replaceWith(
+                            "<select name='car_brand_id' id='simulasi-car-brand' class='form-control' required=''>" +
+                                "<option value=''>Merk Mobil</option>"
+                        );
+                        $.each(data, function(index, value) {
+                            console.log(value);
+                            $('#simulasi-car-brand').append(
+                                "<option value='" + value.id + "'>" + value.name + "</option>"
+                            );
+                        });
+                        $('#simulasi-car-brand').append("</select>");
+
+                        $('#simulasi-car-brand').change(function() {
+                            $.ajax({
+                                type: 'GET',
+                                url: 'simulasi/cartype/' + $(this).val(),
+                                dataType: 'json',
+                                processData: false,
+                                contentType: false,
+                                success: function(data) {
+                                    if (data.errors) {
+
+                                    } else {
+                                        // toastr.success('Successfully loaded Brand!', 'Success Alert', {timeOut: 5000});
+                                        $('#simulasi-car-type').replaceWith(
+                                            "<select name='car_type_id' id='simulasi-car-type' class='form-control' required=''>" +
+                                            "<option value=''>Type Mobil</option>"
+                                        );
+                                        $.each(data, function(index, value) {
+                                            console.log(value);
+                                            $('#simulasi-car-type').append(
+                                                "<option value='" + value.id + "'>" + value.name + "</option>"
+                                            );
+                                        });
+                                        $('#simulasi-car-type').append("</select>");
+                                    }
+                                },
+                                error: function(data) {
+                                    toastr.error('Failed', 'Error Alert', {timeOut: 5000});
+                                }
+                            });
+                        });
+                    }
+                },
+                error: function(data) {
+                    toastr.error('Failed', 'Error Alert', {timeOut: 5000});
+                }
+            });
         });
     </script>
 @endsection

@@ -1,6 +1,6 @@
 @extends('admin.template')
 
-@section('title', 'Car Brand')
+@section('title', 'Car Type')
 
 @section('stylesheets')
     <style type="text/css">
@@ -17,7 +17,7 @@
             <li class="breadcrumb-item">
                 <a href="{{ route('admin.home') }}">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">Brands</li>
+            <li class="breadcrumb-item active">Types</li>
         </ol>
     </div>
 @endsection
@@ -28,7 +28,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="add-modal-title">Add Brand</h5>
+                    <h5 class="modal-title" id="add-modal-title">Add Type</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -40,7 +40,7 @@
                                 <div class="form-group row">
                                     {{ Form::label('name', 'Name', array('class' => 'col-sm-6 col-form-label')) }}
                                     <div class="col-sm-12">
-                                        {{ Form::text('name', null, array('class' => 'form-control', 'id' => 'add-name', 'required' => '', 'placeholder' => 'Brand Name')) }}
+                                        {{ Form::text('name', null, array('class' => 'form-control', 'id' => 'add-name', 'required' => '', 'placeholder' => 'Type Name')) }}
                                         <div class="alert alert-danger hidden error-add-name p-2 mt-2"></div>
                                     </div>
                                 </div>
@@ -57,6 +57,21 @@
                                             @endforeach
                                         </select>
                                         <div class="alert alert-danger hidden error-add-car-region p-2 mt-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    {{ Form::label('car_brand_id', 'Car Brand', array('class' => 'col-sm-6 col-form-label')) }}
+                                    <div class="col-sm-12">
+                                        <select name="car_brand_id" id="add-car-brand" class="form-control" required="">
+                                            <option value="">-- Select Brand --</option>
+                                            {{--@foreach($carBrands as $carbrand)
+                                                <option value="{{ $carbrand->id }}">{{ $carbrand->name }}</option>
+                                            @endforeach--}}
+                                        </select>
+                                        <div class="alert alert-danger hidden error-add-car-brand p-2 mt-2"></div>
                                     </div>
                                 </div>
                             </div>
@@ -95,6 +110,11 @@
                                     <td style="width: 10px;">:</td>
                                     <td class="show-car-region"></td>
                                 </tr>
+                                <tr>
+                                    <td style="width: 100px;">Brand</td>
+                                    <td style="width: 10px;">:</td>
+                                    <td class="show-car-brand"></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -124,7 +144,7 @@
                                 <div class="form-group row">
                                     {{ Form::label('name', 'Name', array('class' => 'col-sm-6 col-form-label')) }}
                                     <div class="col-sm-12">
-                                        {{ Form::text('name', null, array('class' => 'form-control', 'id' => 'edit-name', 'placeholder' => 'Brand Name')) }}
+                                        {{ Form::text('name', null, array('class' => 'form-control', 'id' => 'edit-name', 'placeholder' => 'Type Name')) }}
                                         <div class="alert alert-danger hidden error-edit-name p-2 mt-2"></div>
                                     </div>
                                 </div>
@@ -141,6 +161,21 @@
                                             @endforeach
                                         </select>
                                         <div class="alert alert-danger hidden error-edit-car-region p-2 mt-2"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    {{ Form::label('car_brand_id', 'Car Brand', array('class' => 'col-sm-6 col-form-label')) }}
+                                    <div class="col-sm-12">
+                                        <select name="car_brand_id" id="edit-car-brand" class="form-control">
+                                            <option value="" id="carbrand-select">-- Select Brand --</option>
+                                            {{--@foreach($carBrands as $carbrand)
+                                                <option value="{{ $carbrand->id }}" id="vendor-select">{{ $carbrand->name }}</option>
+                                            @endforeach--}}
+                                        </select>
+                                        <div class="alert alert-danger hidden error-edit-car-brand p-2 mt-2"></div>
                                     </div>
                                 </div>
                             </div>
@@ -166,7 +201,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h5 class="delete-title text-center font-weight-bold">Are you sure want delete this Brand?</h5>
+                    <h5 class="delete-title text-center font-weight-bold">Are you sure want delete this Type?</h5>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -180,43 +215,45 @@
         <div class="col-md-12">
             <div class="panel">
                 <header class="panel-heading">
-                    <h3 class="panel-title">Car Brand List</h3>
+                    <h3 class="panel-title">Car Type List</h3>
                 </header>
 
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-15">
-                                <a href="javascript:void(0)" class="btn btn-sm btn-success add-carbrand">
+                                <a href="javascript:void(0)" class="btn btn-sm btn-success add-cartype">
                                     <i class="icon md-plus" aria-hidden="true"></i> Add
                                 </a>
                             </div>
                         </div>
                     </div>
 
-                    @if(count($carBrands) > 0)
+                    @if(count($carTypes) > 0)
                         <div class="table-responsive">
                             <table class="ui table table-bordered table-striped table-hover" id="datatable">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
                                         <th>Region</th>
+                                        <th>Brand</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody id="carbrands-crud">
-                                    @foreach($carBrands as $carbrand)
-                                        <tr id="carbrand-id-{{ $carbrand->id }}">
-                                            <td>{{ $carbrand->name }}</td>
-                                            <td>{{ $carbrand->car_region->name }}</td>
+                                <tbody id="cartypes-crud">
+                                    @foreach($carTypes as $cartype)
+                                        <tr id="cartype-id-{{ $cartype->id }}">
+                                            <td>{{ $cartype->name }}</td>
+                                            <td>{{ $cartype->car_region->name }}</td>
+                                            <td>{{ $cartype->car_brand->name }}</td>
                                             <td class="actions">
-                                                <a href="javascript:void(0)" data-id="{{ $carbrand->id }}" data-name="{{ $carbrand->name }}" data-carregion="{{ $carbrand->car_region->name }}" class="btn btn-sm btn-icon btn-pure btn-default on-editing save-row show-carbrand" data-toggle="tooltip" data-original-title="Show">
+                                                <a href="javascript:void(0)" data-id="{{ $cartype->id }}" data-name="{{ $cartype->name }}" data-carregion="{{ $cartype->car_region->name }}" data-carbrand="{{ $cartype->car_brand->name }}" class="btn btn-sm btn-icon btn-pure btn-default on-editing save-row show-cartype" data-toggle="tooltip" data-original-title="Show">
                                                     <i class="icon md-wrench" aria-hidden="true"></i> Show
                                                 </a>
-                                                <a href="javascript:void(0)" data-id="{{ $carbrand->id }}" data-name="{{ $carbrand->name }}" data-carregion="{{ $carbrand->car_region->id }}" class="btn btn-sm btn-icon btn-pure btn-default on-default edit-row edit-carbrand" data-toggle="tooltip" data-original-title="Edit">
+                                                <a href="javascript:void(0)" data-id="{{ $cartype->id }}" data-name="{{ $cartype->name }}" data-carregion="{{ $cartype->car_region->id }}" data-carbrand="{{ $cartype->car_brand->id }}" class="btn btn-sm btn-icon btn-pure btn-default on-default edit-row edit-cartype" data-toggle="tooltip" data-original-title="Edit">
                                                     <i class="icon md-edit" aria-hidden="true"></i> Edit
                                                 </a>
-                                                <a href="javascript:void(0)" data-id="{{ $carbrand->id }}" class="btn btn-sm btn-icon btn-pure btn-default on-default remove-row delete-carbrand" data-toggle="tooltip" data-original-title="Delete">
+                                                <a href="javascript:void(0)" data-id="{{ $cartype->id }}" class="btn btn-sm btn-icon btn-pure btn-default on-default remove-row delete-cartype" data-toggle="tooltip" data-original-title="Delete">
                                                     <i class="icon md-delete" aria-hidden="true"></i> Delete
                                                 </a>
                                             </td>
@@ -233,10 +270,11 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Region</th>
+                                        <th>Brand</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody id="carbrands-crud">
+                                <tbody id="cartypes-crud">
 
                                 </tbody>
                             </table>
@@ -259,7 +297,7 @@
         });
 
         /* Add */
-        $(document).on('click', '.add-carbrand', function() {
+        $(document).on('click', '.add-cartype', function() {
             $('#add-form').trigger('reset');
             $('#add-modal').modal('show');
         });
@@ -277,17 +315,19 @@
 
 
         /* Show */
-        $(document).on('click', '.show-carbrand', function() {
+        $(document).on('click', '.show-cartype', function() {
             $('.show-name').text($(this).data('name'));
             $('.show-car-region').text($(this).data('carregion'));
+            $('.show-car-brand').text($(this).data('carbrand'));
             $('#show-modal').modal('show');
         });
 
         /* Edit */
-        $(document).on('click', '.edit-carbrand', function() {
+        $(document).on('click', '.edit-cartype', function() {
             $('#id-edit').val($(this).data('id'));
             $('#edit-name').val($(this).data('name'));
             $('#edit-car-region').val($(this).data('carregion'));
+            $('#edit-car-brand').val($(this).data('carbrand'));
             $('#edit-modal').modal('show');
 
             id_edit = $(this).data('id');
@@ -305,17 +345,77 @@
         });
 
         /* Delete */
-        $(document).on('click', '.delete-carbrand', function() {
+        $(document).on('click', '.delete-cartype', function() {
             $('#delete-modal').modal('show');
             id = $(this).data('id');
         });
         $('.modal-footer').on('click', '.delete', function() {
             $.ajax({
                 type: 'DELETE',
-                url: 'carbrand/' + id,
+                url: 'cartype/' + id,
                 success: function(data) {
-                    toastr.success('Successfully deleted Brand!', 'Success Alert', {timeOut: 5000});
-                    $('#carbrand-id-' + id).remove();
+                    toastr.success('Successfully deleted Type!', 'Success Alert', {timeOut: 5000});
+                    $('#cartype-id-' + id).remove();
+                }
+            });
+        });
+
+        $('#add-car-region').change(function() {
+            $.ajax({
+                type: 'GET',
+                url: '{!! url("simulasi/carbrand") !!}' + '/' + $(this).val(),
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    if (data.errors) {
+
+                    } else {
+                        // toastr.success('Successfully loaded Brand!', 'Success Alert', {timeOut: 5000});
+                        $('#add-car-brand').replaceWith(
+                            "<select name='car_brand_id' id='add-car-brand' class='form-control' required=''>" +
+                            "<option value=''>-- Select Brand --</option>");
+                        $.each(data, function(index, value) {
+                            console.log(value);
+                            $('#add-car-brand').append(
+                                "<option value='" + value.id + "'>" + value.name + "</option>"
+                            );
+                        });
+                        $('#add-car-brand').append("</select>");
+                    }
+                },
+                error: function(data) {
+                    toastr.error('Failed', 'Error Alert', {timeOut: 5000});
+                }
+            });
+        });
+
+        $('#edit-car-region').change(function() {
+            $.ajax({
+                type: 'GET',
+                url: '{!! url("simulasi/carbrand") !!}' + '/' + $(this).val(),
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    if (data.errors) {
+
+                    } else {
+                        // toastr.success('Successfully loaded Brand!', 'Success Alert', {timeOut: 5000});
+                        $('#edit-car-brand').replaceWith(
+                            "<select name='car_brand_id' id='edit-car-brand' class='form-control' required=''>" +
+                            "<option value=''>-- Select Brand --</option>");
+                        $.each(data, function(index, value) {
+                            console.log(value);
+                            $('#edit-car-brand').append(
+                                "<option value='" + value.id + "'>" + value.name + "</option>"
+                            );
+                        });
+                        $('#edit-car-brand').append("</select>");
+                    }
+                },
+                error: function(data) {
+                    toastr.error('Failed', 'Error Alert', {timeOut: 5000});
                 }
             });
         });
@@ -325,13 +425,15 @@
 
             name = $('#add-name').val();
             car_region_id = $('#add-car-region').val();
+            car_brand_id = $('#add-car-brand').val();
 
             add_form_data.append('name', name);
             add_form_data.append('car_region_id', car_region_id);
+            add_form_data.append('car_brand_id', car_brand_id);
 
             $.ajax({
                 type: 'POST',
-                url: 'carbrand',
+                url: 'cartype',
                 data: add_form_data,
                 dataType: 'json',
                 processData: false,
@@ -339,6 +441,7 @@
                 success: function(data) {
                     $('.error-add-name').addClass('hidden');
                     $('.error-add-car-region').addClass('hidden');
+                    $('.error-add-car-brand').addClass('hidden');
                     if (data.errors) {
                         setTimeout(function() {
                             $('#add-modal').modal('show');
@@ -347,17 +450,18 @@
                     } else {
                         toastr.success('Successfully added Brand!', 'Success Alert', {timeOut: 5000});
                         $('#datatable').append(
-                            "<tr id='carbrand-id-" + data.id + "'>" +
+                            "<tr id='cartype-id-" + data.id + "'>" +
                                 "<td>" + data.name + "</td>" +
                                 "<td>" + data.car_region.name + "</td>" +
+                                "<td>" + data.car_brand.name + "</td>" +
                                 "<td class='actions'>" +
-                                    "<a href='javascript:void(0)' data-id='" + data.id + "' data-name='" + data.name + "' data-carregion='" + data.car_region.name + "' class='btn btn-sm btn-icon btn-pure btn-default on-editing save-row show-carbrand' data-toggle='tooltip' data-original-title='Show'>" +
+                                    "<a href='javascript:void(0)' data-id='" + data.id + "' data-name='" + data.name + "' data-carregion='" + data.car_region.name + "' data-carbrand='" + data.car_brand.name + "' class='btn btn-sm btn-icon btn-pure btn-default on-editing save-row show-cartype' data-toggle='tooltip' data-original-title='Show'>" +
                                         "<i class='icon md-wrench' aria-hidden='true'></i> Show" +
                                     "</a>" +
-                                    "<a href='javascript:void(0)' data-id='" + data.id + "' data-name='" + data.name + "' data-carregion='" + data.car_region.id + "' class='btn btn-sm btn-icon btn-pure btn-default on-default edit-row edit-carbrand' data-toggle='tooltip' data-original-title='Edit'>" +
+                                    "<a href='javascript:void(0)' data-id='" + data.id + "' data-name='" + data.name + "' data-carregion='" + data.car_region.id + "' data-carbrand='" + data.car_brand.id + "' class='btn btn-sm btn-icon btn-pure btn-default on-default edit-row edit-cartype' data-toggle='tooltip' data-original-title='Edit'>" +
                                         "<i class='icon md-edit' aria-hidden='true'></i> Edit" +
                                     "</a>" +
-                                    "<a href='javascript:void(0)' data-id='" + data.id + "' class='btn btn-sm btn-icon btn-pure btn-default on-default remove-row delete-carbrand' data-toggle='tooltip' data-original-title='Delete'>" +
+                                    "<a href='javascript:void(0)' data-id='" + data.id + "' class='btn btn-sm btn-icon btn-pure btn-default on-default remove-row delete-cartype' data-toggle='tooltip' data-original-title='Delete'>" +
                                         "<i class='icon md-delete' aria-hidden='true'></i> Delete" +
                                     "</a>" +
                                 "</td>" +
@@ -376,15 +480,17 @@
             id = $('#id-edit').val();
             name = $('#edit-name').val();
             car_region_id = $('#edit-car-region').val();
+            car_brand_id = $('#edit-car-brand').val();
 
             edit_form_data.append('id', id);
             edit_form_data.append('name', name);
             edit_form_data.append('car_region_id', car_region_id);
+            edit_form_data.append('car_brand_id', car_brand_id);
             edit_form_data.append('_method', 'PUT');
 
             $.ajax({
                 type: 'POST',
-                url: 'carbrand/' + id_edit,
+                url: 'cartype/' + id_edit,
                 data: edit_form_data,
                 dataType: 'json',
                 processData: false,
@@ -392,6 +498,7 @@
                 success: function(data) {
                     $('.error-edit-name').addClass('hidden');
                     $('.error-edit-car-region').addClass('hidden');
+                    $('.error-edit-car-brand').addClass('hidden');
                     if (data.errors) {
                         setTimeout(function() {
                             $('#edit-modal').modal('show');
@@ -399,18 +506,19 @@
                         }, 500);
                     } else {
                         toastr.success('Successfully updated Brand!', 'Success Alert', {timeOut: 5000});
-                        $('#carbrand-id-' + data.id).replaceWith(
-                            "<tr id='carbrand-id-" + data.id + "'>" +
+                        $('#cartype-id-' + data.id).replaceWith(
+                            "<tr id='cartype-id-" + data.id + "'>" +
                                 "<td>" + data.name + "</td>" +
                                 "<td>" + data.car_region.name + "</td>" +
+                                "<td>" + data.car_brand.name + "</td>" +
                                 "<td class='actions'>" +
-                                    "<a href='javascript:void(0)' data-id='" + data.id + "' data-name='" + data.name + "' data-carregion='" + data.car_region.name + "' class='btn btn-sm btn-icon btn-pure btn-default on-editing save-row show-carbrand' data-toggle='tooltip' data-original-title='Show'>" +
+                                    "<a href='javascript:void(0)' data-id='" + data.id + "' data-name='" + data.name + "' data-carregion='" + data.car_region.name + "' data-carbrand='" + data.car_brand.name + "' class='btn btn-sm btn-icon btn-pure btn-default on-editing save-row show-cartype' data-toggle='tooltip' data-original-title='Show'>" +
                                         "<i class='icon md-wrench' aria-hidden='true'></i> Show" +
                                     "</a>" +
-                                    "<a href='javascript:void(0)' data-id='" + data.id + "' data-name='" + data.name + "' data-carregion='" + data.car_region.id + "' class='btn btn-sm btn-icon btn-pure btn-default on-default edit-row edit-carbrand' data-toggle='tooltip' data-original-title='Edit'>" +
+                                    "<a href='javascript:void(0)' data-id='" + data.id + "' data-name='" + data.name + "' data-carregion='" + data.car_region.id + "' data-carbrand='" + data.car_brand.id + "' class='btn btn-sm btn-icon btn-pure btn-default on-default edit-row edit-cartype' data-toggle='tooltip' data-original-title='Edit'>" +
                                         "<i class='icon md-edit' aria-hidden='true'></i> Edit" +
                                     "</a>" +
-                                    "<a href='javascript:void(0)' data-id='" + data.id + "' class='btn btn-sm btn-icon btn-pure btn-default on-default remove-row delete-carbrand' data-toggle='tooltip' data-original-title='Delete'>" +
+                                    "<a href='javascript:void(0)' data-id='" + data.id + "' class='btn btn-sm btn-icon btn-pure btn-default on-default remove-row delete-cartype' data-toggle='tooltip' data-original-title='Delete'>" +
                                         "<i class='icon md-delete' aria-hidden='true'></i> Delete" +
                                     "</a>" +
                                 "</td>" +

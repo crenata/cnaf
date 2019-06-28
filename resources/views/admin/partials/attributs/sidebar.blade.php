@@ -54,7 +54,7 @@
                 </li>
 
                 <li class="site-menu-item {{ Request::is('admin/cartype') ? 'active' : '' }}">
-                    <a class="animsition-link" href="{{ route('item.index') }}">
+                    <a class="animsition-link" href="{{ route('cartype.index') }}">
                         <span class="site-menu-title">Car Type</span>
                     </a>
                 </li>

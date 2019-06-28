@@ -408,7 +408,7 @@
                 type: 'DELETE',
                 url: 'carregion/' + id,
                 success: function(data) {
-                    toastr.success('Successfully deleted carregion!', 'Success Alert', {timeOut: 5000});
+                    toastr.success('Successfully deleted Region!', 'Success Alert', {timeOut: 5000});
                     $('#carregion-id-' + id).remove();
                 }
             });
@@ -466,7 +466,7 @@
                             $('.error-add-image-logo').text(data.errors.image_logo);
                         }*/
                     } else {
-                        toastr.success('Successfully added carregion!', 'Success Alert', {timeOut: 5000});
+                        toastr.success('Successfully added Region!', 'Success Alert', {timeOut: 5000});
                         $('#datatable').append(
                             "<tr id='carregion-id-" + data.id + "'>" +
                                 "<td>" + data.name + "</td>" +
@@ -548,7 +548,7 @@
                             $('.error-add-image-logo').text(data.errors.image_logo);
                         }*/
                     } else {
-                        toastr.success('Successfully updated carregion!', 'Success Alert', {timeOut: 5000});
+                        toastr.success('Successfully updated Region!', 'Success Alert', {timeOut: 5000});
                         $('#carregion-id-' + data.id).replaceWith(
                             "<tr id='carregion-id-" + data.id + "'>" +
                                 "<td>" + data.name + "</td>" +

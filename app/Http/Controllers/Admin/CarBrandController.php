@@ -63,7 +63,7 @@ class CarBrandController extends Controller
 
             $carbrand->save();
 
-            return response()->json($carbrand->load('carregion'));
+            return response()->json($carbrand->load('car_region'));
         }
     }
 
@@ -111,7 +111,7 @@ class CarBrandController extends Controller
 
             $carbrand->save();
 
-            return response()->json($carbrand->load('carregion'));
+            return response()->json($carbrand->load('car_region'));
         }
     }
 
@@ -124,6 +124,7 @@ class CarBrandController extends Controller
     public function destroy($id)
     {
         $carbrand = CarBrand::findOrFail($id);
+        $carbrand->car_types->delete();
         $carbrand->delete();
         return response()->json($carbrand);
     }

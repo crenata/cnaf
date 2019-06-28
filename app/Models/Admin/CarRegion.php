@@ -9,7 +9,11 @@ class CarRegion extends Model
 {
     use SoftDeletes;
 
-    public function carbrands() {
+    public function car_brands() {
         return $this->hasMany('App\Models\Admin\CarBrand');
+    }
+
+    public function car_types() {
+        return $this->hasMany('App\Models\Admin\CarType');
     }
 }

@@ -8,17 +8,18 @@ use App\Http\Controllers\Controller;
 use App\Helpers\Helper;
 
 use App\Models\Admin\CarRegion;
+use App\Models\Admin\CarBrand;
+use App\Models\Admin\CarType;
 
 use Session;
 use Validator;
 
-class CarRegionController extends Controller
+class CarTypeController extends Controller
 {
     protected $rules = [
         'name' => 'required',
-        'admin_fee' => 'required|numeric',
-        'provisi_percentage' => 'required',
-        'polis_fee' => 'required|numeric'
+        'car_region_id' => 'required|numeric',
+        'car_brand_id' => 'required|numeric'
     ];
 
     /**
@@ -29,7 +30,9 @@ class CarRegionController extends Controller
     public function index()
     {
         $carregions = CarRegion::all();
-        return view('admin.pages.car.carregion.index')->withCarRegions($carregions);
+        $carbrands = CarBrand::all();
+        $cartypes = CarType::all();
+        return view('admin.pages.car.cartype.index')->withCarRegions($carregions)->withCarBrands($carbrands)->withCarTypes($cartypes);
     }
 
     /**
@@ -55,17 +58,16 @@ class CarRegionController extends Controller
         if ($validator->fails()) {
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         } else {
-            $carregion = new CarRegion;
+            $cartype = new CarType;
 
-            $carregion->name = $request->name;
-            $carregion->slug = str_slug($request->name, '-');
-            $carregion->admin_fee = $request->admin_fee;
-            $carregion->provisi_percentage = $request->provisi_percentage;
-            $carregion->polis_fee = $request->polis_fee;
+            $cartype->name = $request->name;
+            $cartype->slug = str_slug($request->name, '-');
+            $cartype->car_region_id = $request->car_region_id;
+            $cartype->car_brand_id = $request->car_brand_id;
 
-            $carregion->save();
+            $cartype->save();
 
-            return response()->json($carregion);
+            return response()->json($cartype->load('car_region')->load('car_brand'));
         }
     }
 
@@ -105,17 +107,16 @@ class CarRegionController extends Controller
         if ($validator->fails()) {
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         } else {
-            $carregion = CarRegion::findOrFail($id);
+            $cartype = CarType::findOrFail($id);
 
-            $carregion->name = $request->name;
-            $carregion->slug = str_slug($request->name, '-');
-            $carregion->admin_fee = $request->admin_fee;
-            $carregion->provisi_percentage = $request->provisi_percentage;
-            $carregion->polis_fee = $request->polis_fee;
+            $cartype->name = $request->name;
+            $cartype->slug = str_slug($request->name, '-');
+            $cartype->car_region_id = $request->car_region_id;
+            $cartype->car_brand_id = $request->car_brand_id;
 
-            $carregion->save();
+            $cartype->save();
 
-            return response()->json($carregion);
+            return response()->json($cartype->load('car_region')->load('car_brand'));
         }
     }
 
@@ -127,13 +128,8 @@ class CarRegionController extends Controller
      */
     public function destroy($id)
     {
-        $carregion = CarRegion::findOrFail($id);
-
-        foreach ($carregion->carbrands as $carbrand) {
-            $carbrand->car_types->delete();
-            $carbrand->delete();
-        }
-        $carregion->delete();
-        return response()->json($carregion);
+        $cartype = CarType::findOrFail($id);
+        $cartype->delete();
+        return response()->json($cartype);
     }
 }
