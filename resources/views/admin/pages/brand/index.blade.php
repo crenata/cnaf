@@ -315,6 +315,7 @@
 
 		$('#add-form').keydown(function (e) {
 			if (e.which == 13) {
+				e.preventDefault();
 				add_submit();
 				$('#add-modal').modal('hide');
 			}
@@ -347,6 +348,7 @@
 
 		$('#edit-form').keydown(function (e) {
 			if (e.which == 13) {
+				e.preventDefault();
 				edit_submit();
 				$('#edit-modal').modal('hide');
 			}

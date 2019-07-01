@@ -36,7 +36,7 @@
 @section('content')
     <!-- Add -->
     <div class="modal fade" id="add-modal" tabindex="-1" role="dialog" aria-labelledby="add-modal-title" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="add-modal-title">Add Blog</h5>
@@ -113,7 +113,7 @@
 
     <!-- Edit -->
     <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="edit-modal-title" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="edit-modal-title">Edit</h5>
@@ -296,6 +296,7 @@
 
         $('#add-form').keydown(function (e) {
             if (e.which == 13 && e.target.id != '') {
+                e.preventDefault();
                 add_submit();
                 $('#add-modal').modal('hide');
             }
@@ -343,6 +344,7 @@
 
         $('#edit-form').keydown(function (e) {
             if (e.which == 13 && e.target.id != '') {
+                e.preventDefault();
                 edit_submit();
                 $('#edit-modal').modal('hide');
             }

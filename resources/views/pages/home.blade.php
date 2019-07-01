@@ -25,7 +25,7 @@
 
     <div class="simulasi py-4">
         <div class="container">
-            <form class="simulasi-content rounded">
+            {{ Form::open(array('route' => 'simulasi.from.home', 'class' => 'simulasi-content rounded')) }}
                 <h3>Kredit Multi Guna CIMB Niaga Auto Finance</h3>
                 <div class="row">
                     <div class="col-md-4 col-sm-4 col-12 mt-3">
@@ -55,7 +55,7 @@
                         <button class="bg-881a1b btn-simulasi btn mt-3 float-right font-weight-bold px-xl-4 px-lg-4 px-md-3">Simulasikan</button>
                     </div>
                 </div>
-            </form>
+            {{ Form::close() }}
         </div>
     </div>
 
@@ -316,7 +316,6 @@
                     if (data.errors) {
 
                     } else {
-                        // toastr.success('Successfully loaded Brand!', 'Success Alert', {timeOut: 5000});
                         $('#simulasi-car-brand').replaceWith(
                             "<select name='car_brand_id' id='simulasi-car-brand' class='form-control' required=''>" +
                                 "<option value=''>Merk Mobil</option>"
@@ -340,7 +339,6 @@
                                     if (data.errors) {
 
                                     } else {
-                                        // toastr.success('Successfully loaded Brand!', 'Success Alert', {timeOut: 5000});
                                         $('#simulasi-car-type').replaceWith(
                                             "<select name='car_type_id' id='simulasi-car-type' class='form-control' required=''>" +
                                             "<option value=''>Type Mobil</option>"

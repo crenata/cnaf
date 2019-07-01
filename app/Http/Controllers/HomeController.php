@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin\CarBrand;
-use App\Models\Admin\CarType;
 use Illuminate\Http\Request;
 
 use App\Helpers\Helper;
@@ -14,6 +12,9 @@ use App\Models\Admin\Item;
 use App\Models\Admin\Blog;
 
 use App\Models\Admin\CarRegion;
+use App\Models\Admin\CarBrand;
+use App\Models\Admin\CarType;
+use App\Models\Admin\CarModel;
 
 use Session;
 use Validator;
@@ -65,7 +66,39 @@ class HomeController extends Controller
 
     public function simulasi() {
         $vendors = Vendor::orderBy('name', 'asc')->get();
-        return view('pages.simulasi')->withVendors($vendors);
+        $carregions = CarRegion::orderBy('name', 'asc')->get();
+        return view('pages.simulasi')->withVendors($vendors)->withCarRegions($carregions)->withCarBrands(null)->withCurrentRegion(null)->withCurrentBrand(null)->withCurrentType(null);
+    }
+
+    public function simulasiFromHome(Request $request) {
+        $vendors = Vendor::orderBy('name', 'asc')->get();
+        $carregions = CarRegion::orderBy('name', 'asc')->get();
+
+        $current_region = $request->car_region_id;
+
+        if ($current_region != null || $current_region != 0) {
+            $carbrands = CarBrand::where('car_region_id', $current_region)->orderBy('name', 'asc')->get();
+        } else {
+            $carbrands = null;
+        }
+
+        $current_brand = $request->car_brand_id;
+
+        if ($current_brand != null || $current_brand != 0) {
+            $cartypes = CarType::where('car_brand_id', $current_brand)->orderBy('name', 'asc')->get();
+        } else {
+            $cartypes = null;
+        }
+
+        $current_type = $request->car_type_id;
+
+        if ($current_type != null || $current_type != 0) {
+            $carmodels = CarModel::where('car_type_id', $current_type)->orderBy('name', 'asc')->get();
+        } else {
+            $carmodels = null;
+        }
+
+        return view('pages.simulasi')->withVendors($vendors)->withCarRegions($carregions)->withCarBrands($carbrands)->withCarTypes($cartypes)->withCarModels($carmodels)->withCurrentRegion($current_region)->withCurrentBrand($current_brand)->withCurrentType($current_type);
     }
 
     public function shop() {
@@ -119,5 +152,10 @@ class HomeController extends Controller
     public function carTypeByCarBrand($id) {
         $cartype = CarType::where('car_brand_id', $id)->get();
         return response()->json($cartype);
+    }
+
+    public function carModelByCarType($id) {
+        $carmodel = CarModel::where('car_type_id', $id)->get();
+        return response()->json($carmodel);
     }
 }

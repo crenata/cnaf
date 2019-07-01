@@ -6,4 +6,5 @@ Route::resource('blog', 'BlogController');
 Route::resource('carregion', 'CarRegionController');
 Route::resource('carbrand', 'CarBrandController');
 Route::resource('cartype', 'CarTypeController');
+Route::resource('carmodel', 'CarModelController');
 Route::get('item/brand/{id}', 'ItemController@brandByVendor')->name('item.brandbyvendor');

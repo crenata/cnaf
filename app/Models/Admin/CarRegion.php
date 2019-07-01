@@ -16,4 +16,8 @@ class CarRegion extends Model
     public function car_types() {
         return $this->hasMany('App\Models\Admin\CarType');
     }
+
+    public function car_models() {
+        return $this->hasMany('App\Models\Admin\CarModel');
+    }
 }

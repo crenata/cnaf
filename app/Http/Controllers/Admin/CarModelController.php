@@ -8,17 +8,20 @@ use App\Http\Controllers\Controller;
 use App\Helpers\Helper;
 
 use App\Models\Admin\CarRegion;
+use App\Models\Admin\CarBrand;
+use App\Models\Admin\CarType;
+use App\Models\Admin\CarModel;
 
 use Session;
 use Validator;
 
-class CarRegionController extends Controller
+class CarModelController extends Controller
 {
     protected $rules = [
         'name' => 'required',
-        'admin_fee' => 'required|numeric',
-        'provisi_percentage' => 'required',
-        'polis_fee' => 'required|numeric'
+        'car_region_id' => 'required|numeric',
+        'car_brand_id' => 'required|numeric',
+        'car_type_id' => 'required|numeric'
     ];
 
     /**
@@ -29,7 +32,10 @@ class CarRegionController extends Controller
     public function index()
     {
         $carregions = CarRegion::all();
-        return view('admin.pages.car.carregion.index')->withCarRegions($carregions);
+        $carbrands = CarBrand::all();
+        $cartypes = CarType::all();
+        $carmodels = CarModel::all();
+        return view('admin.pages.car.carmodel.index')->withCarRegions($carregions)->withCarBrands($carbrands)->withCarTypes($cartypes)->withCarModels($carmodels);
     }
 
     /**
@@ -55,17 +61,17 @@ class CarRegionController extends Controller
         if ($validator->fails()) {
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         } else {
-            $carregion = new CarRegion;
+            $carmodel = new CarModel;
 
-            $carregion->name = $request->name;
-            $carregion->slug = str_slug($request->name, '-');
-            $carregion->admin_fee = $request->admin_fee;
-            $carregion->provisi_percentage = $request->provisi_percentage;
-            $carregion->polis_fee = $request->polis_fee;
+            $carmodel->name = $request->name;
+            $carmodel->slug = str_slug($request->name, '-');
+            $carmodel->car_region_id = $request->car_region_id;
+            $carmodel->car_brand_id = $request->car_brand_id;
+            $carmodel->car_type_id = $request->car_type_id;
 
-            $carregion->save();
+            $carmodel->save();
 
-            return response()->json($carregion);
+            return response()->json($carmodel->load('car_region')->load('car_brand')->load('car_type'));
         }
     }
 
@@ -105,17 +111,17 @@ class CarRegionController extends Controller
         if ($validator->fails()) {
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         } else {
-            $carregion = CarRegion::findOrFail($id);
+            $carmodel = CarModel::findOrFail($id);
 
-            $carregion->name = $request->name;
-            $carregion->slug = str_slug($request->name, '-');
-            $carregion->admin_fee = $request->admin_fee;
-            $carregion->provisi_percentage = $request->provisi_percentage;
-            $carregion->polis_fee = $request->polis_fee;
+            $carmodel->name = $request->name;
+            $carmodel->slug = str_slug($request->name, '-');
+            $carmodel->car_region_id = $request->car_region_id;
+            $carmodel->car_brand_id = $request->car_brand_id;
+            $carmodel->car_type_id = $request->car_type_id;
 
-            $carregion->save();
+            $carmodel->save();
 
-            return response()->json($carregion);
+            return response()->json($carmodel->load('car_region')->load('car_brand')->load('car_type'));
         }
     }
 
@@ -127,17 +133,8 @@ class CarRegionController extends Controller
      */
     public function destroy($id)
     {
-        $carregion = CarRegion::findOrFail($id);
-
-        foreach ($carregion->carbrands as $carbrand) {
-            foreach ($carbrand->car_types as $cartype) {
-                $cartype->car_models->delete();
-            }
-            $carbrand->car_types->delete();
-        }
-
-        $carregion->car_brands->delete();
-        $carregion->delete();
-        return response()->json($carregion);
+        $carmodel = CarModel::findOrFail($id);
+        $carmodel->delete();
+        return response()->json($carmodel);
     }
 }

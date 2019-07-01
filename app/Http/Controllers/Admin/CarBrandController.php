@@ -124,6 +124,11 @@ class CarBrandController extends Controller
     public function destroy($id)
     {
         $carbrand = CarBrand::findOrFail($id);
+
+        foreach ($carbrand->car_types as $cartype) {
+            $cartype->car_models->delete();
+        }
+        
         $carbrand->car_types->delete();
         $carbrand->delete();
         return response()->json($carbrand);

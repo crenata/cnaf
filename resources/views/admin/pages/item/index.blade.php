@@ -119,7 +119,7 @@
 									{{ Form::label('brand_id', 'Brand', array('class' => 'col-sm-6 col-form-label')) }}
 									<div class="col-sm-12">
 										<select name="brand_id" id="add-brand" class="form-control" required="">
-											<option value="">-- Select Brand --</option>
+											<option value="">-- Select Vendor First --</option>
 											<!-- @foreach($brands as $brand) -->
 												<!-- <option value="{{-- $brand->id --}}">{{-- $brand->name --}}</option> -->
 											<!-- @endforeach -->
@@ -375,7 +375,7 @@
 									{{ Form::label('brand_id', 'Brand', array('class' => 'col-sm-6 col-form-label')) }}
 									<div class="col-sm-12">
 										<select name="brand_id" id="edit-brand" class="form-control">
-											<option value="" id="brand-select">-- Select Brand --</option>
+											<option value="" id="brand-select">-- Select Vendor First --</option>
 											<!-- @foreach($brands as $brand) -->
 												<!-- <option value="{{-- $brand->id --}}" id="brand-select">{{-- $brand->name --}}</option> -->
 											<!-- @endforeach -->
@@ -592,6 +592,7 @@
 
 		$('#add-form').keydown(function (e) {
 			if (e.which == 13 && e.target.id != '') {
+				e.preventDefault();
 				add_submit();
 				$('#add-modal').modal('hide');
 			}
@@ -695,6 +696,7 @@
 
 		$('#edit-form').keydown(function (e) {
 			if (e.which == 13 && e.target.id != '') {
+				e.preventDefault();
 				edit_submit();
 				$('#edit-modal').modal('hide');
 			}

@@ -19,10 +19,21 @@
                     <div class="form-group row">
                         {{ Form::label('wilayah_id', 'Wilayah', array('class' => 'col-sm-6 col-form-label')) }}
                         <div class="col-sm-12">
-                            <select name="wilayah_id" id="simulasi-wilayah" class="form-control" required="">
-                                @foreach(array('DKI', 'Jawa', 'Non Jawa') as $wilayah)
-                                    <option value="{{ $wilayah }}">{{ $wilayah }}</option>
-                                @endforeach
+                            <select name="wilayah_id" id="simulasi-region" class="form-control" required="">
+                                <option value="">-- Select Region --</option>
+                                @if($currentRegion == null || $currentRegion == 0)
+                                    @foreach($carRegions as $region)
+                                        <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                    @endforeach
+                                @else
+                                    @foreach($carRegions as $region)
+                                        @if($region->id == $currentRegion)
+                                            <option value="{{ $region->id }}" selected="">{{ $region->name }}</option>
+                                        @else
+                                            <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                        @endif
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                     </div>
@@ -32,10 +43,30 @@
                     <div class="form-group row">
                         {{ Form::label('merk_id', 'Merk Mobil', array('class' => 'col-sm-6 col-form-label')) }}
                         <div class="col-sm-12">
-                            <select name="merk_id" id="simulasi-merk" class="form-control" required="">
-                                @foreach(array('Audi', 'BMW', 'Chevrolet') as $merk)
-                                    <option value="{{ $merk }}">{{ $merk }}</option>
-                                @endforeach
+                            <select name="merk_id" id="simulasi-brand" class="form-control" required="">
+                                @if($currentRegion == null || $currentRegion == 0)
+                                    <option value="">Pilih Wilayah Dulu</option>
+                                @else
+                                    @if($carBrands != null || $carBrands != 0)
+                                        @if($currentBrand != null || $currentBrand != 0)
+                                            <option value="">-- Select Merk --</option>
+                                            @foreach($carBrands as $brand)
+                                                @if($brand->id == $currentBrand)
+                                                    <option value="{{ $brand->id }}" selected="">{{ $brand->name }}</option>
+                                                @else
+                                                    <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                                @endif
+                                            @endforeach
+                                        @else
+                                            <option value="">-- Select Merk --</option>
+                                            @foreach($carBrands as $brand)
+                                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                            @endforeach
+                                        @endif
+                                    @else
+                                        <option value="">Pilih Wilayah Dulu</option>
+                                    @endif
+                                @endif
                             </select>
                         </div>
                     </div>
@@ -46,9 +77,29 @@
                         {{ Form::label('type_id', 'Type Mobil', array('class' => 'col-sm-6 col-form-label')) }}
                         <div class="col-sm-12">
                             <select name="type_id" id="simulasi-type" class="form-control" required="">
-                                @foreach(array('A4', 'A6', 'A8') as $type)
-                                    <option value="{{ $type }}">{{ $type }}</option>
-                                @endforeach
+                                @if($currentBrand == null || $currentBrand == 0)
+                                    <option value="">Pilih Merk Dulu</option>
+                                @else
+                                    @if($carTypes != null || $carTypes != 0)
+                                        @if($currentType != null || $currentType != 0)
+                                            <option value="">-- Select Type --</option>
+                                            @foreach($carTypes as $type)
+                                                @if($type->id == $currentType)
+                                                    <option value="{{ $type->id }}" selected="">{{ $type->name }}</option>
+                                                @else
+                                                    <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                                @endif
+                                            @endforeach
+                                        @else
+                                            <option value="">-- Select Type --</option>
+                                            @foreach($carTypes as $type)
+                                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                            @endforeach
+                                        @endif
+                                    @else
+                                        <option value="">Pilih Merk Dulu</option>
+                                    @endif
+                                @endif
                             </select>
                         </div>
                     </div>
@@ -59,9 +110,18 @@
                         {{ Form::label('model_id', 'Model Mobil', array('class' => 'col-sm-6 col-form-label')) }}
                         <div class="col-sm-12">
                             <select name="model_id" id="simulasi-model" class="form-control" required="">
-                                @foreach(array('1.8 AT', '1.2 A/T') as $model)
-                                    <option value="{{ $model }}">{{ $model }}</option>
-                                @endforeach
+                                @if($currentType == null || $currentType == 0)
+                                    <option value="">Pilih Type Dulu</option>
+                                @else
+                                    @if($carModels != null || $carModels != 0)
+                                        <option value="">-- Select Model --</option>
+                                        @foreach($carModels as $model)
+                                            <option value="{{ $model->id }}">{{ $model->name }}</option>
+                                        @endforeach
+                                    @else
+                                        <option value="">Pilih Type Dulu</option>
+                                    @endif
+                                @endif
                             </select>
                         </div>
                     </div>
@@ -227,12 +287,135 @@
 
         <div class="mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-4">
             <h6 class="font-weight-bold">Hal yang mungkin perlu anda ketahui</h6>
-            <p class="m-0"><a href="#" class="text-body small"><ins>Baca FAQ (Pertanyaan umum)</ins></a></p>
-            <p class="m-0"><a href="#" class="text-body small"><ins>Baca Syarat dan Ketentuan</ins></a></p>
+            <p class="m-0"><a href="{{ route('faq') }}" class="text-body small"><ins>Baca FAQ (Pertanyaan umum)</ins></a></p>
+            <p class="m-0"><a href="{{ route('terms.and.condition') }}" class="text-body small"><ins>Baca Syarat dan Ketentuan</ins></a></p>
         </div>
 
         <div class="text-center mt-3">
             <a href="#" class="btn btn-sm bg-881a1b rounded-pill px-3">AJUKAN SEKARANG &nbsp; <i class="fas fa-arrow-right"></i></a>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        $('#simulasi-region').change(function() {
+            $.ajax({
+                type: 'GET',
+                url: '{!! url("simulasi/carbrand") !!}' + '/' + $(this).val(),
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    if (data.errors) {
+
+                    } else {
+                        $('#simulasi-brand').replaceWith(
+                            "<select name='merk_id' id='simulasi-brand' class='form-control' required=''>" +
+                                "<option value=''>-- Select Merk --</option>"
+                        );
+                        $.each(data, function(index, value) {
+                            console.log(value);
+                            $('#simulasi-brand').append(
+                                "<option value='" + value.id + "'>" + value.name + "</option>"
+                            );
+                        });
+                        $('#simulasi-brand').append("</select>");
+
+                        $('#simulasi-type').replaceWith(
+                            "<select name='type_id' id='simulasi-type' class='form-control' required=''>" +
+                                "<option value=''>Pilih Merk Dulu</option>" +
+                            "</select>"
+                        );
+
+                        $('#simulasi-model').replaceWith(
+                            "<select name='model_id' id='simulasi-model' class='form-control' required=''>" +
+                                "<option value=''>Pilih Type Dulu</option>" +
+                            "</select>"
+                        );
+
+                        simulasi_brand_changed();
+                    }
+                },
+                error: function(data) {
+                    toastr.error('Failed', 'Error Alert', {timeOut: 5000});
+                }
+            });
+        });
+
+        simulasi_brand_changed();
+        simulasi_type_changed();
+
+        function simulasi_brand_changed() {
+            $('#simulasi-brand').change(function() {
+                $.ajax({
+                    type: 'GET',
+                    url: '{!! url("simulasi/cartype") !!}' + '/' + $(this).val(),
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        if (data.errors) {
+
+                        } else {
+                            $('#simulasi-type').replaceWith(
+                                "<select name='type_id' id='simulasi-type' class='form-control' required=''>" +
+                                "<option value=''>-- Select Type --</option>"
+                            );
+                            $.each(data, function(index, value) {
+                                console.log(value);
+                                $('#simulasi-type').append(
+                                    "<option value='" + value.id + "'>" + value.name + "</option>"
+                                );
+                            });
+                            $('#simulasi-type').append("</select>");
+
+                            $('#simulasi-model').replaceWith(
+                                "<select name='model_id' id='simulasi-model' class='form-control' required=''>" +
+                                    "<option value=''>Pilih Type Dulu</option>" +
+                                "</select>"
+                            );
+
+                            simulasi_type_changed();
+                        }
+                    },
+                    error: function(data) {
+                        toastr.error('Failed', 'Error Alert', {timeOut: 5000});
+                    }
+                });
+            });
+        }
+
+        function simulasi_type_changed() {
+            $('#simulasi-type').change(function() {
+                $.ajax({
+                    type: 'GET',
+                    url: '{!! url("simulasi/carmodel") !!}' + '/' + $(this).val(),
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        if (data.errors) {
+
+                        } else {
+                            $('#simulasi-model').replaceWith(
+                                "<select name='model_id' id='simulasi-model' class='form-control' required=''>" +
+                                    "<option value=''>-- Select Model --</option>"
+                            );
+                            $.each(data, function(index, value) {
+                                console.log(value);
+                                $('#simulasi-model').append(
+                                    "<option value='" + value.id + "'>" + value.name + "</option>"
+                                );
+                            });
+                            $('#simulasi-model').append("</select>");
+                        }
+                    },
+                    error: function(data) {
+                        toastr.error('Failed', 'Error Alert', {timeOut: 5000});
+                    }
+                });
+            });
+        }
+    </script>
 @endsection

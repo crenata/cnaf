@@ -16,6 +16,7 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('articles', 'HomeController@articles')->name('articles');
 Route::get('simulasi', 'HomeController@simulasi')->name('simulasi');
+Route::post('simulasi', 'HomeController@simulasiFromHome')->name('simulasi.from.home');
 Route::get('tentang-kami', 'HomeController@tentangkami')->name('tentangkami');
 
 Route::get('faq', 'HomeController@faq')->name('faq');
@@ -29,3 +30,4 @@ Route::get('shop/{slug}/{slugbrand}/{slugitem}', 'HomeController@itemDetail')->n
 
 Route::get('simulasi/carbrand/{id}', 'HomeController@carBrandByCarRegion')->name('simulasi.carbrand.by.carregion');
 Route::get('simulasi/cartype/{id}', 'HomeController@carTypeByCarBrand')->name('simulasi.cartype.by.carbrand');
+Route::get('simulasi/carmodel/{id}', 'HomeController@carModelByCarType')->name('simulasi.carmodel.by.cartype');

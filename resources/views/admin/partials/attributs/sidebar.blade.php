@@ -58,6 +58,12 @@
                         <span class="site-menu-title">Car Type</span>
                     </a>
                 </li>
+
+                <li class="site-menu-item {{ Request::is('admin/carmodel') ? 'active' : '' }}">
+                    <a class="animsition-link" href="{{ route('carmodel.index') }}">
+                        <span class="site-menu-title">Car Model</span>
+                    </a>
+                </li>
             </ul>
         </li>
 
