@@ -503,9 +503,9 @@
 									@foreach($items as $item)
 										<tr id="item-id-{{ $item->id }}">
 											<td>{{ $item->name }}</td>
-											<td>{{ $item->qty }}</td>
-											<td>{{ $item->normal_price }}</td>
-											<!-- <td>{{ $item->price_after_discount }}</td> -->
+											<td>{{ number_format($item->qty) }}</td>
+											<td>Rp. {{ number_format($item->normal_price) }},-</td>
+											<!-- <td>Rp. {{ number_format($item->price_after_discount) }},-</td> -->
 											<td>{{ $item->vendor->name }}</td>
 											<td>{{ $item->brand->name }}</td>
 											<td>
@@ -913,8 +913,8 @@
 						$('#datatable').append(
 								"<tr id='item-id-" + data.id + "'>" +
 								"<td>" + data.name + "</td>" +
-								"<td>" + data.qty + "</td>" +
-								"<td>" + data.normal_price + "</td>" +
+								"<td>" + format_money(parseFloat(data.qty)) + "</td>" +
+								"<td>" + "Rp. " + format_money(parseFloat(data.normal_price)) + ",-" + "</td>" +
 								// "<td>" + data.price_after_discount + "</td>" +
 								"<td>" + data.vendor.name + "</td>" +
 								"<td>" + data.brand.name + "</td>" +
@@ -1058,8 +1058,8 @@
 						$('#item-id-' + data.id).replaceWith(
 								"<tr id='item-id-" + data.id + "'>" +
 								"<td>" + data.name + "</td>" +
-								"<td>" + data.qty + "</td>" +
-								"<td>" + data.normal_price + "</td>" +
+								"<td>" + format_money(parseFloat(data.qty)) + "</td>" +
+								"<td>" + "Rp. " + format_money(parseFloat(data.normal_price)) + ",-" + "</td>" +
 								// "<td>" + data.price_after_discount + "</td>" +
 								"<td>" + data.vendor.name + "</td>" +
 								"<td>" + data.brand.name + "</td>" +

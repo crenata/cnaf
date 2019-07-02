@@ -126,6 +126,9 @@ class CarBrandController extends Controller
         $carbrand = CarBrand::findOrFail($id);
 
         foreach ($carbrand->car_types as $cartype) {
+            foreach ($cartype->car_models as $carmodel) {
+                $carmodel->car_years->delete();
+            }
             $cartype->car_models->delete();
         }
         

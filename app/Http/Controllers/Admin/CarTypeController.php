@@ -129,6 +129,10 @@ class CarTypeController extends Controller
     public function destroy($id)
     {
         $cartype = CarType::findOrFail($id);
+
+        foreach ($cartype->car_models as $carmodel) {
+            $carmodel->car_years->delete();
+        }
         $cartype->car_models->delete();
         $cartype->delete();
         return response()->json($cartype);

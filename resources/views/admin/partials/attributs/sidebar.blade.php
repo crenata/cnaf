@@ -34,7 +34,7 @@
             </ul>
         </li>
 
-        <li class="site-menu-item has-sub {{ Request::is('admin/carregion', 'admin/carbrand', 'admin/cartype') ? 'active' : '' }}">
+        <li class="site-menu-item has-sub {{ Request::is('admin/carregion', 'admin/carbrand', 'admin/cartype', 'admin/carmodel', 'admin/caryear') ? 'active' : '' }}">
             <a href="javascript:void(0)">
                 <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
                 <span class="site-menu-title">Car</span>
@@ -43,25 +43,31 @@
             <ul class="site-menu-sub">
                 <li class="site-menu-item {{ Request::is('admin/carregion') ? 'active' : '' }}">
                     <a class="animsition-link" href="{{ route('carregion.index') }}">
-                        <span class="site-menu-title">Car Region</span>
+                        <span class="site-menu-title">Car Regions</span>
                     </a>
                 </li>
 
                 <li class="site-menu-item {{ Request::is('admin/carbrand') ? 'active' : '' }}">
                     <a class="animsition-link" href="{{ route('carbrand.index') }}">
-                        <span class="site-menu-title">Car Brand</span>
+                        <span class="site-menu-title">Car Brands</span>
                     </a>
                 </li>
 
                 <li class="site-menu-item {{ Request::is('admin/cartype') ? 'active' : '' }}">
                     <a class="animsition-link" href="{{ route('cartype.index') }}">
-                        <span class="site-menu-title">Car Type</span>
+                        <span class="site-menu-title">Car Types</span>
                     </a>
                 </li>
 
                 <li class="site-menu-item {{ Request::is('admin/carmodel') ? 'active' : '' }}">
                     <a class="animsition-link" href="{{ route('carmodel.index') }}">
-                        <span class="site-menu-title">Car Model</span>
+                        <span class="site-menu-title">Car Models</span>
+                    </a>
+                </li>
+
+                <li class="site-menu-item {{ Request::is('admin/caryear') ? 'active' : '' }}">
+                    <a class="animsition-link" href="{{ route('caryear.index') }}">
+                        <span class="site-menu-title">Car Years</span>
                     </a>
                 </li>
             </ul>

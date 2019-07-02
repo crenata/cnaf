@@ -131,6 +131,9 @@ class CarRegionController extends Controller
 
         foreach ($carregion->carbrands as $carbrand) {
             foreach ($carbrand->car_types as $cartype) {
+                foreach ($cartype->car_models as $carmodel) {
+                    $carmodel->car_years->delete();
+                }
                 $cartype->car_models->delete();
             }
             $carbrand->car_types->delete();

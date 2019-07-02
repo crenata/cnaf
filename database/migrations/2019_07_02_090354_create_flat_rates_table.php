@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCarYearsTable extends Migration
+class CreateFlatRatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateCarYearsTable extends Migration
      */
     public function up()
     {
-        Schema::create('car_years', function (Blueprint $table) {
+        Schema::create('flat_rates', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('slug');
-            $table->string('price');
             $table->bigInteger('car_region_id');
-            $table->bigInteger('car_brand_id');
-            $table->bigInteger('car_type_id');
-            $table->bigInteger('car_model_id');
+            $table->bigInteger('tenor');
+            $table->string('rate');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -34,6 +30,6 @@ class CreateCarYearsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('car_years');
+        Schema::dropIfExists('flat_rates');
     }
 }

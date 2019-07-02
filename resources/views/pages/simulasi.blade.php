@@ -129,12 +129,10 @@
 
                 <div class="col-md-6">
                     <div class="form-group row">
-                        {{ Form::label('tahun_id', 'Tahun Pembuatan', array('class' => 'col-sm-6 col-form-label')) }}
+                        {{ Form::label('year_id', 'Tahun Pembuatan', array('class' => 'col-sm-6 col-form-label')) }}
                         <div class="col-sm-12">
-                            <select name="tahun_id" id="simulasi-tahun" class="form-control" required="">
-                                @foreach(array('2016', '2017', '2018') as $tahun)
-                                    <option value="{{ $tahun }}">{{ $tahun }}</option>
-                                @endforeach
+                            <select name="year_id" id="simulasi-year" class="form-control" required="">
+                                <option value="">Pilih Model Dulu</option>
                             </select>
                         </div>
                     </div>
@@ -334,6 +332,12 @@
                             "</select>"
                         );
 
+                        $('#simulasi-year').replaceWith(
+                            "<select name='year_id' id='simulasi-year' class='form-control' required=''>" +
+                                "<option value=''>Pilih Model Dulu</option>" +
+                            "</select>"
+                        );
+
                         simulasi_brand_changed();
                     }
                 },
@@ -345,6 +349,7 @@
 
         simulasi_brand_changed();
         simulasi_type_changed();
+        simulasi_model_changed();
 
         function simulasi_brand_changed() {
             $('#simulasi-brand').change(function() {
@@ -373,6 +378,12 @@
                             $('#simulasi-model').replaceWith(
                                 "<select name='model_id' id='simulasi-model' class='form-control' required=''>" +
                                     "<option value=''>Pilih Type Dulu</option>" +
+                                "</select>"
+                            );
+
+                            $('#simulasi-year').replaceWith(
+                                "<select name='year_id' id='simulasi-year' class='form-control' required=''>" +
+                                    "<option value=''>Pilih Model Dulu</option>" +
                                 "</select>"
                             );
 
@@ -409,6 +420,46 @@
                                 );
                             });
                             $('#simulasi-model').append("</select>");
+
+                            $('#simulasi-year').replaceWith(
+                                "<select name='year_id' id='simulasi-year' class='form-control' required=''>" +
+                                    "<option value=''>Pilih Model Dulu</option>" +
+                                "</select>"
+                            );
+
+                            simulasi_model_changed();
+                        }
+                    },
+                    error: function(data) {
+                        toastr.error('Failed', 'Error Alert', {timeOut: 5000});
+                    }
+                });
+            });
+        }
+
+        function simulasi_model_changed() {
+            $('#simulasi-model').change(function() {
+                $.ajax({
+                    type: 'GET',
+                    url: '{!! url("simulasi/caryear") !!}' + '/' + $(this).val(),
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        if (data.errors) {
+
+                        } else {
+                            $('#simulasi-year').replaceWith(
+                                "<select name='year_id' id='simulasi-year' class='form-control' required=''>" +
+                                    "<option value=''>-- Select Year --</option>"
+                            );
+                            $.each(data, function(index, value) {
+                                console.log(value);
+                                $('#simulasi-year').append(
+                                    "<option value='" + value.id + "'>" + value.name + "</option>"
+                                );
+                            });
+                            $('#simulasi-year').append("</select>");
                         }
                     },
                     error: function(data) {

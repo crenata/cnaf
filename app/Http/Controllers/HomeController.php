@@ -15,6 +15,7 @@ use App\Models\Admin\CarRegion;
 use App\Models\Admin\CarBrand;
 use App\Models\Admin\CarType;
 use App\Models\Admin\CarModel;
+use App\Models\Admin\CarYear;
 
 use Session;
 use Validator;
@@ -157,5 +158,10 @@ class HomeController extends Controller
     public function carModelByCarType($id) {
         $carmodel = CarModel::where('car_type_id', $id)->get();
         return response()->json($carmodel);
+    }
+
+    public function carYearByCarModel($id) {
+        $caryear = CarYear::where('car_model_id', $id)->get();
+        return response()->json($caryear);
     }
 }

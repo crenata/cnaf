@@ -31,3 +31,4 @@ Route::get('shop/{slug}/{slugbrand}/{slugitem}', 'HomeController@itemDetail')->n
 Route::get('simulasi/carbrand/{id}', 'HomeController@carBrandByCarRegion')->name('simulasi.carbrand.by.carregion');
 Route::get('simulasi/cartype/{id}', 'HomeController@carTypeByCarBrand')->name('simulasi.cartype.by.carbrand');
 Route::get('simulasi/carmodel/{id}', 'HomeController@carModelByCarType')->name('simulasi.carmodel.by.cartype');
+Route::get('simulasi/caryear/{id}', 'HomeController@carYearByCarModel')->name('simulasi.caryear.by.carmodel');

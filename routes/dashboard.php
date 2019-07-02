@@ -7,4 +7,6 @@ Route::resource('carregion', 'CarRegionController');
 Route::resource('carbrand', 'CarBrandController');
 Route::resource('cartype', 'CarTypeController');
 Route::resource('carmodel', 'CarModelController');
+Route::resource('caryear', 'CarYearController');
+Route::resource('flatrate', 'FlatRateController');
 Route::get('item/brand/{id}', 'ItemController@brandByVendor')->name('item.brandbyvendor');

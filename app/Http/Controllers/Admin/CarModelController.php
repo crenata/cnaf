@@ -134,6 +134,8 @@ class CarModelController extends Controller
     public function destroy($id)
     {
         $carmodel = CarModel::findOrFail($id);
+
+        $carmodel->car_years->delete();
         $carmodel->delete();
         return response()->json($carmodel);
     }
