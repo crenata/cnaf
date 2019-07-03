@@ -16,6 +16,9 @@ use App\Models\Admin\CarBrand;
 use App\Models\Admin\CarType;
 use App\Models\Admin\CarModel;
 use App\Models\Admin\CarYear;
+use App\Models\Admin\FlatRate;
+use App\Models\Admin\AssuranceType;
+use App\Models\Admin\AssuranceRate;
 
 use Session;
 use Validator;
@@ -68,12 +71,14 @@ class HomeController extends Controller
     public function simulasi() {
         $vendors = Vendor::orderBy('name', 'asc')->get();
         $carregions = CarRegion::orderBy('name', 'asc')->get();
-        return view('pages.simulasi')->withVendors($vendors)->withCarRegions($carregions)->withCarBrands(null)->withCurrentRegion(null)->withCurrentBrand(null)->withCurrentType(null);
+        $assurancetypes = AssuranceType::orderBy('name', 'asc')->get();
+        return view('pages.simulasi')->withVendors($vendors)->withCarRegions($carregions)->withAssuranceTypes($assurancetypes)->withCarBrands(null)->withCurrentRegion(null)->withCurrentBrand(null)->withCurrentType(null);
     }
 
     public function simulasiFromHome(Request $request) {
         $vendors = Vendor::orderBy('name', 'asc')->get();
         $carregions = CarRegion::orderBy('name', 'asc')->get();
+        $assurancetypes = AssuranceType::orderBy('name', 'asc')->get();
 
         $current_region = $request->car_region_id;
 
@@ -99,7 +104,7 @@ class HomeController extends Controller
             $carmodels = null;
         }
 
-        return view('pages.simulasi')->withVendors($vendors)->withCarRegions($carregions)->withCarBrands($carbrands)->withCarTypes($cartypes)->withCarModels($carmodels)->withCurrentRegion($current_region)->withCurrentBrand($current_brand)->withCurrentType($current_type);
+        return view('pages.simulasi')->withVendors($vendors)->withCarRegions($carregions)->withAssuranceTypes($assurancetypes)->withCarBrands($carbrands)->withCarTypes($cartypes)->withCarModels($carmodels)->withCurrentRegion($current_region)->withCurrentBrand($current_brand)->withCurrentType($current_type);
     }
 
     public function shop() {
@@ -146,22 +151,35 @@ class HomeController extends Controller
     }
 
     public function carBrandByCarRegion($id) {
-        $carbrand = CarBrand::where('car_region_id', $id)->get();
-        return response()->json($carbrand);
+        $carbrands = CarBrand::where('car_region_id', $id)->get();
+        return response()->json($carbrands);
     }
 
     public function carTypeByCarBrand($id) {
-        $cartype = CarType::where('car_brand_id', $id)->get();
-        return response()->json($cartype);
+        $cartypes = CarType::where('car_brand_id', $id)->get();
+        return response()->json($cartypes);
     }
 
     public function carModelByCarType($id) {
-        $carmodel = CarModel::where('car_type_id', $id)->get();
-        return response()->json($carmodel);
+        $carmodels = CarModel::where('car_type_id', $id)->get();
+        return response()->json($carmodels);
     }
 
     public function carYearByCarModel($id) {
-        $caryear = CarYear::where('car_model_id', $id)->get();
-        return response()->json($caryear);
+        $caryears = CarYear::where('car_model_id', $id)->get();
+        return response()->json($caryears);
+    }
+
+    public function flatRateByCarRegion($id) {
+        $flatrates = FlatRate::where('car_region_id', $id)->get();
+        return response()->json($flatrates);
+    }
+
+    public function assuranceRateByCarRegionAndAssuranceType($id, $assurancetypeid) {
+        $assurances = AssuranceRate::where([
+            ['car_region_id', $id],
+            ['assurance_type_id', $assurancetypeid]
+        ])->get();
+        return response()->json($assurances);
     }
 }

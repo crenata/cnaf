@@ -472,9 +472,9 @@
                         $('#datatable').append(
                             "<tr id='carregion-id-" + data.id + "'>" +
                                 "<td>" + data.name + "</td>" +
-                                "<td>" + data.admin_fee + "</td>" +
+                                "<td>" + "Rp. " + format_money(parseFloat(data.admin_fee)) + ",-" + "</td>" +
                                 "<td>" + data.provisi_percentage + "%" + "</td>" +
-                                "<td>" + data.polis_fee + "</td>" +
+                                "<td>" + "Rp. " + format_money(parseFloat(data.polis_fee)) + ",-" + "</td>" +
                                 "<td class='actions'>" +
                                     "<a href='javascript:void(0)' data-id='" + data.id + "' data-name='" + data.name + "' data-adminfee='" + data.admin_fee + "' data-provisipercentage='" + data.provisi_percentage + "' data-polisfee='" + data.polis_fee + "' class='btn btn-sm btn-icon btn-pure btn-default on-editing save-row show-carregion' data-toggle='tooltip' data-original-title='Show'>" +
                                         "<i class='icon md-wrench' aria-hidden='true'></i> Show" +
@@ -554,9 +554,9 @@
                         $('#carregion-id-' + data.id).replaceWith(
                             "<tr id='carregion-id-" + data.id + "'>" +
                                 "<td>" + data.name + "</td>" +
-                                "<td>" + data.admin_fee + "</td>" +
+                                "<td>" + "Rp. " + format_money(parseFloat(data.admin_fee)) + ",-" + "</td>" +
                                 "<td>" + data.provisi_percentage + "%" + "</td>" +
-                                "<td>" + data.polis_fee + "</td>" +
+                                "<td>" + "Rp. " + format_money(parseFloat(data.polis_fee)) + ",-" + "</td>" +
                                 "<td class='actions'>" +
                                     "<a href='javascript:void(0)' data-id='" + data.id + "' data-name='" + data.name + "' data-adminfee='" + data.admin_fee + "' data-provisipercentage='" + data.provisi_percentage + "' data-polisfee='" + data.polis_fee + "' class='btn btn-sm btn-icon btn-pure btn-default on-editing save-row show-carregion' data-toggle='tooltip' data-original-title='Show'>" +
                                         "<i class='icon md-wrench' aria-hidden='true'></i> Show" +

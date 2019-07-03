@@ -32,3 +32,5 @@ Route::get('simulasi/carbrand/{id}', 'HomeController@carBrandByCarRegion')->name
 Route::get('simulasi/cartype/{id}', 'HomeController@carTypeByCarBrand')->name('simulasi.cartype.by.carbrand');
 Route::get('simulasi/carmodel/{id}', 'HomeController@carModelByCarType')->name('simulasi.carmodel.by.cartype');
 Route::get('simulasi/caryear/{id}', 'HomeController@carYearByCarModel')->name('simulasi.caryear.by.carmodel');
+Route::get('simulasi/flatrate/{id}', 'HomeController@flatRateByCarRegion')->name('simulasi.flatrate.by.carregion');
+Route::get('simulasi/assurancerate/{id}/{assurancetypeid}', 'HomeController@assuranceRateByCarRegionAndAssuranceType')->name('simulasi.get.assurancerate');

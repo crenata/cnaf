@@ -7,18 +7,15 @@ use App\Http\Controllers\Controller;
 
 use App\Helpers\Helper;
 
-use App\Models\Admin\CarRegion;
-use App\Models\Admin\FlatRate;
+use App\Models\Admin\AssuranceType;
 
 use Session;
 use Validator;
 
-class FlatRateController extends Controller
+class AssuranceTypeController extends Controller
 {
     protected $rules = [
-        'car_region_id' => 'required|numeric',
-        'tenor' => 'required|numeric',
-        'rate' => 'required'
+        'name' => 'required'
     ];
 
     /**
@@ -28,9 +25,8 @@ class FlatRateController extends Controller
      */
     public function index()
     {
-        $carregions = CarRegion::all();
-        $flatrates = FlatRate::all();
-        return view('admin.pages.car.flatrate.index')->withCarRegions($carregions)->withFlatRates($flatrates);
+        $assurances = AssuranceType::all();
+        return view('admin.pages.car.assurance.type.index')->withAssuranceTypes($assurances);
     }
 
     /**
@@ -56,15 +52,14 @@ class FlatRateController extends Controller
         if ($validator->fails()) {
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         } else {
-            $flatrate = new FlatRate;
+            $assurance = new AssuranceType;
 
-            $flatrate->car_region_id = $request->car_region_id;
-            $flatrate->tenor = $request->tenor;
-            $flatrate->rate = $request->rate;
+            $assurance->name = $request->name;
+            $assurance->slug = str_slug($request->name, '-');
 
-            $flatrate->save();
+            $assurance->save();
 
-            return response()->json($flatrate->load('car_region'));
+            return response()->json($assurance);
         }
     }
 
@@ -104,15 +99,14 @@ class FlatRateController extends Controller
         if ($validator->fails()) {
             return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
         } else {
-            $flatrate = FlatRate::findOrFail($id);
+            $assurance = AssuranceType::findOrFail($id);
 
-            $flatrate->car_region_id = $request->car_region_id;
-            $flatrate->tenor = $request->tenor;
-            $flatrate->rate = $request->rate;
+            $assurance->name = $request->name;
+            $assurance->slug = str_slug($request->name, '-');
 
-            $flatrate->save();
+            $assurance->save();
 
-            return response()->json($flatrate->load('car_region'));
+            return response()->json($assurance);
         }
     }
 
@@ -124,8 +118,10 @@ class FlatRateController extends Controller
      */
     public function destroy($id)
     {
-        $flatrate = FlatRate::findOrFail($id);
-        $flatrate->delete();
-        return response()->json($flatrate);
+        $assurance = AssuranceType::findOrFail($id);
+
+//        $assurance->car_brands->delete();
+        $assurance->delete();
+        return response()->json($assurance);
     }
 }

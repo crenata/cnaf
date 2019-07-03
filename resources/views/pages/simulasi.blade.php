@@ -8,6 +8,28 @@
     <link rel="stylesheet" href="{{ asset('public/css/user/simulasi/md.css') }}" media="screen and (min-width: 768px) and (max-width: 991.98px)">
     <link rel="stylesheet" href="{{ asset('public/css/user/simulasi/lg.css') }}" media="screen and (min-width: 992px) and (max-width: 1199.98px)">
     <link rel="stylesheet" href="{{ asset('public/css/user/simulasi/xl.css') }}" media="screen and (min-width: 1200px)">
+
+    <script type="text/javascript">
+        let dropdown_region_selected;
+
+        let total_year;
+
+        let car_price = [];
+        let max_pembiayaan = [];
+        let default_ajukan_pinjaman;
+        let ajukan_pinjaman;
+        let bunga = [];
+        let tenor = [];
+        let potongan_assurance;
+        let potongan_admin = [];
+        let provisi_percentage = [];
+        let potongan_provisi;
+        let potongan_polis = [];
+        let total_potongan;
+        let disbursement;
+        let total_ph;
+        let cicilan_perbulan;
+    </script>
 @endsection
 
 @section('content-container')
@@ -24,6 +46,11 @@
                                 @if($currentRegion == null || $currentRegion == 0)
                                     @foreach($carRegions as $region)
                                         <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                        <script type="text/javascript">
+                                            potongan_admin['{!! $region->id !!}'] = '{!! $region->admin_fee !!}';
+                                            provisi_percentage['{!! $region->id !!}'] = '{!! $region->provisi_percentage !!}';
+                                            potongan_polis['{!! $region->id !!}'] = '{!! $region->polis_fee !!}';
+                                        </script>
                                     @endforeach
                                 @else
                                     @foreach($carRegions as $region)
@@ -143,9 +170,7 @@
                         {{ Form::label('tenor_id', 'Pilih Tenor', array('class' => 'col-sm-6 col-form-label')) }}
                         <div class="col-sm-12">
                             <select name="tenor_id" id="simulasi-tenor" class="form-control" required="">
-                                @foreach(array('12', '24', '36', '48') as $tenor)
-                                    <option value="{{ $tenor }}">{{ $tenor }}</option>
-                                @endforeach
+                                <option value="">Pilih Region Dulu</option>
                             </select>
                         </div>
                     </div>
@@ -155,9 +180,10 @@
                     <div class="form-group row">
                         {{ Form::label('asuransi_id', 'Pilih Asuransi', array('class' => 'col-sm-6 col-form-label')) }}
                         <div class="col-sm-12">
-                            <select name="asuransi_id" id="simulasi-asuransi" class="form-control" required="">
-                                @foreach(array('All Risk', 'Kombinasi') as $asuransi)
-                                    <option value="{{ $asuransi }}">{{ $asuransi }}</option>
+                            <select name="asuransi_id" id="simulasi-assurance-type" class="form-control" required="">
+                                <option value="">-- Select Assurance --</option>
+                                @foreach($assuranceTypes as $assurancetype)
+                                    <option value="{{ $assurancetype->id }}">{{ $assurancetype->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -174,7 +200,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text bg-881a1b text-white">Rp.</span>
                                 </div>
-                                <input type="text" name="nilai_kendaraan" class="form-control" id="simulasi-nilai-kendaraan" disabled value="100,000,000">
+                                <input type="text" name="nilai_kendaraan" class="form-control" id="simulasi-nilai-kendaraan" disabled>
                                 <div class="input-group-append">
                                     <span class="input-group-text bg-881a1b text-white">.00</span>
                                 </div>
@@ -208,7 +234,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text bg-881a1b text-white">Rp.</span>
                                 </div>
-                                <input type="text" name="maximum_pembiayaan" class="form-control" id="simulasi-minimum" disabled value="75,000,000">
+                                <input type="text" name="maximum_pembiayaan" class="form-control" id="simulasi-maximum" disabled>
                                 <div class="input-group-append">
                                     <span class="input-group-text bg-881a1b text-white">.00</span>
                                 </div>
@@ -225,7 +251,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text bg-881a1b text-white">Rp.</span>
                                 </div>
-                                <input type="text" name="ajukan_pinjaman" class="form-control" id="simulasi-nilai-kendaraan" value="75,000,000">
+                                <input type="text" name="ajukan_pinjaman" class="form-control" id="simulasi-ajukan-pinjaman" value="25,000,000">
                                 <div class="input-group-append">
                                     <span class="input-group-text bg-881a1b text-white">.00</span>
                                 </div>
@@ -240,46 +266,46 @@
             <h4 class="font-weight-bold">Hasil</h4>
             <div class="row small">
                 <div class="col-6"><p class="m-0">Harga Kendaraan</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0">100,000,000</p><p class="d-inline-block m-0">,-</p></div>
+                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-nilai-kendaraan"></p><p class="d-inline-block m-0">,-</p></div>
 
                 <div class="col-6"><p class="m-0">Pinjaman yang di Ajukan</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0">75,000,000</p><p class="d-inline-block m-0">,-</p></div>
+                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-ajukan-pinjaman">25,000,000</p><p class="d-inline-block m-0">,-</p></div>
 
                 <div class="col-6"><p class="m-0">Bunga</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">10.75%</p></div>
+                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0" id="result-bunga"></p></div>
 
                 <div class="col-6"><p class="m-0">Tenor</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">12</p></div>
+                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0" id="result-tenor"></p></div>
             </div>
 
             <div class="row small mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">
                 <div class="col-6"><p class="m-0">Potongan Asuransi</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0">7,800,000</p><p class="d-inline-block m-0">,-</p></div>
+                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-potongan-asuransi"></p><p class="d-inline-block m-0">,-</p></div>
 
                 <div class="col-6"><p class="m-0">Potongan Admin</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0">2,450,000</p><p class="d-inline-block m-0">,-</p></div>
+                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-potongan-admin"></p><p class="d-inline-block m-0">,-</p></div>
 
                 <div class="col-6"><p class="m-0">Potongan Provisi</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0">3,168,000</p><p class="d-inline-block m-0">,-</p></div>
+                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-potongan-provisi"></p><p class="d-inline-block m-0">,-</p></div>
 
                 <div class="col-6"><p class="m-0">Potongan Polis</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0">50,000</p><p class="d-inline-block m-0">,-</p></div>
+                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-potongan-polis"></p><p class="d-inline-block m-0">,-</p></div>
 
                 <div class="col-6"><p class="mb-0 mt-1">Total Potongan</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block mb-0 mt-1">Rp. &nbsp;</p><p class="d-inline-block mb-0 mt-1">13,468,000</p><p class="d-inline-block mb-0 mt-1">,-</p></div>
+                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block mb-0 mt-1">Rp. &nbsp;</p><p class="d-inline-block mb-0 mt-1" id="result-total-potongan"></p><p class="d-inline-block mb-0 mt-1">,-</p></div>
             </div>
 
             <div class="row small mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">
                 <div class="col-6"><p class="m-0">Disbursement</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0">239,000,000</p><p class="d-inline-block m-0">,-</p></div>
+                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-disbursement"></p><p class="d-inline-block m-0">,-</p></div>
             </div>
 
             <div class="row small mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">
                 <div class="col-6"><p class="m-0">Total PH</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0">100,000,000</p><p class="d-inline-block m-0">,-</p></div>
+                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-total-ph"></p><p class="d-inline-block m-0">,-</p></div>
 
                 <div class="col-6"><p class="m-0">Cicilan per Bulan</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0">23,000,000</p><p class="d-inline-block m-0">,-</p></div>
+                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-cicilan-perbulan"></p><p class="d-inline-block m-0">,-</p></div>
             </div>
         </div>
 
@@ -298,6 +324,8 @@
 @section('scripts')
     <script type="text/javascript">
         $('#simulasi-region').change(function() {
+            dropdown_region_selected = $(this).val();
+
             $.ajax({
                 type: 'GET',
                 url: '{!! url("simulasi/carbrand") !!}' + '/' + $(this).val(),
@@ -345,11 +373,50 @@
                     toastr.error('Failed', 'Error Alert', {timeOut: 5000});
                 }
             });
+
+            $.ajax({
+                type: 'GET',
+                url: '{!! url("simulasi/flatrate") !!}' + '/' + $(this).val(),
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    if (data.errors) {
+
+                    } else {
+                        $('#simulasi-tenor').replaceWith(
+                            "<select name='tenor_id' id='simulasi-tenor' class='form-control' required=''>" +
+                                "<option value=''>-- Select Tenor --</option>"
+                        );
+                        $.each(data, function(index, value) {
+                            console.log(value);
+                            tenor[value.id] = value.tenor;
+                            bunga[value.id] = value.rate;
+
+                            $('#simulasi-tenor').append(
+                                "<option value='" + value.id + "'>" + value.tenor + "</option>"
+                            );
+                        });
+                        $('#simulasi-tenor').append("</select>");
+
+                        simulasi_tenor_changed();
+                    }
+                },
+                error: function(data) {
+                    toastr.error('Failed', 'Error Alert', {timeOut: 5000});
+                }
+            });
+
+            $('#result-potongan-admin').text(format_money(parseFloat(potongan_admin[$(this).val()])));
+            $('#result-potongan-polis').text(format_money(parseFloat(potongan_polis[$(this).val()])));
         });
 
         simulasi_brand_changed();
         simulasi_type_changed();
         simulasi_model_changed();
+        simulasi_year_changed();
+        simulasi_tenor_changed();
+        simulasi_assurance_type_changed();
 
         function simulasi_brand_changed() {
             $('#simulasi-brand').change(function() {
@@ -455,11 +522,16 @@
                             );
                             $.each(data, function(index, value) {
                                 console.log(value);
+                                car_price[value.id] = value.price;
+                                max_pembiayaan[value.id] = value.price * 80 / 100;
+
                                 $('#simulasi-year').append(
                                     "<option value='" + value.id + "'>" + value.name + "</option>"
                                 );
                             });
                             $('#simulasi-year').append("</select>");
+
+                            simulasi_year_changed();
                         }
                     },
                     error: function(data) {
@@ -467,6 +539,86 @@
                     }
                 });
             });
+        }
+
+        function simulasi_year_changed() {
+            $('#simulasi-year').change(function() {
+                $('#simulasi-nilai-kendaraan').val(format_money(parseFloat(car_price[$(this).val()])));
+                $('#result-nilai-kendaraan').text(format_money(parseFloat(car_price[$(this).val()])));
+
+                $('#simulasi-maximum').val(format_money(parseFloat(max_pembiayaan[$(this).val()])));
+                $('#simulasi-ajukan-pinjaman').val(format_money(parseFloat(max_pembiayaan[$(this).val()])));
+                $('#result-ajukan-pinjaman').text(format_money(parseFloat(max_pembiayaan[$(this).val()])));
+            });
+        }
+
+        function simulasi_tenor_changed() {
+            $('#simulasi-tenor').change(function() {
+                total_year = tenor[$(this).val()] / 12;
+                $('#result-tenor').text(format_money(parseFloat(tenor[$(this).val()])));
+                $('#result-bunga').text(format_money(parseFloat(bunga[$(this).val()])) + '%');
+            });
+        }
+
+        function simulasi_assurance_type_changed() {
+            $('#simulasi-assurance-type').change(function() {
+                console.log(dropdown_region_selected);
+                if (dropdown_region_selected != 0 || dropdown_region_selected != '' || dropdown_region_selected != undefined || dropdown_region_selected != null) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '{!! url("simulasi/assurancerate") !!}' + '/' + dropdown_region_selected + '/' + $(this).val(),
+                        dataType: 'json',
+                        processData: false,
+                        contentType: false,
+                        success: function(data) {
+                            if (data.errors) {
+
+                            } else {
+                                $.each(data, function(index, value) {
+                                    console.log(value);
+                                });
+                            }
+                        },
+                        error: function(data) {
+                            toastr.error('Failed', 'Error Alert', {timeOut: 5000});
+                        }
+                    });
+                }
+            });
+        }
+
+        function format_money(n) {
+            return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '');
+        }
+
+        $('#simulasi-ajukan-pinjaman').blur(function () {
+            ajukan_pinjaman = $(this).val();
+            ajukan_pinjaman = ajukan_pinjaman.replace(/,/g, '');
+            if (ajukan_pinjaman < 25000000) {
+                default_ajukan_pinjaman = 25000000;
+                $(this).val(format_money(parseFloat(default_ajukan_pinjaman)));
+                $('#result-ajukan-pinjaman').text($(this).val());
+            }
+        });
+
+        $('#simulasi-ajukan-pinjaman').keyup(function () {
+            ajukan_pinjaman = $(this).val();
+            $(this).val(real_time_input_format_money(ajukan_pinjaman));
+            $('#result-ajukan-pinjaman').text($(this).val());
+        });
+        
+        function real_time_input_format_money(n) {
+            let number_string = n.replace(/,/g, '').toString();
+            let sisa = number_string.length % 3;
+            let rupiah = number_string.substr(0, sisa);
+            let ribuan = number_string.substr(sisa).match(/\d{3}/g);
+
+            if (ribuan) {
+                separator = sisa ? ',' : '';
+                rupiah += separator + ribuan.join(',');
+            }
+
+            return rupiah;
         }
     </script>
 @endsection

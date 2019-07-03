@@ -37,7 +37,7 @@
         <li class="site-menu-item has-sub {{ Request::is('admin/carregion', 'admin/carbrand', 'admin/cartype', 'admin/carmodel', 'admin/caryear') ? 'active' : '' }}">
             <a href="javascript:void(0)">
                 <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
-                <span class="site-menu-title">Car</span>
+                <span class="site-menu-title">Simulation</span>
                 <span class="site-menu-arrow"></span>
             </a>
             <ul class="site-menu-sub">
@@ -68,6 +68,18 @@
                 <li class="site-menu-item {{ Request::is('admin/caryear') ? 'active' : '' }}">
                     <a class="animsition-link" href="{{ route('caryear.index') }}">
                         <span class="site-menu-title">Car Years</span>
+                    </a>
+                </li>
+
+                <li class="site-menu-item {{ Request::is('admin/flatrate') ? 'active' : '' }}">
+                    <a class="animsition-link" href="{{ route('flatrate.index') }}">
+                        <span class="site-menu-title">Flat Rates</span>
+                    </a>
+                </li>
+
+                <li class="site-menu-item {{ Request::is('admin/assurancetype') ? 'active' : '' }}">
+                    <a class="animsition-link" href="{{ route('assurancetype.index') }}">
+                        <span class="site-menu-title">Assurance Types</span>
                     </a>
                 </li>
             </ul>
