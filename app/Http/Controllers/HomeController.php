@@ -179,7 +179,7 @@ class HomeController extends Controller
         $assurances = AssuranceRate::where([
             ['car_region_id', $id],
             ['assurance_type_id', $assurancetypeid]
-        ])->get();
+        ])->orderBy('id', 'desc')->get();
         return response()->json($assurances);
     }
 }

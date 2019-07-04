@@ -11,8 +11,11 @@
 
     <script type="text/javascript">
         let dropdown_region_selected;
-
         let total_year;
+        let assurance_rate = [];
+        let assurance_final_price = [];
+        let total_sisa_assurance;
+        let get_car_price_from_input;
 
         let car_price = [];
         let max_pembiayaan = [];
@@ -555,6 +558,7 @@
         function simulasi_tenor_changed() {
             $('#simulasi-tenor').change(function() {
                 total_year = tenor[$(this).val()] / 12;
+                console.log(total_year);
                 $('#result-tenor').text(format_money(parseFloat(tenor[$(this).val()])));
                 $('#result-bunga').text(format_money(parseFloat(bunga[$(this).val()])) + '%');
             });
@@ -574,8 +578,45 @@
                             if (data.errors) {
 
                             } else {
+                                get_car_price_from_input = $('#simulasi-nilai-kendaraan').val().replace(/,/g, '');
+                                console.log(get_car_price_from_input);
+
                                 $.each(data, function(index, value) {
                                     console.log(value);
+
+                                    assurance_rate[value.id] = {
+                                        'car_region_id': dropdown_region_selected,
+                                        'assurance_type_id': value.assurance_type_id,
+                                        'category': value.category,
+                                        'rate': value.rate,
+                                        'rate12': value.rate12,
+                                        'rate24': value.rate24,
+                                        'rate36': value.rate36,
+                                        'rate48': value.rate48,
+                                        'rate60': value.rate60
+                                    };
+
+                                    if (get_car_price_from_input < assurance_rate[value.id]['category']) {
+                                        assurance_final_price[0] = Math.ceil((get_car_price_from_input * assurance_rate[value.id]['rate12'] / 100) / 1000) * 1000;
+                                        assurance_final_price[1] = Math.ceil((get_car_price_from_input * assurance_rate[value.id]['rate24'] / 100) / 1000) * 1000;
+                                        assurance_final_price[2] = Math.ceil((get_car_price_from_input * assurance_rate[value.id]['rate36'] / 100) / 1000) * 1000;
+                                        assurance_final_price[3] = Math.ceil((get_car_price_from_input * assurance_rate[value.id]['rate48'] / 100) / 1000) * 1000;
+                                        assurance_final_price[4] = Math.ceil((get_car_price_from_input * assurance_rate[value.id]['rate60'] / 100) / 1000) * 1000;
+
+                                        if (total_year == 2) {
+                                            total_sisa_assurance = assurance_final_price[1] - assurance_final_price[0];
+                                        } else if (total_year == 3) {
+                                            total_sisa_assurance = assurance_final_price[2] - assurance_final_price[0];
+                                        } else  if (total_year == 4) {
+                                            total_sisa_assurance = assurance_final_price[3] - assurance_final_price[0];
+                                        } else if (total_year == 5) {
+                                            total_sisa_assurance = assurance_final_price[4] - assurance_final_price[0];
+                                        }
+
+                                        console.log(assurance_final_price[0]);
+                                        console.log(total_sisa_assurance);
+                                        $('#result-potongan-asuransi').text(format_money(parseFloat(assurance_final_price[0])));
+                                    }
                                 });
                             }
                         },
