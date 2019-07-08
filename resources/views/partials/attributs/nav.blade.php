@@ -16,17 +16,38 @@
             <li class="nav-item {{ Request::is('simulasi') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('simulasi') }}">Simulasi</a>
             </li>
+            <li class="nav-item {{ Request::is('shop') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('shop') }}">Shop</a>
+            </li>
             <li class="nav-item {{ Request::is('tentang-kami') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('tentangkami') }}">Tentang Kami</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('login') }}">Masuk</a>
-            </li>
-            <li class="nav-item btn btn-danger ml-2">
-                <a class="nav-link px-2 py-0 text-white" href="{{ route('register') }}">Daftar</a>
-            </li>
+            @auth
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{ Auth::user()->name }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a href="{{ route('cart') }}" class="dropdown-item">Cart</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </a>
+                    </div>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">Masuk</a>
+                </li>
+                <li class="nav-item btn btn-danger ml-2">
+                    <a class="nav-link px-2 py-0 text-white" href="{{ route('register') }}">Daftar</a>
+                </li>
+            @endauth
         </ul>
     </div>
 </nav>

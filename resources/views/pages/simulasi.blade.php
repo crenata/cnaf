@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset('public/css/user/simulasi/xl.css') }}" media="screen and (min-width: 1200px)">
 
     <script type="text/javascript">
-        let dropdown_region_selected, dropdown_brand_selected, dropdown_type_selected, dropdown_model_selected, dropdown_tahun_selected,
+        let dropdown_region_selected, dropdown_brand_selected, dropdown_type_selected, dropdown_model_selected, dropdown_year_selected,
             dropdown_tenor_selected, dropdown_assurance_selected, total_year, current_tenor, current_bunga, total_sisa_assurance = 0, get_car_price_from_input,
             ajukan_pinjaman, potongan_assurance, potongan_provisi, total_potongan, disbursement, total_ph, cicilan_perbulan, default_ajukan_pinjaman = 25000000,
             assurance_rate = [], assurance_final_price = [], car_price = [], max_pembiayaan = [], bunga = [], tenor = [], potongan_admin = [],
@@ -40,12 +40,26 @@
                                     @endforeach
                                 @else
                                     @foreach($carRegions as $region)
+                                        <script type="text/javascript">
+                                            potongan_admin['{!! $region->id !!}'] = '{!! $region->admin_fee !!}';
+                                            provisi_percentage['{!! $region->id !!}'] = '{!! $region->provisi_percentage !!}';
+                                            potongan_polis['{!! $region->id !!}'] = '{!! $region->polis_fee !!}';
+                                        </script>
                                         @if($region->id == $currentRegion)
                                             <option value="{{ $region->id }}" selected="">{{ $region->name }}</option>
                                         @else
                                             <option value="{{ $region->id }}">{{ $region->name }}</option>
                                         @endif
                                     @endforeach
+                                    <script type="text/javascript">
+                                        dropdown_region_selected = '{!! $currentRegion !!}';
+                                        $(document).ready(function () {
+                                            $('#result-potongan-admin').text(format_money(parseFloat(potongan_admin[dropdown_region_selected])));
+                                            $('#result-potongan-polis').text(format_money(parseFloat(potongan_polis[dropdown_region_selected])));
+
+                                            load_data_from_home();
+                                        });
+                                    </script>
                                 @endif
                             </select>
                         </div>
@@ -62,6 +76,9 @@
                                 @else
                                     @if($carBrands != null || $carBrands != 0)
                                         @if($currentBrand != null || $currentBrand != 0)
+                                            <script type="text/javascript">
+                                                dropdown_brand_selected = '{!! $currentBrand !!}';
+                                            </script>
                                             <option value="">-- Select Merk --</option>
                                             @foreach($carBrands as $brand)
                                                 @if($brand->id == $currentBrand)
@@ -95,6 +112,9 @@
                                 @else
                                     @if($carTypes != null || $carTypes != 0)
                                         @if($currentType != null || $currentType != 0)
+                                            <script type="text/javascript">
+                                                dropdown_type_selected = '{!! $currentType !!}';
+                                            </script>
                                             <option value="">-- Select Type --</option>
                                             @foreach($carTypes as $type)
                                                 @if($type->id == $currentType)
@@ -167,10 +187,10 @@
                         {{ Form::label('asuransi_id', 'Pilih Asuransi', array('class' => 'col-sm-6 col-form-label')) }}
                         <div class="col-sm-12">
                             <select name="asuransi_id" id="simulasi-assurance-type" class="form-control" required="">
-                                <option value="">-- Select Assurance --</option>
-                                @foreach($assuranceTypes as $assurancetype)
-                                    <option value="{{ $assurancetype->id }}">{{ $assurancetype->name }}</option>
-                                @endforeach
+                                <option value="">Pilih Semua Dulu</option>
+{{--                                @foreach($assuranceTypes as $assurancetype)--}}
+{{--                                    <option value="{{ $assurancetype->id }}">{{ $assurancetype->name }}</option>--}}
+{{--                                @endforeach--}}
                             </select>
                         </div>
                     </div>
@@ -383,7 +403,7 @@
                 reset_result(true, true, true, true, true, false, true, false);
             } else {
                 reset_result();
-                reset_dropdown(true, true, true, true, true);
+                reset_dropdown(true, true, true, true, true, true);
             }
         });
 
@@ -396,128 +416,197 @@
 
         function simulasi_brand_changed() {
             $('#simulasi-brand').change(function() {
-                $.ajax({
-                    type: 'GET',
-                    url: '{!! url("simulasi/cartype") !!}' + '/' + $(this).val(),
-                    dataType: 'json',
-                    processData: false,
-                    contentType: false,
-                    success: function(data) {
-                        if (data.errors) {
+                dropdown_brand_selected = $(this).val();
 
-                        } else {
-                            $('#simulasi-type').replaceWith(
-                                "<select name='type_id' id='simulasi-type' class='form-control' required=''>" +
-                                "<option value=''>-- Select Type --</option>"
-                            );
-                            $.each(data, function(index, value) {
-                                console.log(value);
-                                $('#simulasi-type').append(
-                                    "<option value='" + value.id + "'>" + value.name + "</option>"
+                if (dropdown_brand_selected > 0) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '{!! url("simulasi/cartype") !!}' + '/' + $(this).val(),
+                        dataType: 'json',
+                        processData: false,
+                        contentType: false,
+                        success: function(data) {
+                            if (data.errors) {
+
+                            } else {
+                                $('#simulasi-type').replaceWith(
+                                    "<select name='type_id' id='simulasi-type' class='form-control' required=''>" +
+                                    "<option value=''>-- Select Type --</option>"
                                 );
-                            });
-                            $('#simulasi-type').append("</select>");
+                                $.each(data, function(index, value) {
+                                    console.log(value);
+                                    $('#simulasi-type').append(
+                                        "<option value='" + value.id + "'>" + value.name + "</option>"
+                                    );
+                                });
+                                $('#simulasi-type').append("</select>");
 
-                            ajukan_pinjaman = 0;
-                            total_ph = 0;
-                            potongan_provisi = 0;
-                            assurance_final_price = [];
-                            reset_result(true, true, false, false, false, false, true, false);
-                            reset_dropdown(false, false, true, true);
-                            simulasi_type_changed();
+                                ajukan_pinjaman = 0;
+                                total_ph = 0;
+                                potongan_provisi = 0;
+                                // assurance_final_price = [];
+                                reset_result(true, true, false, false, false, false, true, false);
+                                reset_dropdown(false, false, true, true);
+                                simulasi_type_changed();
+                            }
+                        },
+                        error: function(data) {
+                            toastr.error('Failed', 'Error Alert', {timeOut: 5000});
                         }
-                    },
-                    error: function(data) {
-                        toastr.error('Failed', 'Error Alert', {timeOut: 5000});
-                    }
-                });
+                    });
+                } else {
+                    reset_result(true, true, false, false, true, false, true, false);
+                    reset_dropdown(false, true, true, true, false, true);
+                }
             });
         }
 
         function simulasi_type_changed() {
             $('#simulasi-type').change(function() {
-                $.ajax({
-                    type: 'GET',
-                    url: '{!! url("simulasi/carmodel") !!}' + '/' + $(this).val(),
-                    dataType: 'json',
-                    processData: false,
-                    contentType: false,
-                    success: function(data) {
-                        if (data.errors) {
+                dropdown_type_selected = $(this).val();
 
-                        } else {
-                            $('#simulasi-model').replaceWith(
-                                "<select name='model_id' id='simulasi-model' class='form-control' required=''>" +
+                if (dropdown_type_selected > 0) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '{!! url("simulasi/carmodel") !!}' + '/' + $(this).val(),
+                        dataType: 'json',
+                        processData: false,
+                        contentType: false,
+                        success: function(data) {
+                            if (data.errors) {
+
+                            } else {
+                                $('#simulasi-model').replaceWith(
+                                    "<select name='model_id' id='simulasi-model' class='form-control' required=''>" +
                                     "<option value=''>-- Select Model --</option>"
-                            );
-                            $.each(data, function(index, value) {
-                                console.log(value);
-                                $('#simulasi-model').append(
-                                    "<option value='" + value.id + "'>" + value.name + "</option>"
                                 );
-                            });
-                            $('#simulasi-model').append("</select>");
+                                $.each(data, function(index, value) {
+                                    console.log(value);
+                                    $('#simulasi-model').append(
+                                        "<option value='" + value.id + "'>" + value.name + "</option>"
+                                    );
+                                });
+                                $('#simulasi-model').append("</select>");
 
-                            reset_dropdown(false, false, false, true);
-                            simulasi_model_changed();
+                                reset_dropdown(false, false, false, true);
+                                simulasi_model_changed();
+                            }
+                        },
+                        error: function(data) {
+                            toastr.error('Failed', 'Error Alert', {timeOut: 5000});
                         }
-                    },
-                    error: function(data) {
-                        toastr.error('Failed', 'Error Alert', {timeOut: 5000});
-                    }
-                });
+                    });
+                } else {
+                    reset_result(true, true, false, false, true, false, true, false);
+                    reset_dropdown(false, false, true, true, false, true);
+                }
             });
         }
 
         function simulasi_model_changed() {
             $('#simulasi-model').change(function() {
-                $.ajax({
-                    type: 'GET',
-                    url: '{!! url("simulasi/caryear") !!}' + '/' + $(this).val(),
-                    dataType: 'json',
-                    processData: false,
-                    contentType: false,
-                    success: function(data) {
-                        if (data.errors) {
+                dropdown_model_selected = $(this).val();
 
-                        } else {
-                            $('#simulasi-year').replaceWith(
-                                "<select name='year_id' id='simulasi-year' class='form-control' required=''>" +
+                if (dropdown_model_selected > 0) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '{!! url("simulasi/caryear") !!}' + '/' + $(this).val(),
+                        dataType: 'json',
+                        processData: false,
+                        contentType: false,
+                        success: function(data) {
+                            if (data.errors) {
+
+                            } else {
+                                $('#simulasi-year').replaceWith(
+                                    "<select name='year_id' id='simulasi-year' class='form-control' required=''>" +
                                     "<option value=''>-- Select Year --</option>"
-                            );
-                            $.each(data, function(index, value) {
-                                console.log(value);
-                                car_price[value.id] = value.price;
-                                max_pembiayaan[value.id] = value.price * 80 / 100;
-
-                                $('#simulasi-year').append(
-                                    "<option value='" + value.id + "'>" + value.name + "</option>"
                                 );
-                            });
-                            $('#simulasi-year').append("</select>");
+                                $.each(data, function(index, value) {
+                                    console.log(value);
+                                    car_price[value.id] = value.price;
+                                    max_pembiayaan[value.id] = value.price * 80 / 100;
 
-                            simulasi_year_changed();
+                                    $('#simulasi-year').append(
+                                        "<option value='" + value.id + "'>" + value.name + "</option>"
+                                    );
+                                });
+                                $('#simulasi-year').append("</select>");
+
+                                simulasi_year_changed();
+                            }
+                        },
+                        error: function(data) {
+                            toastr.error('Failed', 'Error Alert', {timeOut: 5000});
                         }
-                    },
-                    error: function(data) {
-                        toastr.error('Failed', 'Error Alert', {timeOut: 5000});
-                    }
-                });
+                    });
+                } else {
+                    reset_dropdown(false, false, false, true, false, true);
+                    reset_result(true, true, false, false, true, false, true, false);
+                }
             });
         }
 
         function simulasi_year_changed() {
             $('#simulasi-year').change(function() {
-                $('#simulasi-nilai-kendaraan').val(format_money(parseFloat(car_price[$(this).val()])));
-                $('#result-nilai-kendaraan').text(format_money(parseFloat(car_price[$(this).val()])));
+                dropdown_year_selected = $(this).val();
 
-                $('#simulasi-maximum').val(format_money(parseFloat(max_pembiayaan[$(this).val()])));
-                $('#simulasi-ajukan-pinjaman').val(format_money(parseFloat(max_pembiayaan[$(this).val()])));
-                $('#result-ajukan-pinjaman').text(format_money(parseFloat(max_pembiayaan[$(this).val()])));
+                if (dropdown_year_selected > 0) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '{!! url("simulasi/assurancetype") !!}',
+                        dataType: 'json',
+                        processData: false,
+                        contentType: false,
+                        success: function(data) {
+                            if (data.errors) {
 
-                ajukan_pinjaman = $('#simulasi-ajukan-pinjaman').val().replace(/,/g, '');
+                            } else {
+                                $('#simulasi-assurance-type').replaceWith(
+                                    "<select name='assurance_id' id='simulasi-assurance-type' class='form-control' required=''>" +
+                                    "<option value=''>-- Select Assurance --</option>"
+                                );
+                                $.each(data, function(index, value) {
+                                    console.log(value);
+                                    $('#simulasi-assurance-type').append(
+                                        "<option value='" + value.id + "'>" + value.name + "</option>"
+                                    );
+                                });
+                                $('#simulasi-assurance-type').append("</select>");
 
-                refresh_data(dropdown_tenor_selected);
+                                dropdown_assurance_selected = 0;
+
+                                simulasi_assurance_type_changed();
+                            }
+                        },
+                        error: function(data) {
+                            toastr.error('Failed', 'Error Alert', {timeOut: 5000});
+                        }
+                    });
+
+                    reset_result(true, true, false, false, true, false, true, false);
+
+                    $('#simulasi-nilai-kendaraan').val(format_money(parseFloat(car_price[$(this).val()])));
+                    $('#result-nilai-kendaraan').text(format_money(parseFloat(car_price[$(this).val()])));
+
+                    $('#simulasi-maximum').val(format_money(parseFloat(max_pembiayaan[$(this).val()])));
+                    $('#simulasi-ajukan-pinjaman').val(format_money(parseFloat(max_pembiayaan[$(this).val()])));
+                    $('#result-ajukan-pinjaman').text(format_money(parseFloat(max_pembiayaan[$(this).val()])));
+
+                    ajukan_pinjaman = $('#simulasi-ajukan-pinjaman').val().replace(/,/g, '');
+                } else {
+                    $('#simulasi-nilai-kendaraan').val('');
+                    $('#result-nilai-kendaraan').text('');
+
+                    $('#simulasi-maximum').val('');
+                    $('#simulasi-ajukan-pinjaman').val('');
+                    $('#result-ajukan-pinjaman').text('');
+
+                    reset_result(true, true, false, false, true, false, true, false);
+                    reset_dropdown(false, false, false, false, false, true);
+
+                    ajukan_pinjaman = 0;
+                }
             });
         }
 
@@ -532,12 +621,15 @@
 
                     $('#result-tenor').text(format_money(parseFloat(tenor[$(this).val()])));
                     $('#result-bunga').text(format_money(parseFloat(bunga[$(this).val()])) + '%');
+
+                    if (dropdown_assurance_selected > 0) {
+                        refresh_data(dropdown_tenor_selected);
+                    }
                 } else {
                     $('#result-tenor').text('');
                     $('#result-bunga').text('');
+                    $('#result-cicilan-perbulan').text('');
                 }
-
-                refresh_data(total_sisa_assurance);
             });
         }
 
@@ -589,11 +681,13 @@
                                     }
                                 });
 
+                                potongan_assurance = assurance_final_price[0];
+
                                 if (assurance_final_price[0] > 0) {
                                     $('#result-potongan-asuransi').text(format_money(parseFloat(assurance_final_price[0])));
-                                    potongan_assurance = assurance_final_price[0];
                                 }
 
+                                console.log('assurance 0 -> ', assurance_final_price[0]);
                                 console.log(total_sisa_assurance);
                                 console.log(provisi_percentage[dropdown_region_selected]);
 
@@ -644,7 +738,7 @@
             return rupiah;
         }
 
-        function reset_dropdown(brand = false, type = false, model = false, year = false, tenor = false) {
+        function reset_dropdown(brand = false, type = false, model = false, year = false, tenor = false, assurance_type = false) {
             if (brand) {
                 $('#simulasi-brand').replaceWith(
                     "<select name='merk_id' id='simulasi-brand' class='form-control' required=''>" +
@@ -681,6 +775,14 @@
                 $('#simulasi-tenor').replaceWith(
                     "<select name='tenor_id' id='simulasi-tenor' class='form-control' required=''>" +
                         "<option value=''>Pilih Region Dulu</option>" +
+                    "</select>"
+                );
+            }
+
+            if (assurance_type) {
+                $('#simulasi-assurance-type').replaceWith(
+                    "<select name='assurance_id' id='simulasi-assurance-type' class='form-control' required=''>" +
+                        "<option value=''>Pilih Semua Dulu</option>" +
                     "</select>"
                 );
             }
@@ -765,6 +867,43 @@
 
                 if (potongan_assurance > 0) $('#result-potongan-asuransi').text(format_money(parseFloat(potongan_assurance)));
                 console.log(potongan_assurance);
+            }
+        }
+
+        function load_data_from_home() {
+            if (dropdown_region_selected > 0) {
+                $.ajax({
+                    type: 'GET',
+                    url: '{!! url("simulasi/flatrate") !!}' + '/' + dropdown_region_selected,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        if (data.errors) {
+
+                        } else {
+                            $('#simulasi-tenor').replaceWith(
+                                "<select name='tenor_id' id='simulasi-tenor' class='form-control' required=''>" +
+                                "<option value=''>-- Select Tenor --</option>"
+                            );
+                            $.each(data, function(index, value) {
+                                console.log(value);
+                                tenor[value.id] = value.tenor;
+                                bunga[value.id] = value.rate;
+
+                                $('#simulasi-tenor').append(
+                                    "<option value='" + value.id + "'>" + value.tenor + "</option>"
+                                );
+                            });
+                            $('#simulasi-tenor').append("</select>");
+
+                            simulasi_tenor_changed();
+                        }
+                    },
+                    error: function(data) {
+                        toastr.error('Failed', 'Error Alert', {timeOut: 5000});
+                    }
+                });
             }
         }
     </script>

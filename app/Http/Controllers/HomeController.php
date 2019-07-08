@@ -71,14 +71,12 @@ class HomeController extends Controller
     public function simulasi() {
         $vendors = Vendor::orderBy('name', 'asc')->get();
         $carregions = CarRegion::orderBy('name', 'asc')->get();
-        $assurancetypes = AssuranceType::orderBy('name', 'asc')->get();
-        return view('pages.simulasi')->withVendors($vendors)->withCarRegions($carregions)->withAssuranceTypes($assurancetypes)->withCarBrands(null)->withCurrentRegion(null)->withCurrentBrand(null)->withCurrentType(null);
+        return view('pages.simulasi')->withVendors($vendors)->withCarRegions($carregions)->withCarBrands(null)->withCurrentRegion(null)->withCurrentBrand(null)->withCurrentType(null);
     }
 
     public function simulasiFromHome(Request $request) {
         $vendors = Vendor::orderBy('name', 'asc')->get();
         $carregions = CarRegion::orderBy('name', 'asc')->get();
-        $assurancetypes = AssuranceType::orderBy('name', 'asc')->get();
 
         $current_region = $request->car_region_id;
 
@@ -104,17 +102,19 @@ class HomeController extends Controller
             $carmodels = null;
         }
 
-        return view('pages.simulasi')->withVendors($vendors)->withCarRegions($carregions)->withAssuranceTypes($assurancetypes)->withCarBrands($carbrands)->withCarTypes($cartypes)->withCarModels($carmodels)->withCurrentRegion($current_region)->withCurrentBrand($current_brand)->withCurrentType($current_type);
+        return view('pages.simulasi')->withVendors($vendors)->withCarRegions($carregions)->withCarBrands($carbrands)->withCarTypes($cartypes)->withCarModels($carmodels)->withCurrentRegion($current_region)->withCurrentBrand($current_brand)->withCurrentType($current_type);
     }
 
     public function shop() {
-        $vendors = Vendor::orderBy('id', 'desc')->paginate(7);
+        $vendors = Vendor::paginate(7);
+//        $vendors = Vendor::orderBy('id', 'desc')->paginate(7);
         return view('pages.shop.home')->withVendors($vendors);
     }
 
     public function shopVendorDetails($slug) {
         $vendor = Vendor::where('slug', $slug)->firstOrFail();
-        $brands = Brand::where('vendor_id', $vendor->id)->orderBy('id', 'desc')->paginate(7);
+        $brands = Brand::where('vendor_id', $vendor->id)->paginate(7);
+//        $brands = Brand::where('vendor_id', $vendor->id)->orderBy('id', 'desc')->paginate(7);
 
         return view('pages.shop.vendordetails')->withVendor($vendor)->withBrands($brands);
     }
@@ -175,11 +175,24 @@ class HomeController extends Controller
         return response()->json($flatrates);
     }
 
+    public function getAssuranceType() {
+        $assurancetypes = AssuranceType::orderBy('name', 'asc')->get();
+        return response()->json($assurancetypes);
+    }
+
     public function assuranceRateByCarRegionAndAssuranceType($id, $assurancetypeid) {
         $assurances = AssuranceRate::where([
             ['car_region_id', $id],
             ['assurance_type_id', $assurancetypeid]
         ])->orderBy('id', 'desc')->get();
         return response()->json($assurances);
+    }
+
+    public function cart() {
+        return view('pages.shop.cart');
+    }
+
+    public function maps() {
+        return view('pages.testing.maps');
     }
 }

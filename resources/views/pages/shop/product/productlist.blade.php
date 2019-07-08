@@ -60,7 +60,7 @@
                             <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 text-center">
                                 @if($item->price_after_discount != null || $item->price_after_discount != 0)
                                     <a href="{{ route('item.detail', ['slug' => $currentVendor->slug, 'slugbrand' => $currentBrand->slug, 'slugitem' => $item->slug]) }}" class="d-block text-decoration-none mt-4 item-content">
-                                        <div class="ui black label">-{{ (($item->normal_price - $item->price_after_discount) / $item->normal_price) * 100 }}%</div>
+                                        <div class="ui black label">-{{ ceil((($item->normal_price - $item->price_after_discount) / $item->normal_price) * 100) }}%</div>
                                         <img src="{{ $item->image1 }}" alt="" class="img-fluid">
                                         <div class="text-left mt-4">
                                             <h6 class="text-black-50">{{ $item->name }}</h6>

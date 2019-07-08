@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
                 @if($item->price_after_discount != null || $item->price_after_discount != 0)
-                    <div class="ui black label">-{{ (($item->normal_price - $item->price_after_discount) / $item->normal_price) * 100 }}%</div>
+                    <div class="ui black label">-{{ ceil((($item->normal_price - $item->price_after_discount) / $item->normal_price) * 100) }}%</div>
                 @endif
                 <img src="{{ $item->image1 }}" alt="" class="w-100 info-image">
                 <div class="picts d-flex justify-content-center mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">

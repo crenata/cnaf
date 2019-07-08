@@ -11,7 +11,7 @@
 |
 */
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('articles', 'HomeController@articles')->name('articles');
@@ -24,6 +24,7 @@ Route::get('privacy-policy', 'HomeController@privacypolicy')->name('privacy.poli
 Route::get('terms-and-condition', 'HomeController@termsandcondition')->name('terms.and.condition');
 
 Route::get('shop', 'HomeController@shop')->name('shop');
+Route::get('cart', 'HomeController@cart')->name('cart');
 Route::get('shop/{slug}', 'HomeController@shopVendorDetails')->name('shop.vendor.show');
 Route::get('shop/{slug}/{slugbrand}', 'HomeController@products')->name('products');
 Route::get('shop/{slug}/{slugbrand}/{slugitem}', 'HomeController@itemDetail')->name('item.detail');
@@ -33,4 +34,8 @@ Route::get('simulasi/cartype/{id}', 'HomeController@carTypeByCarBrand')->name('s
 Route::get('simulasi/carmodel/{id}', 'HomeController@carModelByCarType')->name('simulasi.carmodel.by.cartype');
 Route::get('simulasi/caryear/{id}', 'HomeController@carYearByCarModel')->name('simulasi.caryear.by.carmodel');
 Route::get('simulasi/flatrate/{id}', 'HomeController@flatRateByCarRegion')->name('simulasi.flatrate.by.carregion');
+Route::get('simulasi/assurancetype', 'HomeController@getAssuranceType')->name('simulasi.get.assurancetype');
 Route::get('simulasi/assurancerate/{id}/{assurancetypeid}', 'HomeController@assuranceRateByCarRegionAndAssuranceType')->name('simulasi.get.assurancerate');
+
+/* Testing */
+Route::get('maps', 'HomeController@maps')->name('maps');
