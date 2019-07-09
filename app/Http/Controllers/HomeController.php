@@ -195,4 +195,8 @@ class HomeController extends Controller
     public function maps() {
         return view('pages.testing.maps');
     }
+
+    public function invoice() {
+        return view('pages.testing.invoice');
+    }
 }

@@ -39,3 +39,4 @@ Route::get('simulasi/assurancerate/{id}/{assurancetypeid}', 'HomeController@assu
 
 /* Testing */
 Route::get('maps', 'HomeController@maps')->name('maps');
+Route::get('invoice', 'HomeController@invoice')->name('invoice');
