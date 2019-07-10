@@ -25,12 +25,19 @@
         </ul>
         <ul class="navbar-nav ml-auto">
             @auth
+                <li class="nav-item">
+                    @if(Auth::user()->credit == null || Auth::user()->credit == '')
+                        <a class="nav-link">Credit Rp. 0,-</a>
+                    @else
+                        <a class="nav-link">Credit Rp. {{ number_format(Auth::user()->credit) }},-</a>
+                    @endif
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ Auth::user()->name }}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a href="{{ route('cart') }}" class="dropdown-item">Cart</a>
+                        <a href="{{ route('cart.index') }}" class="dropdown-item">Cart</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}

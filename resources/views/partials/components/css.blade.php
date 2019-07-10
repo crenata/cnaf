@@ -11,6 +11,8 @@
 {{ Html::style('public/plugin/bootstrap-4.3.1/dist/css/bootstrap.css') }}
 {{ Html::style('public/plugin/fontawesome-free-5.9.0-web/css/all.css') }}
 
+{{ Html::style('public/plugin/toastr/build/toastr.min.css') }}
+
 <!--
 	Jquery move into css.blade for starting JavaScript
 	Only one JS on this file

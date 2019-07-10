@@ -2,6 +2,10 @@
 
 @section('title', 'Cart')
 
+@php
+    $total_price = 0;
+@endphp
+
 @section('stylesheets')
     {{--<link rel="stylesheet" href="{{ asset('public/css/user/shop/xs.css') }}" media="screen and (max-width: 575.98px)">
     <link rel="stylesheet" href="{{ asset('public/css/user/shop/sm.css') }}" media="screen and (min-width: 576px) and (max-width: 767.98px)">
@@ -9,9 +13,24 @@
     <link rel="stylesheet" href="{{ asset('public/css/user/shop/lg.css') }}" media="screen and (min-width: 992px) and (max-width: 1199.98px)">
     <link rel="stylesheet" href="{{ asset('public/css/user/shop/xl.css') }}" media="screen and (min-width: 1200px)">--}}
 
+    <style type="text/css">
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            display: none;
+        }
+    </style>
+
     <script type="text/javascript">
-        let item = [];
+        let total_price = [], cart_id_saved = [], final_result_total = 0;
     </script>
+@endsection
+
+@section('content')
+    <div class="loading">
+        <img src="{{ asset('public/images/loading-ring.gif') }}" alt="" width="100" height="100">
+    </div>
 @endsection
 
 @section('content-container')
@@ -31,47 +50,64 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach([
-                    ['id' => 1, 'name' => 'Ariston Built Oven GESZJKA', 'image' => 'http://localhost/storage/cnaf/items/CNAF-20190621-IMAGE-080505bde5a2021213f6f6220e736c925d0c5868362d2.png', 'vendor' => 'My Kitchen Art', 'price' => 25000000, 'qty' => 12],
-                    ['id' => 2, 'name' => 'Ariston Built Microwave CKADNCWA', 'image' => 'http://localhost/storage/cnaf/items/CNAF-20190621-IMAGE-b83b7170442aac3708d53f8c89a0d8485d0c55c96b1f3.png', 'vendor' => 'My Kitchen Art', 'price' => 25000000, 'qty' => 14],
-                ] as $item)
-                    <tr>
-                        <td style="width: 6rem;"><img src="{{ $item['image'] }}" alt="" class="w-100"></td>
-                        <td>{{ $item['name'] }}</td>
-                        <td>{{ $item['vendor'] }}</td>
-                        <td>Rp. {{ number_format($item['price']) }},-</td>
+                @foreach($carts as $cart)
+                    <script type="text/javascript">
+                        cart_id_saved.push({!! $cart->id !!});
+                    </script>
+                    <tr id="cart-id-{{ $cart->id }}">
+                        <td style="width: 6rem;"><img src="{{ $cart->item->image1 }}" alt="" class="w-100"></td>
+                        <td>{{ $cart->item->name }}</td>
+                        <td>{{ $cart->item->vendor->name }}</td>
+                        @if($cart->item->price_after_discount != null || $cart->item->price_after_discount != 0)
+                            @php
+                                $total_price += ($cart->item->price_after_discount * $cart->qty);
+                            @endphp
+                            <td>Rp. {{ number_format($cart->item->price_after_discount) }},-</td>
+                        @else
+                            @php
+                                $total_price += ($cart->item->normal_price * $cart->qty);
+                            @endphp
+                            <td>Rp. {{ number_format($cart->item->normal_price) }},-</td>
+                        @endif
                         <td>
-                            <button class="min{{ $item['id'] }}">-</button>
-                            <input type="number" name="" value="1" class="total-item{{ $item['id'] }}" max="{{ $item['qty'] }}" min="1" disabled>
-                            <button class="plus{{ $item['id']}}">+</button>
-                            <script type="text/javascript">
-                                item[{!! $item['id'] !!}] = {
-                                    "id": {!! $item['id'] !!},
-                                    "name": "{!! $item['name'] !!}",
-                                    "image": "{!! $item['image'] !!}",
-                                    "vendor": "{!! $item['vendor'] !!}",
-                                    "price": {!! $item['price'] !!},
-                                    "qty": {!! $item['qty'] !!}
-                                };
-                                $(document).ready(function () {
-                                    btn_plus({!! $item['id'] !!}, {!! $item['price'] !!}, {!! $item['qty'] !!});
-                                    btn_min({!! $item['id'] !!}, {!! $item['price'] !!});
-                                    {{--input_total_item_change({!! $item['id'] !!}, {!! $item['price'] !!});--}}
-                                    input_total_item_keydown({!! $item['id'] !!}, {!! $item['price'] !!});
-
-                                    let current_item = $('.total-item{!! $item['id'] !!}').val();
-                                    let total_price = current_item * {!! $item['price'] !!};
-                                    $('.subtotal-harga{{ $item['id'] }}').text('Rp. ' + format_money(total_price) + ',-');
-                                });
-                            </script>
+                            <button class="min{{ $cart->id }}">-</button>
+                            <input type="number" name="" value="{{ $cart->qty }}" class="total-item{{ $cart->id }}" max="{{ $cart->item->qty }}" min="1">
+                            <button class="plus{{ $cart->id}}">+</button>
+                            @if($cart->item->price_after_discount != null || $cart->item->price_after_discount != 0)
+                                <script type="text/javascript">
+                                    total_price[{!! $cart->id !!}] = ({!! $cart->item->price_after_discount !!} * {!! $cart->qty !!});
+                                    $(document).ready(function () {
+                                        btn_plus({!! $cart->id !!}, {!! $cart->item->price_after_discount !!}, {!! $cart->item->qty !!}, {!! $cart->item->id !!});
+                                        btn_min({!! $cart->id !!}, {!! $cart->item->price_after_discount !!}, {!! $cart->item->id !!});
+                                        input_total_item_keyup({!! $cart->id !!}, {!! $cart->item->price_after_discount !!}, {!! $cart->item->qty !!}, {!! $cart->item->id !!});
+                                    });
+                                </script>
+                            @else
+                                <script type="text/javascript">
+                                    total_price[{!! $cart->id !!}] = ({!! $cart->item->normal_price !!} * {!! $cart->qty !!});
+                                    $(document).ready(function () {
+                                        btn_plus({!! $cart->id !!}, {!! $cart->item->normal_price !!}, {!! $cart->item->qty !!}, {!! $cart->item->id !!});
+                                        btn_min({!! $cart->id !!}, {!! $cart->item->normal_price !!}, {!! $cart->item->id !!});
+                                        input_total_item_keyup({!! $cart->id !!}, {!! $cart->item->normal_price !!}, {!! $cart->item->qty !!}, {!! $cart->item->id !!});
+                                    });
+                                </script>
+                            @endif
                         </td>
-                        <td><p class="subtotal-harga{{ $item['id'] }}">Rp. {{ number_format($item['price']) }},-</p></td>
-                        <td><button class="btn"><i class="fas fa-trash"></i></button></td>
+                        @if($cart->item->price_after_discount != null || $cart->item->price_after_discount != 0)
+                            <td><p class="subtotal-harga{{ $cart->id }}">Rp. {{ number_format($cart->item->price_after_discount * $cart->qty) }},-</p></td>
+                        @else
+                            <td><p class="subtotal-harga{{ $cart->id }}">Rp. {{ number_format($cart->item->normal_price * $cart->qty) }},-</p></td>
+                        @endif
+                        <td>
+                            <a href="javascript:void(0)" data-id="{{ $cart->id }}" class="btn btn-icon btn-pure btn-default on-default remove-row delete">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
                     </tr>
                 @endforeach
                 <tr>
                     <th colspan="5" class="">Total Pengajuan Belanja :</th>
-                    <th><p class="total-all"></p></th>
+                    <th><p class="total-all">Rp. {{ number_format($total_price) }},-</p></th>
                     <th></th>
                 </tr>
                 </tbody>
@@ -80,8 +116,12 @@
     </div>
 
     <div class="credit mt-4">
-        <h3 class="">Sisa Kredit Anda</h3>
-        <h5 class="font-weight-bold d-inline-block p-2 bg-881a1b">Rp. 100,000,000,000,-</h5>
+        {{--<h3 class="">Sisa Kredit Anda</h3>
+        @if(Auth::user()->credit == null || Auth::user()->credit == '')
+            <h5 class="font-weight-bold d-inline-block p-2 bg-881a1b">Rp. 0,-</h5>
+        @else
+            <h5 class="font-weight-bold d-inline-block p-2 bg-881a1b">Rp. {{ number_format(Auth::user()->credit) }},-</h5>
+        @endif--}}
         <form class="choose mt-3">
             <div class="select-credit">
                 <p class="m-0">Apakah Anda ingin mengambil tunai untuk sisa kredit Anda?</p>
@@ -188,73 +228,108 @@
 
 @section('scripts')
     <script type="text/javascript">
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        });
+
+        $('.delete').click(function() {
+            let id = $(this).data('id');
+            $.ajax({
+                type: 'DELETE',
+                url: '{!! url("cart") !!}' + '/' + id,
+                beforeSend: function() {
+                    $('.loading').css('display', 'block');
+                    $('.container').css('display', 'none');
+                },
+                success: function(data) {
+                    $('.loading').css('display', 'none');
+                    $('.container').css('display', 'block');
+                    $('#cart-id-' + id).remove();
+                    toastr.success('Successfully remove item from Cart!', 'Success Alert', {timeOut: 5000});
+                },
+                error: function(data) {
+                    $('.loading').css('display', 'none');
+                    $('.container').css('display', 'block');
+                    toastr.error('Failed remove item from Cart!', 'Error Alert', {timeOut: 5000});
+                }
+            });
+        });
+
         function format_money(n) {
             return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '');
         }
 
-        function btn_plus(id, price, qty) {
+        function btn_plus(id, price, qty, item_id) {
             $('.plus' + id).click(function() {
                 if ($(this).prev().val() < qty) {
                     $(this).prev().val(+$(this).prev().val() + 1);
-                    let current_items = $('.total-item' + id).val();
-                    let total_prices = current_items * price;
-                    $('.subtotal-harga' + id).text('Rp. ' + format_money(total_prices) + ',-');
-
-                    let total = 0;
-                    $.each(item, function (index, value) {
-                        console.log(value);
-                    });
-                    // $('.total-all').text('Rp. ' + format_money(total) + ',-');
+                    count_price(id, price, item_id);
                 }
             });
         }
 
-        function btn_min(id, price) {
+        function btn_min(id, price, item_id) {
             $('.min' + id).click(function() {
                 if ($(this).next().val() > 1) {
                     $(this).next().val(+$(this).next().val() - 1);
-                    let current_items = $('.total-item' + id).val();
-                    let total_prices = current_items * price;
-                    $('.subtotal-harga' + id).text('Rp. ' + format_money(total_prices) + ',-');
+                    count_price(id, price, item_id);
                 }
             });
         }
 
-        function input_total_item_change(id, price) {
-            let current_item = $('.total-item' + id).val();
-            let total_price = current_item * price;
-            $('.subtotal-harga' + id).text('Rp. ' + format_money(total_price) + ',-');
-        }
-
-        function input_total_item_keydown(id, price) {
-            $('.total-item' + id).keydown(function() {
+        function input_total_item_keyup(id, price, qty, item_id) {
+            $('.total-item' + id).bind('keyup mouseup', function() {
                 let current_item = $(this).val();
-                let total_price = current_item * price;
-                $('.subtotal-harga' + id).text('Rp. ' + format_money(total_price) + ',-');
+                if (current_item <= qty) {
+                    count_price(id, price, item_id);
+                } else {
+                    $(this).val(qty);
+                    count_price(id, price, item_id);
+                }
             });
         }
 
-        // disable_inspect_element();
-
-        function disable_inspect_element() {
-            document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
+        function count_price(id, price, item_id) {
+            let current_items = $('.total-item' + id).val();
+            let current_prices = current_items * price;
+            $('.subtotal-harga' + id).text('Rp. ' + format_money(current_prices) + ',-');
+            total_price[id] = current_prices;
+            $.each(cart_id_saved, function (index, value) {
+                final_result_total += total_price[value];
             });
-            $(document).keydown(function (e) {
-                if (event.keyCode == 123) {
-                    return false;
-                }
-                if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-                    return false;
-                }
-                if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
-                    return false;
-                }
-                if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-                    return false;
-                }
-                if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-                    return false;
+            $('.total-all').text('Rp. ' + format_money(final_result_total) + ',-');
+            final_result_total = 0;
+            update_qty(id, item_id, current_items);
+        }
+
+        function update_qty(cart_id, item_id, qty) {
+            let update_qty = new FormData();
+
+            update_qty.append('id', cart_id);
+            update_qty.append('item_id', item_id);
+            update_qty.append('qty', qty);
+            update_qty.append('_method', 'PUT');
+
+            $.ajax({
+                type: 'POST',
+                url: '{!! url("cart") !!}' + '/' + cart_id,
+                data: update_qty,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    if (data.errors) {
+                        // toastr.error('Something went wrong!', 'Error Alert', {timeOut: 5000});
+                    } else {
+                        // toastr.success('Qty has been updated!', 'Success Alert', {timeOut: 5000});
+                    }
+                },
+                error: function(data) {
+                    // toastr.error('Error when updated Qty!', 'Error Alert', {timeOut: 5000});
                 }
             });
         }

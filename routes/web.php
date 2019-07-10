@@ -24,7 +24,7 @@ Route::get('privacy-policy', 'HomeController@privacypolicy')->name('privacy.poli
 Route::get('terms-and-condition', 'HomeController@termsandcondition')->name('terms.and.condition');
 
 Route::get('shop', 'HomeController@shop')->name('shop');
-Route::get('cart', 'HomeController@cart')->name('cart');
+//Route::get('cart', 'HomeController@cart')->name('cart');
 Route::get('shop/{slug}', 'HomeController@shopVendorDetails')->name('shop.vendor.show');
 Route::get('shop/{slug}/{slugbrand}', 'HomeController@products')->name('products');
 Route::get('shop/{slug}/{slugbrand}/{slugitem}', 'HomeController@itemDetail')->name('item.detail');

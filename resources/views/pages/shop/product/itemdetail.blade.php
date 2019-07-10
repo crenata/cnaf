@@ -8,6 +8,21 @@
     <link rel="stylesheet" href="{{ asset('public/css/user/shop/itemdetail/md.css') }}" media="screen and (min-width: 768px) and (max-width: 991.98px)">
     <link rel="stylesheet" href="{{ asset('public/css/user/shop/itemdetail/lg.css') }}" media="screen and (min-width: 992px) and (max-width: 1199.98px)">
     <link rel="stylesheet" href="{{ asset('public/css/user/shop/itemdetail/xl.css') }}" media="screen and (min-width: 1200px)">
+
+    <style type="text/css">
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            display: none;
+        }
+    </style>
+@endsection
+
+@section('content')
+    <div class="loading">
+        <img src="{{ asset('public/images/loading-ring.gif') }}" alt="" width="100" height="100">
+    </div>
 @endsection
 
 @section('content-container')
@@ -64,10 +79,10 @@
                         <h5>Rp. {{ number_format($item->normal_price) }},-</h5>
                     @endif
                 </div>
-                <div class="add-to-cart mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">
+                <div class="cart mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">
                     <p class="d-inline-block">Quantity</p>
-                    <input type="number" class="d-inline-block ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2 form-control w-25" min="1" max="{{ $item->qty }}">
-                    <button class="btn bg-881a1b d-inline-block px-5 ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2">Add to Cart</button>
+                    <input type="number" class="d-inline-block ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2 form-control w-25 add-qty" min="1" max="{{ $item->qty }}" value="1">
+                    <button class="btn bg-881a1b d-inline-block px-5 ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2 add-to-cart">Add to Cart</button>
                 </div>
                 <div class="compare mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">
                     <a href="#" class="text-decoration-none text-black-50 d-inline-block"><i class="far fa-heart"></i> Add to Wish list</a>
@@ -97,7 +112,22 @@
 @section('scripts')
     {{ Html::script('public/plugin/zoom/jquery.zoom.min.js') }}
 
-    <script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        });
+
+        $('.add-qty').keyup(function() {
+            let current_item = $(this).val();
+            if (current_item > {!! $item->qty !!}) {
+                $(this).val({!! $item->qty !!});
+            }
+        });
+
         $('.info-image')
             .wrap('<span style="display:inline-block"></span>')
             .css('display', 'block')
@@ -151,6 +181,47 @@
                 .zoom({
                     url: $(this).data('image')
                 });
+        });
+        
+        $('.add-to-cart').click(function (e) {
+            let add_cart = new FormData();
+
+            item_id = {!! $item->id !!};
+            qty = $('.add-qty').val();
+
+            add_cart.append('item_id', item_id);
+            add_cart.append('qty', qty);
+
+            if (qty <= {!! $item->qty !!}) {
+                $.ajax({
+                    type: 'POST',
+                    url: '{!! url("cart") !!}',
+                    data: add_cart,
+                    dataType: 'json',
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function() {
+                        $('.loading').css('display', 'block');
+                        $('.container').css('display', 'none');
+                    },
+                    success: function(data) {
+                        $('.loading').css('display', 'none');
+                        $('.container').css('display', 'block');
+                        if (data.errors) {
+                            toastr.error(data.errors, 'Error Alert', {timeOut: 5000});
+                        } else {
+                            toastr.success('Successfully added to Cart!', 'Success Alert', {timeOut: 5000});
+                        }
+                    },
+                    error: function(data) {
+                        $('.loading').css('display', 'none');
+                        $('.container').css('display', 'block');
+                        toastr.error('Failed added to Cart!', 'Error Alert', {timeOut: 5000});
+                    }
+                });
+            } else {
+                toastr.error('Periksa kembali qty yang Anda masukkan, pastikan tidak melebihi stock yang tersedia!', 'Error Alert', {timeOut: 5000});
+            }
         });
     </script>
 @endsection
