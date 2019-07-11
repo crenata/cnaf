@@ -23,6 +23,8 @@ use App\Models\Admin\AssuranceRate;
 use Session;
 use Validator;
 
+use PDF;
+
 class HomeController extends Controller
 {
     /**
@@ -197,6 +199,7 @@ class HomeController extends Controller
     }
 
     public function invoice() {
-        return view('pages.testing.invoice');
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true, 'defaultFont' => 'sans-serif'])->loadView('pages.testing.invoice');
+        return $pdf->stream();
     }
 }
