@@ -19,6 +19,10 @@ class Helper {
         return uniqid('CNAF-' . date('Ymd') . '-IMAGE-' . md5(uniqid(rand(), true)));
     }
 
+    public static function getInvoiceRandomName() {
+        return 'INVOICE-' . date('Ymd') . '-SCR-' . substr(md5(uniqid(rand(), true)), -6);
+    }
+
     /**
      * set location for public directory
      * @param String $directory

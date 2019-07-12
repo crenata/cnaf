@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 use App\Helpers\Helper;
 
@@ -199,7 +200,19 @@ class HomeController extends Controller
     }
 
     public function invoice() {
-        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true, 'defaultFont' => 'sans-serif'])->loadView('pages.testing.invoice');
+        $random_name = Helper::getInvoiceRandomName();
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true, 'defaultFont' => 'sans-serif'])
+            ->loadView('pages.testing.invoice')
+            ->save(env('UPLOAD_PATH') . "invoice/$random_name.pdf");
+
+        Mail::send('pages.testing.mail', [], function ($message) use ($random_name) {
+            $message->from('havea.crenata@gmail.com', 'Scranaver Plediagester')
+                ->to('hafiizh.ghulam@gmail.com')
+                ->subject('Invoice')
+                ->attach(env('UPLOAD_PATH') . "invoice/$random_name.pdf");
+        });
+
         return $pdf->stream();
+//        return $pdf->download('invoice.pdf');
     }
 }

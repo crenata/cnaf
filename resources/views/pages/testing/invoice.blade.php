@@ -187,7 +187,7 @@
                 </div>
                 <div class="float-left text-right" style="width: 25%;">
                     <div class="" style="padding: 10px;">
-                        <p class="m-0"><b>Rp. 10,000,000,-</b></p>
+                        <p class="m-0"><b>Rp. 15,000,000,-</b></p>
                     </div>
                 </div>
             </div>

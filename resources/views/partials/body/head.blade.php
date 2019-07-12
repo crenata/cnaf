@@ -8,12 +8,12 @@
 <link rel="apple-touch-icon" href="{{ asset('public/plugin/mui-trade-template/mmenu/assets/images/apple-touch-icon.png') }}">
 <link rel="shortcut icon" href="{{ asset('public/plugin/mui-trade-template/mmenu/assets/images/favicon.ico') }}">
 
+@include('partials.components.css')
+
+@yield('stylesheets')
+
 <style>
     html {
         font-family: 'Open Sans', sans-serif !important;
     }
 </style>
-
-@include('partials.components.css')
-
-@yield('stylesheets')
