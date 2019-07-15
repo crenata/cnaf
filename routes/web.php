@@ -19,6 +19,7 @@ Route::get('simulasi', 'HomeController@simulasi')->name('simulasi');
 Route::post('simulasi', 'HomeController@simulasiFromHome')->name('simulasi.from.home');
 Route::get('tentang-kami', 'HomeController@tentangkami')->name('tentangkami');
 
+Route::get('contact', 'HomeController@contact')->name('contact');
 Route::get('faq', 'HomeController@faq')->name('faq');
 Route::get('privacy-policy', 'HomeController@privacypolicy')->name('privacy.policy');
 Route::get('terms-and-condition', 'HomeController@termsandcondition')->name('terms.and.condition');

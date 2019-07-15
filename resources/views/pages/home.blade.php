@@ -208,7 +208,7 @@
                     <div class="text-center p-0 m-0">
                         <h6 class="text-white">Masih ada pertanyaan?</h6>
                         <a href="{{ route('faq') }}" class="bg-881a1b btn py-xl-3 py-lg-3 py-md-2 px-xl-5 px-lg-5 px-md-4 mt-4 font-weight-bold">Halaman FAQ &emsp; <i class="fas fa-arrow-right"></i></a>
-                        <p class="text-white mt-4 mb-0">atau <a href="#" class="text-white font-weight-bold"><ins>kontak kami</ins></a></p>
+                        <p class="text-white mt-4 mb-0">atau <a href="{{ route('contact') }}" class="text-white font-weight-bold"><ins>kontak kami</ins></a></p>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,15 @@
+.banner {
+    height: 40vw;
+    background: url("http://localhost/cnaf/public/images/home/banner.jpg") no-repeat center;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.contact {
+    margin-top: -170px;
+}
+.contact .contact-content {
+    background: white;
+    padding: 2rem;
+}

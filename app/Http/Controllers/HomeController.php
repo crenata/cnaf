@@ -59,6 +59,10 @@ class HomeController extends Controller
         return view('pages.articles')->withBlogs($blogs);
     }
 
+    public function contact() {
+        return view('pages.contact');
+    }
+
     public function faq() {
         return view('pages.faq');
     }

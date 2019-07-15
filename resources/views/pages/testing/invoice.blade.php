@@ -120,54 +120,30 @@
                 </div>
 
                 @foreach(array(0, 1, 2) as $item)
-                    @if($loop->last)
-                        <div class="clear table-content">
-                            <div class="float-left" style="width: 40%;">
-                                <div class="" style="padding: 10px;">
-                                    <p class="m-0"><small>Ariston Built-in Microwave HFAJMLJ</small></p>
-                                    <p class="m-0"><small>#UA389J3RIA7YW8D7H</small></p>
-                                </div>
-                            </div>
-                            <div class="float-left text-right" style="width: 10%;">
-                                <div class="" style="padding: 10px;">
-                                    <p class="m-0"><small>1</small></p>
-                                </div>
-                            </div>
-                            <div class="float-left text-right" style="width: 25%;">
-                                <div class="" style="padding: 10px;">
-                                    <p class="m-0"><small>Rp. 5,000,000,-</small></p>
-                                </div>
-                            </div>
-                            <div class="float-left text-right" style="width: 25%;">
-                                <div class="" style="padding: 10px;">
-                                    <p class="m-0"><small>Rp. 5,000,000,-</small></p>
-                                </div>
+                    <div class="clear table-content">
+                        <div class="float-left" style="width: 40%;">
+                            <div class="" style="padding: 10px;">
+                                <p class="m-0"><small>Ariston Built-in Microwave HFAJMLJ</small></p>
+                                <p class="m-0"><small>#UA389J3RIA7YW8D7H</small></p>
                             </div>
                         </div>
-                    @else
-                        <div class="clear table-content">
-                            <div class="float-left" style="width: 40%;">
-                                <div class="" style="padding: 10px;">
-                                    <p class="m-0"><small>Ariston Built-in Microwave HFAJMLJ</small></p>
-                                    <p class="m-0"><small>#UA389J3RIA7YW8D7H</small></p>
-                                </div>
-                            </div>
-                            <div class="float-left text-right" style="width: 10%;">
-                                <div class="" style="padding: 10px;">
-                                    <p class="m-0"><small>1</small></p>
-                                </div>
-                            </div>
-                            <div class="float-left text-right" style="width: 25%;">
-                                <div class="" style="padding: 10px;">
-                                    <p class="m-0"><small>Rp. 5,000,000,-</small></p>
-                                </div>
-                            </div>
-                            <div class="float-left text-right" style="width: 25%;">
-                                <div class="" style="padding: 10px;">
-                                    <p class="m-0"><small>Rp. 5,000,000,-</small></p>
-                                </div>
+                        <div class="float-left text-right" style="width: 10%;">
+                            <div class="" style="padding: 10px;">
+                                <p class="m-0"><small>1</small></p>
                             </div>
                         </div>
+                        <div class="float-left text-right" style="width: 25%;">
+                            <div class="" style="padding: 10px;">
+                                <p class="m-0"><small>Rp. 5,000,000,-</small></p>
+                            </div>
+                        </div>
+                        <div class="float-left text-right" style="width: 25%;">
+                            <div class="" style="padding: 10px;">
+                                <p class="m-0"><small>Rp. 5,000,000,-</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    @if(!$loop->last)
                         <hr style="border: 1px dashed #F2F2F2;">
                     @endif
                 @endforeach

@@ -51,11 +51,11 @@
         }
 
         .info-content {
-            color: rgba(0, 0, 0, 0.5);
+            color: rgba(0, 0, 0, 0.6);
         }
 
         hr {
-            color: rgba(0, 0, 0, 0.5);
+            color: rgba(0, 0, 0, 0.6);
         }
     </style>
 </head>
@@ -75,24 +75,24 @@
                                     <h1 style="color: #881a1b; font-weight: bold; margin-top: 3rem;">Pesanan Datang!</h1>
                                     <p style="color: #3d4852;">Produk Anda telah dipesan dengan rincian sebagai berikut :</p>
                                     <div class="info-content">
-                                        <div class="clearfix" style="margin-top: 1rem;">
-                                            <p class="float-left" style="margin: 0;"><b>Nomor Purchase Order</b></p>
-                                            <p class="float-right" style="margin: 0;"><b>1234567890</b></p>
+                                        <div class="clearfix">
+                                            <p class="float-left" style="margin: 8px 0;"><b>Nomor Purchase Order</b></p>
+                                            <p class="float-right" style="margin: 8px 0;"><b>1234567890</b></p>
                                         </div>
                                         <hr style="width: 100%;">
-                                        <div class="clearfix" style="margin-top: 1rem;">
-                                            <p class="float-left" style="margin: 0;">Tanggal Pemesanan</p>
-                                            <p class="float-right" style="margin: 0;">12 Juli 2019</p>
+                                        <div class="clearfix">
+                                            <p class="float-left" style="margin: 8px 0;">Tanggal Pemesanan</p>
+                                            <p class="float-right" style="margin: 8px 0;">12 Juli 2019</p>
                                         </div>
                                         <hr style="width: 100%;">
-                                        <div class="clearfix" style="margin-top: 1rem;">
-                                            <p class="float-left" style="margin: 0;">Nama Pemesan</p>
-                                            <p class="float-right" style="margin: 0;">Sutrisno</p>
+                                        <div class="clearfix">
+                                            <p class="float-left" style="margin: 8px 0;">Nama Pemesan</p>
+                                            <p class="float-right" style="margin: 8px 0;">Sutrisno</p>
                                         </div>
                                         <hr style="width: 100%;">
-                                        <div class="clearfix" style="margin-top: 1rem;">
-                                            <p class="float-left" style="margin: 0;">Nomor Telepon</p>
-                                            <p class="float-right" style="margin: 0;">0784921763821</p>
+                                        <div class="clearfix">
+                                            <p class="float-left" style="margin: 8px 0;">Nomor Telepon</p>
+                                            <p class="float-right" style="margin: 8px 0;">0784921763821</p>
                                         </div>
                                         <hr style="width: 100%;">
                                     </div>
@@ -102,7 +102,7 @@
                                                 <table border="0" cellpadding="0" cellspacing="0">
                                                     <tr>
                                                         <td align="center">
-                                                            <a href="http://localhost/cnaf/" class="button bg-881a1b" target="_blank" style="border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); display: inline-block; text-decoration: none; -webkit-text-size-adjust: none; border-top: 10px solid #3490dc; border-right: 18px solid #3490dc; border-bottom: 10px solid #3490dc; border-left: 18px solid #3490dc;">
+                                                            <a href="http://localhost/cnaf/" class="button bg-881a1b" target="_blank" style="border-radius: 3px; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16); display: inline-block; text-decoration: none; padding: 0.8rem 2.5rem;">
                                                                 Dapatkan Surat PO
                                                             </a>
                                                         </td>
