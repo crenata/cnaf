@@ -54,24 +54,46 @@ class CartController extends Controller
         $user = Auth::user();
         $item = Item::findOrFail($request->item_id);
 
-        if ($request->qty <= $item->qty) {
-            $validator = Validator::make($request->all(), $this->rules);
+        if (Auth::check()) {
+            if ($item->count() > 0 || $item->count() != 0 || $item->count() != null) {
+                if ($request->qty <= $item->qty) {
+                    $validator = Validator::make($request->all(), $this->rules);
 
-            if ($validator->fails()) {
-                return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+                    if ($validator->fails()) {
+                        return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+                    } else {
+                        $old_cart = Cart::where('user_id', $user->id)->where('item_id', $item->id)->exists();
+
+                        if ($old_cart) {
+                            $update_cart = Cart::where('user_id', $user->id)->where('item_id', $item->id)->firstOrFail();
+                            $update_qty = $request->qty + $update_cart->qty;
+                            if ($update_qty <= $item->qty) {
+                                $update_cart->qty = $update_qty;
+                                $update_cart->save();
+                                return response()->json($update_cart->load('user')->load('item'));
+                            } else {
+                                return response()->json(array('errors' => 'Periksa Cart Anda, Anda sudah memasukkan Qty berlebih!'));
+                            }
+                        } else {
+                            $cart = new Cart;
+
+                            $cart->user_id = $user->id;
+                            $cart->item_id = $request->item_id;
+                            $cart->qty = $request->qty;
+
+                            $cart->save();
+
+                            return response()->json($cart->load('user')->load('item'));
+                        }
+                    }
+                } else {
+                    return response()->json(array('errors' => 'Periksa kembali qty yang Anda masukkan, pastikan tidak melebihi stock yang tersedia!'));
+                }
             } else {
-                $cart = new Cart;
-
-                $cart->user_id = $user->id;
-                $cart->item_id = $request->item_id;
-                $cart->qty = $request->qty;
-
-                $cart->save();
-
-                return response()->json($cart->load('user')->load('item'));
+                return response()->json(array('errors' => 'Periksa kembali barang Anda, mungkin sudah tidak tersedia!'));
             }
         } else {
-            return response()->json(array('errors' => 'Periksa kembali qty yang Anda masukkan, pastikan tidak melebihi stock yang tersedia!'));
+            return response()->json(array('errors' => 'Silahkan login terlebih dahulu!'));
         }
     }
 

@@ -66,15 +66,15 @@
                     @if($item->qty == 1)
                         <p class="m-0">In Stock : {{ $item->qty }} Item</p>
                     @elseif($item->qty == null || $item->qty == 0)
-                        <p class="m-0">In Stock : There is no item</p>
+                        <p class="m-0">Out of Stock</p>
                     @else
                         <p class="m-0">In Stock : {{ number_format($item->qty) }} Items</p>
                     @endif
                 </div>
                 <div class="price">
                     @if($item->price_after_discount != null || $item->price_after_discount != 0)
-                        <p class="text-black-50 d-inline-block"><del>Rp. {{ number_format($item->price_after_discount) }},-</del></p>
-                        <h5 class="d-inline-block ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2">Rp. {{ number_format($item->normal_price) }},-</h5>
+                        <p class="text-black-50 d-inline-block"><del>Rp. {{ number_format($item->normal_price) }},-</del></p>
+                        <h5 class="d-inline-block ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2">Rp. {{ number_format($item->price_after_discount) }},-</h5>
                     @else
                         <h5>Rp. {{ number_format($item->normal_price) }},-</h5>
                     @endif
@@ -82,7 +82,11 @@
                 <div class="cart mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">
                     <p class="d-inline-block">Quantity</p>
                     <input type="number" class="d-inline-block ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2 form-control w-25 add-qty" min="1" max="{{ $item->qty }}" value="1">
-                    <button class="btn bg-881a1b d-inline-block px-5 ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2 add-to-cart">Add to Cart</button>
+                    @auth
+                        <button class="btn bg-881a1b d-inline-block px-5 ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2 add-to-cart">Add to Cart</button>
+                    @else
+                        <button class="btn bg-881a1b d-inline-block px-5 ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2 auth-fail">Add to Cart</button>
+                    @endauth
                 </div>
                 <div class="compare mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">
                     <a href="#" class="text-decoration-none text-black-50 d-inline-block"><i class="far fa-heart"></i> Add to Wish list</a>
@@ -182,6 +186,11 @@
                     url: $(this).data('image')
                 });
         });
+
+        $('.auth-fail').click(function (e) {
+            toastr.error('Silahkan login terlebih dahulu!', 'Error Alert', {timeOut: 5000});
+            $(this).attr('disabled', true);
+        });
         
         $('.add-to-cart').click(function (e) {
             let add_cart = new FormData();
@@ -213,10 +222,10 @@
                             toastr.success('Successfully added to Cart!', 'Success Alert', {timeOut: 5000});
                         }
                     },
-                    error: function(data) {
+                    error: function(xhr, status, error) {
                         $('.loading').css('display', 'none');
                         $('.container').css('display', 'block');
-                        toastr.error('Failed added to Cart!', 'Error Alert', {timeOut: 5000});
+                        toastr.error(error, 'Error Alert', {timeOut: 5000});
                     }
                 });
             } else {
