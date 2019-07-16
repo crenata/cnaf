@@ -23,7 +23,7 @@
     </style>
 
     <script type="text/javascript">
-        let total_price = [], cart_id_saved = [], final_result_total = 0;
+        let total_price = [], cart_id_saved = [], final_result_total = 0, exec_item_id = [], exec_item_qty = [], exec_index = [];
     </script>
 @endsection
 
@@ -50,66 +50,69 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($carts as $cart)
-                    <script type="text/javascript">
-                        cart_id_saved.push({!! $cart->id !!});
-                    </script>
-                    <tr id="cart-id-{{ $cart->id }}">
-                        <td style="width: 6rem;"><img src="{{ $cart->item->image1 }}" alt="" class="w-100"></td>
-                        <td>{{ $cart->item->name }}</td>
-                        <td>{{ $cart->item->vendor->name }}</td>
-                        @if($cart->item->price_after_discount != null || $cart->item->price_after_discount != 0)
-                            @php
-                                $total_price += ($cart->item->price_after_discount * $cart->qty);
-                            @endphp
-                            <td>Rp. {{ number_format($cart->item->price_after_discount) }},-</td>
-                        @else
-                            @php
-                                $total_price += ($cart->item->normal_price * $cart->qty);
-                            @endphp
-                            <td>Rp. {{ number_format($cart->item->normal_price) }},-</td>
-                        @endif
-                        <td>
-                            <button class="min{{ $cart->id }}">-</button>
-                            <input type="number" name="" value="{{ $cart->qty }}" class="total-item{{ $cart->id }}" max="{{ $cart->item->qty }}" min="1">
-                            <button class="plus{{ $cart->id}}">+</button>
+                    @foreach($carts as $index => $cart)
+                        <script type="text/javascript">
+                            cart_id_saved.push({!! $cart->id !!});
+                            exec_item_id.push({!! $cart->item->id !!});
+                            exec_item_qty.push({!! $cart->qty !!});
+                            exec_index.push({!! $index !!});
+                        </script>
+                        <tr id="cart-id-{{ $cart->id }}">
+                            <td style="width: 6rem;"><img src="{{ $cart->item->image1 }}" alt="" class="w-100"></td>
+                            <td>{{ $cart->item->name }}</td>
+                            <td>{{ $cart->item->vendor->name }}</td>
                             @if($cart->item->price_after_discount != null || $cart->item->price_after_discount != 0)
-                                <script type="text/javascript">
-                                    total_price[{!! $cart->id !!}] = ({!! $cart->item->price_after_discount !!} * {!! $cart->qty !!});
-                                    $(document).ready(function () {
-                                        btn_plus({!! $cart->id !!}, {!! $cart->item->price_after_discount !!}, {!! $cart->item->qty !!}, {!! $cart->item->id !!});
-                                        btn_min({!! $cart->id !!}, {!! $cart->item->price_after_discount !!}, {!! $cart->item->id !!});
-                                        input_total_item_keyup({!! $cart->id !!}, {!! $cart->item->price_after_discount !!}, {!! $cart->item->qty !!}, {!! $cart->item->id !!});
-                                    });
-                                </script>
+                                @php
+                                    $total_price += ($cart->item->price_after_discount * $cart->qty);
+                                @endphp
+                                <td>Rp. {{ number_format($cart->item->price_after_discount) }},-</td>
                             @else
-                                <script type="text/javascript">
-                                    total_price[{!! $cart->id !!}] = ({!! $cart->item->normal_price !!} * {!! $cart->qty !!});
-                                    $(document).ready(function () {
-                                        btn_plus({!! $cart->id !!}, {!! $cart->item->normal_price !!}, {!! $cart->item->qty !!}, {!! $cart->item->id !!});
-                                        btn_min({!! $cart->id !!}, {!! $cart->item->normal_price !!}, {!! $cart->item->id !!});
-                                        input_total_item_keyup({!! $cart->id !!}, {!! $cart->item->normal_price !!}, {!! $cart->item->qty !!}, {!! $cart->item->id !!});
-                                    });
-                                </script>
+                                @php
+                                    $total_price += ($cart->item->normal_price * $cart->qty);
+                                @endphp
+                                <td>Rp. {{ number_format($cart->item->normal_price) }},-</td>
                             @endif
-                        </td>
-                        @if($cart->item->price_after_discount != null || $cart->item->price_after_discount != 0)
-                            <td><p class="subtotal-harga{{ $cart->id }}">Rp. {{ number_format($cart->item->price_after_discount * $cart->qty) }},-</p></td>
-                        @else
-                            <td><p class="subtotal-harga{{ $cart->id }}">Rp. {{ number_format($cart->item->normal_price * $cart->qty) }},-</p></td>
-                        @endif
-                        <td>
-                            <a href="javascript:void(0)" data-id="{{ $cart->id }}" class="btn btn-icon btn-pure btn-default on-default remove-row delete">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
+                            <td>
+                                <button class="min{{ $cart->id }}">-</button>
+                                <input type="number" name="" value="{{ $cart->qty }}" class="total-item{{ $cart->id }}" max="{{ $cart->item->qty }}" min="1">
+                                <button class="plus{{ $cart->id}}">+</button>
+                                @if($cart->item->price_after_discount != null || $cart->item->price_after_discount != 0)
+                                    <script type="text/javascript">
+                                        total_price[{!! $cart->id !!}] = ({!! $cart->item->price_after_discount !!} * {!! $cart->qty !!});
+                                        $(document).ready(function () {
+                                            btn_plus({!! $cart->id !!}, {!! $cart->item->price_after_discount !!}, {!! $cart->item->qty !!}, {!! $cart->item->id !!}, {!! $index !!});
+                                            btn_min({!! $cart->id !!}, {!! $cart->item->price_after_discount !!}, {!! $cart->item->id !!}, {!! $index !!});
+                                            input_total_item_keyup({!! $cart->id !!}, {!! $cart->item->price_after_discount !!}, {!! $cart->item->qty !!}, {!! $cart->item->id !!}, {!! $index !!});
+                                        });
+                                    </script>
+                                @else
+                                    <script type="text/javascript">
+                                        total_price[{!! $cart->id !!}] = ({!! $cart->item->normal_price !!} * {!! $cart->qty !!});
+                                        $(document).ready(function () {
+                                            btn_plus({!! $cart->id !!}, {!! $cart->item->normal_price !!}, {!! $cart->item->qty !!}, {!! $cart->item->id !!}, {!! $index !!});
+                                            btn_min({!! $cart->id !!}, {!! $cart->item->normal_price !!}, {!! $cart->item->id !!}, {!! $index !!});
+                                            input_total_item_keyup({!! $cart->id !!}, {!! $cart->item->normal_price !!}, {!! $cart->item->qty !!}, {!! $cart->item->id !!}, {!! $index !!});
+                                        });
+                                    </script>
+                                @endif
+                            </td>
+                            @if($cart->item->price_after_discount != null || $cart->item->price_after_discount != 0)
+                                <td><p class="subtotal-harga{{ $cart->id }}">Rp. {{ number_format($cart->item->price_after_discount * $cart->qty) }},-</p></td>
+                            @else
+                                <td><p class="subtotal-harga{{ $cart->id }}">Rp. {{ number_format($cart->item->normal_price * $cart->qty) }},-</p></td>
+                            @endif
+                            <td>
+                                <a href="javascript:void(0)" data-id="{{ $cart->id }}" data-price="@if($cart->item->price_after_discount != null || $cart->item->price_after_discount != 0){{ $cart->item->price_after_discount }}@else{{ $cart->item->normal_price }}@endif" data-itemid="{{ $cart->item->id }}" data-index="{{ $index }}" class="btn btn-icon btn-pure btn-default on-default remove-row delete">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                    <tr>
+                        <th colspan="5" class="">Total Pengajuan Belanja :</th>
+                        <th><p class="total-all">Rp. {{ number_format($total_price) }},-</p></th>
+                        <th></th>
                     </tr>
-                @endforeach
-                <tr>
-                    <th colspan="5" class="">Total Pengajuan Belanja :</th>
-                    <th><p class="total-all">Rp. {{ number_format($total_price) }},-</p></th>
-                    <th></th>
-                </tr>
                 </tbody>
             </table>
         </div>
@@ -126,13 +129,13 @@
             <div class="select-credit">
                 <p class="m-0">Apakah Anda ingin mengambil tunai untuk sisa kredit Anda?</p>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked required="">
                     <label class="form-check-label" for="exampleRadios1">
                         Ya
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" required="">
                     <label class="form-check-label" for="exampleRadios2">
                         Tidak
                     </label>
@@ -218,7 +221,8 @@
                         </div>
                     </div>
                     <div class="col-6 align-self-center clearfix">
-                        {{ Form::submit('Kirim', array('class' => 'btn bg-881a1b float-right')) }}
+{{--                        {{ Form::submit('Kirim', array('class' => 'btn bg-881a1b float-right')) }}--}}
+                        <button class="btn bg-881a1b float-right exec-cart">Kirim</button>
                     </div>
                 </div>
             </div>
@@ -238,6 +242,9 @@
 
         $('.delete').click(function() {
             let id = $(this).data('id');
+            let price = $(this).data('price');
+            let item_id = $(this).data('itemid');
+            let index = $(this).data('index');
             $.ajax({
                 type: 'DELETE',
                 url: '{!! url("cart") !!}' + '/' + id,
@@ -249,12 +256,49 @@
                     $('.loading').css('display', 'none');
                     $('.container').css('display', 'block');
                     $('#cart-id-' + id).remove();
-                    toastr.success('Successfully remove item from Cart!', 'Success Alert', {timeOut: 5000});
+                    exec_item_id.splice(index, 1);
+                    exec_item_qty.splice(index, 1);
+                    exec_index.splice(index, 1);
+                    // count_price(id, price, item_id, index);
+                    toastr.success('Successfully remove Item from Cart!', 'Success Alert', {timeOut: 5000});
                 },
                 error: function(data) {
                     $('.loading').css('display', 'none');
                     $('.container').css('display', 'block');
-                    toastr.error('Failed remove item from Cart!', 'Error Alert', {timeOut: 5000});
+                    toastr.error('Failed remove Item from Cart!', 'Error Alert', {timeOut: 5000});
+                }
+            });
+        });
+
+        $('.exec-cart').click(function (e) {
+            e.preventDefault();
+
+            let items_id = JSON.stringify(exec_item_id);
+            let qty = JSON.stringify(exec_item_qty);
+
+            let data_string = "items_id=" + items_id + "&qty=" + qty;
+
+            $.ajax({
+                type: 'POST',
+                url: '{!! url("transaction") !!}',
+                data: data_string,
+                beforeSend: function() {
+                    $('.loading').css('display', 'block');
+                    $('.container').css('display', 'none');
+                },
+                success: function(data) {
+                    $('.loading').css('display', 'none');
+                    $('.container').css('display', 'block');
+                    if (data.errors) {
+                        toastr.error(data.errors, 'Error Alert', {timeOut: 5000});
+                    } else {
+                        toastr.success('Successfully Checkout!', 'Success Alert', {timeOut: 5000});
+                    }
+                },
+                error: function(xhr, status, error) {
+                    $('.loading').css('display', 'none');
+                    $('.container').css('display', 'block');
+                    toastr.error(error, 'Error Alert', {timeOut: 5000});
                 }
             });
         });
@@ -263,38 +307,39 @@
             return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '');
         }
 
-        function btn_plus(id, price, qty, item_id) {
+        function btn_plus(id, price, qty, item_id, index) {
             $('.plus' + id).click(function() {
                 if ($(this).prev().val() < qty) {
                     $(this).prev().val(+$(this).prev().val() + 1);
-                    count_price(id, price, item_id);
+                    count_price(id, price, item_id, index);
                 }
             });
         }
 
-        function btn_min(id, price, item_id) {
+        function btn_min(id, price, item_id, index) {
             $('.min' + id).click(function() {
                 if ($(this).next().val() > 1) {
                     $(this).next().val(+$(this).next().val() - 1);
-                    count_price(id, price, item_id);
+                    count_price(id, price, item_id, index);
                 }
             });
         }
 
-        function input_total_item_keyup(id, price, qty, item_id) {
+        function input_total_item_keyup(id, price, qty, item_id, index) {
             $('.total-item' + id).bind('keyup mouseup', function() {
                 let current_item = $(this).val();
                 if (current_item <= qty) {
-                    count_price(id, price, item_id);
+                    count_price(id, price, item_id, index);
                 } else {
                     $(this).val(qty);
-                    count_price(id, price, item_id);
+                    count_price(id, price, item_id, index);
                 }
             });
         }
 
-        function count_price(id, price, item_id) {
+        function count_price(id, price, item_id, index) {
             let current_items = $('.total-item' + id).val();
+            exec_item_qty[index] = current_items;
             let current_prices = current_items * price;
             $('.subtotal-harga' + id).text('Rp. ' + format_money(current_prices) + ',-');
             total_price[id] = current_prices;
