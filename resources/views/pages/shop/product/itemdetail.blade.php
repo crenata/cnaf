@@ -82,11 +82,15 @@
                 <div class="cart mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">
                     <p class="d-inline-block">Quantity</p>
                     <input type="number" class="d-inline-block ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2 form-control w-25 add-qty" min="1" max="{{ $item->qty }}" value="1">
-                    @auth
-                        <button class="btn bg-881a1b d-inline-block px-5 ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2 add-to-cart">Add to Cart</button>
+                    @if($item->qty > 0 || $item->qty != '' || $item->qty != null)
+                        @auth
+                            <button class="btn bg-881a1b d-inline-block px-5 ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2 add-to-cart">Add to Cart</button>
+                        @else
+                            <button class="btn bg-881a1b d-inline-block px-5 ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2 auth-fail">Add to Cart</button>
+                        @endauth
                     @else
-                        <button class="btn bg-881a1b d-inline-block px-5 ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2 auth-fail">Add to Cart</button>
-                    @endauth
+                        <button class="btn bg-881a1b d-inline-block px-5 ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2 stock-habis">Add to Cart</button>
+                    @endif
                 </div>
                 <div class="compare mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">
                     <a href="#" class="text-decoration-none text-black-50 d-inline-block"><i class="far fa-heart"></i> Add to Wish list</a>
@@ -189,6 +193,11 @@
 
         $('.auth-fail').click(function (e) {
             toastr.error('Silahkan login terlebih dahulu!', 'Error Alert', {timeOut: 5000});
+            $(this).attr('disabled', true);
+        });
+
+        $('.stock-habis').click(function (e) {
+            toastr.error('Maaf, Stock saat ini belum tersedia!', 'Error Alert', {timeOut: 5000});
             $(this).attr('disabled', true);
         });
         

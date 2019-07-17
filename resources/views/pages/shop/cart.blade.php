@@ -254,13 +254,14 @@
                 },
                 success: function(data) {
                     $('.loading').css('display', 'none');
-                    $('.container').css('display', 'block');
+                    // $('.container').css('display', 'block');
                     $('#cart-id-' + id).remove();
                     exec_item_id.splice(index, 1);
                     exec_item_qty.splice(index, 1);
                     exec_index.splice(index, 1);
                     // count_price(id, price, item_id, index);
                     toastr.success('Successfully remove Item from Cart!', 'Success Alert', {timeOut: 5000});
+                    location.reload(); /* Change this to recount data */
                 },
                 error: function(data) {
                     $('.loading').css('display', 'none');
@@ -287,12 +288,16 @@
                     $('.container').css('display', 'none');
                 },
                 success: function(data) {
-                    $('.loading').css('display', 'none');
-                    $('.container').css('display', 'block');
                     if (data.errors) {
+                        $('.loading').css('display', 'none');
+                        $('.container').css('display', 'block');
                         toastr.error(data.errors, 'Error Alert', {timeOut: 5000});
                     } else {
                         toastr.success('Successfully Checkout!', 'Success Alert', {timeOut: 5000});
+                        // location.reload();
+                        console.log(data);
+                        $('html').html(data.html);
+                        $('.container').css('display', 'block');
                     }
                 },
                 error: function(xhr, status, error) {

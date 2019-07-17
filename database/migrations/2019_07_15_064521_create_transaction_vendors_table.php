@@ -15,9 +15,9 @@ class CreateTransactionVendorsTable extends Migration
     {
         Schema::create('transaction_vendors', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('total');
             $table->bigInteger('transaction_id')->unsigned();
             $table->bigInteger('vendor_id')->unsigned();
+            $table->bigInteger('total');
             $table->bigInteger('status')->default(1); // 1 = Menunggu Vendor, 2 = Diproses
             $table->timestamps();
             $table->softDeletes();
