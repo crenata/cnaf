@@ -47,7 +47,8 @@ class HomeController extends Controller
     {
         $blogs = Blog::orderBy('id', 'desc')->limit(3)->get();
         $carregions = CarRegion::orderBy('name', 'asc')->get();
-        return view('pages.home')->withBlogs($blogs)->withCarRegions($carregions);
+        $vendors = Vendor::orderBy('name', 'asc')->get();
+        return view('pages.home')->withBlogs($blogs)->withCarRegions($carregions)->withVendors($vendors);
     }
 
     public function tentangkami() {
@@ -200,7 +201,7 @@ class HomeController extends Controller
     }
 
     public function maps() {
-        return view('pages.testing.maps');
+        return view('pages.testing.success');
     }
 
     public function invoice() {

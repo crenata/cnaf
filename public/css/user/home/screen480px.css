@@ -20,17 +20,6 @@
     font-size: 1.2rem;
 }
 
-.lima-item {
-    margin: 35px 0;
-}
-.lima-item .item {
-    width: 100%;
-    flex-wrap: wrap;
-}
-.lima-item .item .item-image-content {
-    width: 100%;
-}
-
 .banner2 {
     height: 500px;
     background: url("http://localhost/cnaf/public/images/home/banner2.png") no-repeat center;

@@ -23,39 +23,6 @@
 .simulasi .simulasi-content h3 {
     font-size: 1.4rem;
 }
-
-.lima-item {
-    margin: 50px 0;
-}
-.lima-item .item {
-    width: 20%;
-    flex-wrap: wrap;
-}
-.lima-item .item:nth-child(1) {
-    padding-right: 5px;
-}
-.lima-item .item:nth-child(2) {
-    padding: 0 5px;
-}
-.lima-item .item:nth-child(3) {
-    padding: 0 5px;
-}
-.lima-item .item:nth-child(4) {
-    padding: 0 5px;
-}
-.lima-item .item:nth-child(5) {
-    padding-left: 5px;
-}
-.lima-item .item .item-image-content {
-    width: 100%;
-}
-.lima-item .item h5 {
-    font-size: 1.2rem;
-}
-.lima-item .item p {
-    font-size: 0.8rem;
-}
-
 .slider h4 {
     font-size: 1.3rem;
 }

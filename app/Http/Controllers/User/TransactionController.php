@@ -172,13 +172,13 @@ class TransactionController extends Controller
                                     'item' => $this->item,
                                     'items_id' => $this->items_id
                                 ], function ($message) use ($random_name) {
-                                    $message->from('havea.crenata@gmail.com', 'Scranaver Plediagester')
-                                        ->to('hafiizh.ghulam@gmail.com')
+                                    $message->from(env('MAIL_USERNAME'), env('MAIL_INITIAL'))
+                                        ->to($this->user->email)
                                         ->subject('Invoice')
                                         ->attach(env('UPLOAD_PATH') . "invoice/$random_name.pdf");
                                 });
                             });
-                            return response()->json(array('success' => 'Permintaan Anda sedang dikirimkan!', 'html' => view('home')->render()));
+                            return response()->json(array('success' => 'Permintaan Anda sedang dikirimkan!', 'html' => view('pages.shop.success')->render(), 'credit' => $this->user->credit));
                         } catch (Exception $e) {
                             return response()->json(array('errors' => 'Maaf ada kesalahan saat checkout!'));
                         }

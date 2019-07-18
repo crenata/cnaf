@@ -27,9 +27,9 @@
             @auth
                 <li class="nav-item">
                     @if(Auth::user()->credit == null || Auth::user()->credit == '')
-                        <a class="nav-link">Credit Rp. 0,-</a>
+                        <a class="nav-link credit">Credit Rp. 0,-</a>
                     @else
-                        <a class="nav-link">Credit Rp. {{ number_format(Auth::user()->credit) }},-</a>
+                        <a class="nav-link credit">Credit Rp. {{ number_format(Auth::user()->credit) }},-</a>
                     @endif
                 </li>
                 <li class="nav-item dropdown">

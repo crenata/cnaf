@@ -34,11 +34,12 @@
 @endsection
 
 @section('content-container')
-    <div class="products mt-5">
-        <h3 class="">Konfirmasi Pembelanjaan</h3>
-        <div class="table-responsive mt-3">
-            <table class="ui table table-striped table-hover">
-                <thead>
+    <div class="message-replace mt-5">
+        <div class="products">
+            <h3 class="">Konfirmasi Pembelanjaan</h3>
+            <div class="table-responsive mt-3">
+                <table class="ui table table-striped table-hover">
+                    <thead>
                     <tr>
                         <th width="10%">#</th>
                         <th width="25%">Product</th>
@@ -48,8 +49,8 @@
                         <th width="15%">Total Harga</th>
                         <th width="5%">Action</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     @foreach($carts as $index => $cart)
                         <script type="text/javascript">
                             cart_id_saved.push({!! $cart->id !!});
@@ -110,123 +111,124 @@
                     @endforeach
                     <tr>
                         <th colspan="5" class="">Total Pengajuan Belanja :</th>
-                        <th><p class="total-all">Rp. {{ number_format($total_price) }},-</p></th>
+                        <th><p class="total-all m-0">Rp. {{ number_format($total_price) }},-</p></th>
                         <th></th>
                     </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="credit mt-4">
-        {{--<h3 class="">Sisa Kredit Anda</h3>
-        @if(Auth::user()->credit == null || Auth::user()->credit == '')
-            <h5 class="font-weight-bold d-inline-block p-2 bg-881a1b">Rp. 0,-</h5>
-        @else
-            <h5 class="font-weight-bold d-inline-block p-2 bg-881a1b">Rp. {{ number_format(Auth::user()->credit) }},-</h5>
-        @endif--}}
-        <form class="choose mt-3">
-            <div class="select-credit">
-                <p class="m-0">Apakah Anda ingin mengambil tunai untuk sisa kredit Anda?</p>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked required="">
-                    <label class="form-check-label" for="exampleRadios1">
-                        Ya
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" required="">
-                    <label class="form-check-label" for="exampleRadios2">
-                        Tidak
-                    </label>
-                </div>
+                    </tbody>
+                </table>
             </div>
+        </div>
 
-            <div class="select-tenor mt-4">
-                <h3 class="">Pilih Tenor</h3>
-                <div class="row">
-                    <div class="col-5 col-sm-4 col-md-3 col-lg-3 col-xl-2">
-                        <div class="input-group mb-3">
-                            <select class="custom-select" id="inputGroupSelect02">
-                                <option value="12" selected>12</option>
-                                <option value="24">24</option>
-                                <option value="36">36</option>
-                                <option value="48">48</option>
-                            </select>
-                            <div class="input-group-append">
-                                <label class="input-group-text" for="inputGroupSelect02">Bulan</label>
+        <div class="credit mt-4">
+            {{--<h3 class="">Sisa Kredit Anda</h3>
+            @if(Auth::user()->credit == null || Auth::user()->credit == '')
+                <h5 class="font-weight-bold d-inline-block p-2 bg-881a1b">Rp. 0,-</h5>
+            @else
+                <h5 class="font-weight-bold d-inline-block p-2 bg-881a1b">Rp. {{ number_format(Auth::user()->credit) }},-</h5>
+            @endif--}}
+            <form class="choose mt-3">
+                <div class="select-credit">
+                    <p class="m-0">Apakah Anda ingin mengambil tunai untuk sisa kredit Anda?</p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked required="">
+                        <label class="form-check-label" for="exampleRadios1">
+                            Ya
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" required="">
+                        <label class="form-check-label" for="exampleRadios2">
+                            Tidak
+                        </label>
+                    </div>
+                </div>
+
+                <div class="select-tenor mt-4">
+                    <h3 class="">Pilih Tenor</h3>
+                    <div class="row">
+                        <div class="col-5 col-sm-4 col-md-3 col-lg-3 col-xl-2">
+                            <div class="input-group mb-3">
+                                <select class="custom-select" id="inputGroupSelect02">
+                                    <option value="12" selected>12</option>
+                                    <option value="24">24</option>
+                                    <option value="36">36</option>
+                                    <option value="48">48</option>
+                                </select>
+                                <div class="input-group-append">
+                                    <label class="input-group-text" for="inputGroupSelect02">Bulan</label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-7 col-sm-8 col-md-9 col-lg-9 col-xl-10"></div>
-                </div>
-            </div>
-
-            <div class="estimate my-4">
-                <h3 class="">Estimasi Baru setelah pembelanjaan</h3>
-                <div class="bg-881a1b p-4 p-sm-4 p-md-4 p-lg-4 p-xl-4 mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3 rounded">
-                    <h4 class="font-weight-bold">Hasil</h4>
-                    <div class="row small">
-                        <div class="col-6"><p class="m-0">Harga Kendaraan</p></div>
-                        <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-nilai-kendaraan"></p><p class="d-inline-block m-0">,-</p></div>
-
-                        <div class="col-6"><p class="m-0">Pinjaman yang di Ajukan</p></div>
-                        <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-ajukan-pinjaman"></p><p class="d-inline-block m-0">,-</p></div>
-
-                        <div class="col-6"><p class="m-0">Bunga</p></div>
-                        <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0" id="result-bunga"></p></div>
-
-                        <div class="col-6"><p class="m-0">Tenor</p></div>
-                        <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0" id="result-tenor"></p></div>
-                    </div>
-
-                    <div class="row small mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">
-                        <div class="col-6"><p class="m-0">Potongan Asuransi</p></div>
-                        <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-potongan-asuransi"></p><p class="d-inline-block m-0">,-</p></div>
-
-                        <div class="col-6"><p class="m-0">Potongan Admin</p></div>
-                        <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-potongan-admin"></p><p class="d-inline-block m-0">,-</p></div>
-
-                        <div class="col-6"><p class="m-0">Potongan Provisi</p></div>
-                        <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-potongan-provisi"></p><p class="d-inline-block m-0">,-</p></div>
-
-                        <div class="col-6"><p class="m-0">Potongan Polis</p></div>
-                        <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-potongan-polis"></p><p class="d-inline-block m-0">,-</p></div>
-
-                        <div class="col-6"><p class="mb-0 mt-1">Total Potongan</p></div>
-                        <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block mb-0 mt-1">Rp. &nbsp;</p><p class="d-inline-block mb-0 mt-1" id="result-total-potongan"></p><p class="d-inline-block mb-0 mt-1">,-</p></div>
-                    </div>
-
-                    <div class="row small mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">
-                        <div class="col-6"><p class="m-0">Disbursement</p></div>
-                        <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-disbursement"></p><p class="d-inline-block m-0">,-</p></div>
-                    </div>
-
-                    <div class="row small mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">
-                        <div class="col-6"><p class="m-0">Total PH</p></div>
-                        <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-total-ph"></p><p class="d-inline-block m-0">,-</p></div>
-
-                        <div class="col-6"><p class="m-0">Cicilan per Bulan</p></div>
-                        <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-cicilan-perbulan"></p><p class="d-inline-block m-0">,-</p></div>
+                        <div class="col-7 col-sm-8 col-md-9 col-lg-9 col-xl-10"></div>
                     </div>
                 </div>
 
-                <div class="row mt-4">
-                    <div class="col-6 align-self-center">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                            <label class="form-check-label" for="defaultCheck1">
-                                Saya telah menyetujui Syarat & Ketentuan *
-                            </label>
+                <div class="estimate my-4">
+                    <h3 class="">Estimasi Baru setelah pembelanjaan</h3>
+                    <div class="bg-881a1b p-4 p-sm-4 p-md-4 p-lg-4 p-xl-4 mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3 rounded">
+                        <h4 class="font-weight-bold">Hasil</h4>
+                        <div class="row small">
+                            <div class="col-6"><p class="m-0">Harga Kendaraan</p></div>
+                            <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-nilai-kendaraan"></p><p class="d-inline-block m-0">,-</p></div>
+
+                            <div class="col-6"><p class="m-0">Pinjaman yang di Ajukan</p></div>
+                            <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-ajukan-pinjaman"></p><p class="d-inline-block m-0">,-</p></div>
+
+                            <div class="col-6"><p class="m-0">Bunga</p></div>
+                            <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0" id="result-bunga"></p></div>
+
+                            <div class="col-6"><p class="m-0">Tenor</p></div>
+                            <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0" id="result-tenor"></p></div>
+                        </div>
+
+                        <div class="row small mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">
+                            <div class="col-6"><p class="m-0">Potongan Asuransi</p></div>
+                            <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-potongan-asuransi"></p><p class="d-inline-block m-0">,-</p></div>
+
+                            <div class="col-6"><p class="m-0">Potongan Admin</p></div>
+                            <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-potongan-admin"></p><p class="d-inline-block m-0">,-</p></div>
+
+                            <div class="col-6"><p class="m-0">Potongan Provisi</p></div>
+                            <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-potongan-provisi"></p><p class="d-inline-block m-0">,-</p></div>
+
+                            <div class="col-6"><p class="m-0">Potongan Polis</p></div>
+                            <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-potongan-polis"></p><p class="d-inline-block m-0">,-</p></div>
+
+                            <div class="col-6"><p class="mb-0 mt-1">Total Potongan</p></div>
+                            <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block mb-0 mt-1">Rp. &nbsp;</p><p class="d-inline-block mb-0 mt-1" id="result-total-potongan"></p><p class="d-inline-block mb-0 mt-1">,-</p></div>
+                        </div>
+
+                        <div class="row small mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">
+                            <div class="col-6"><p class="m-0">Disbursement</p></div>
+                            <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-disbursement"></p><p class="d-inline-block m-0">,-</p></div>
+                        </div>
+
+                        <div class="row small mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">
+                            <div class="col-6"><p class="m-0">Total PH</p></div>
+                            <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-total-ph"></p><p class="d-inline-block m-0">,-</p></div>
+
+                            <div class="col-6"><p class="m-0">Cicilan per Bulan</p></div>
+                            <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-cicilan-perbulan"></p><p class="d-inline-block m-0">,-</p></div>
                         </div>
                     </div>
-                    <div class="col-6 align-self-center clearfix">
-{{--                        {{ Form::submit('Kirim', array('class' => 'btn bg-881a1b float-right')) }}--}}
-                        <button class="btn bg-881a1b float-right exec-cart">Kirim</button>
+
+                    <div class="row mt-4">
+                        <div class="col-6 align-self-center">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Saya telah menyetujui Syarat & Ketentuan *
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-6 align-self-center clearfix">
+                            {{--                        {{ Form::submit('Kirim', array('class' => 'btn bg-881a1b float-right')) }}--}}
+                            <button class="btn bg-881a1b float-right exec-cart">Kirim</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 @endsection
 
@@ -296,7 +298,9 @@
                         toastr.success('Successfully Checkout!', 'Success Alert', {timeOut: 5000});
                         // location.reload();
                         console.log(data);
-                        $('html').html(data.html);
+                        $('.message-replace').html(data.html);
+                        $('.credit').text('Credit Rp. ' + format_money(data.credit) + ',-');
+                        $('.loading').css('display', 'none');
                         $('.container').css('display', 'block');
                     }
                 },

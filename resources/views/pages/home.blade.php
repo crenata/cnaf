@@ -59,47 +59,47 @@
         </div>
     </div>
 
-    <div class="lima-item">
+    <div class="my-5">
         <div class="container">
-            <div class="clearfix">
-                <div class="item float-left d-flex justify-content-center">
-                    <div class="item-image-content text-center">
-                        <img src="{{ asset('public/images/home/logo1.jpg') }}" alt="">
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                    <div class="item text-center">
+                        <div class="item-image-content">
+                            <img src="{{ asset('public/images/home/logo1.jpg') }}" alt="" width="100">
+                        </div>
+                        <h5 class="font-weight-bold mt-5">Persyaratan Mudah</h5>
+                        <p class="mt-3">Persyaratan Ringan, Proses Cepat, Suku Bunga Bersaing dan Aman</p>
                     </div>
-                    <h5 class="font-weight-bold mt-5 text-center">Persyaratan Mudah</h5>
-                    <p class="text-center mt-3">Solusi pembiayaan dengan jaminan BPKB kendaraan bermotor roda empat dengan ringan, cepat, dan aman.</p>
                 </div>
 
-                <div class="item float-left d-flex justify-content-center">
-                    <div class="item-image-content text-center">
-                        <img src="{{ asset('public/images/home/logo2.jpg') }}" alt="">
+                <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                    <div class="item text-center">
+                        <div class="item-image-content">
+                            <img src="{{ asset('public/images/home/logo5.jpg') }}" alt="" width="100">
+                        </div>
+                        <h5 class="font-weight-bold mt-5">Limit Hingga 80%</h5>
+                        <p class="mt-3">Batas pagu kredit hingga 80% dari nilai kendaraan</p>
                     </div>
-                    <h5 class="font-weight-bold mt-5 text-center">Proses Cepat</h5>
-                    <p class="text-center mt-3">Garansi <b>"1 jam kepastian"</b> kredit nasabah perorangan secara prinsip saat pengajuan kredit multiguna maupun KPM.</p>
                 </div>
 
-                <div class="item float-left d-flex justify-content-center">
-                    <div class="item-image-content text-center">
-                        <img src="{{ asset('public/images/home/logo3.jpg') }}" alt="">
+                <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                    <div class="item text-center">
+                        <div class="item-image-content">
+                            <img src="{{ asset('public/images/home/time.png') }}" alt="" width="100">
+                        </div>
+                        <h5 class="font-weight-bold mt-5">Jangka Waktu Fleksible</h5>
+                        <p class="mt-3">Jangka waktu pinjaman fleksible hingga 4 tahun</p>
                     </div>
-                    <h5 class="font-weight-bold mt-5 text-center">Aman</h5>
-                    <p class="text-center mt-3">Pelayanan yang diberikan kepada pelanggan berada di bawah pengawasan Otoritas Jasa Keuangan.</p>
                 </div>
 
-                <div class="item float-left d-flex justify-content-center">
-                    <div class="item-image-content text-center">
-                        <img src="{{ asset('public/images/home/logo4.jpg') }}" alt="">
+                <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                    <div class="item text-center">
+                        <div class="item-image-content">
+                            <img src="{{ asset('public/images/home/fast-coin.png') }}" alt="" width="100">
+                        </div>
+                        <h5 class="font-weight-bold mt-5">Proses Cepat</h5>
+                        <p class="mt-3">Pencairan Dana Cepat</p>
                     </div>
-                    <h5 class="font-weight-bold mt-5 text-center">Bunga Bersaing</h5>
-                    <p class="text-center mt-3">Suku bunga sangat bersaing dengan pembayaran sudah terjalin dengan bank CIMB.</p>
-                </div>
-
-                <div class="item float-left d-flex justify-content-center">
-                    <div class="item-image-content text-center">
-                        <img src="{{ asset('public/images/home/logo5.jpg') }}" alt="">
-                    </div>
-                    <h5 class="font-weight-bold mt-5 text-center">Limit Hingga 80%</h5>
-                    <p class="text-center mt-3">Limit kredit hingga 80% dari nilai jaminan dan jangka waktu cicilan yang fleksibel dari 1-4 tahun.</p>
                 </div>
             </div>
         </div>
@@ -108,29 +108,15 @@
     <div class="slider mb-5">
         <div class="container">
             <div class="text-center">
-                <h4 class="font-weight-bold text-danger">Dapatkan Penawaran Menarik dari Merchant Kerjasama Kami!</h4>
+                <h4 class="font-weight-bold text-danger">Wujudkan impian Anda dengan berbagai penawaran spesial dari rekanan kami</h4>
                 <div class="loop owl-carousel owl-theme mt-4">
-                    <div class="item">
-                        <img src="http://localhost/storage/cnaf/vendors/CNAF-20190621-IMAGE-2a2c573c88ad8af06d2080c21fb282155d0c4095a7848.jpg" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="http://localhost/storage/cnaf/vendors/CNAF-20190621-IMAGE-596c89b759a0d5f7607bcb5cc92d3e655d0c407e3587c.jpg" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="http://localhost/storage/cnaf/vendors/CNAF-20190624-IMAGE-7c25e09888e0f1069a1dafcae2eaca985d1088adf14f8.jpg" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="http://localhost/storage/cnaf/vendors/CNAF-20190621-IMAGE-2a2c573c88ad8af06d2080c21fb282155d0c4095a7848.jpg" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="http://localhost/storage/cnaf/vendors/CNAF-20190621-IMAGE-596c89b759a0d5f7607bcb5cc92d3e655d0c407e3587c.jpg" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="http://localhost/storage/cnaf/vendors/CNAF-20190624-IMAGE-7c25e09888e0f1069a1dafcae2eaca985d1088adf14f8.jpg" alt="">
-                    </div>
-                    <div class="item">
-                        <img src="http://localhost/storage/cnaf/vendors/CNAF-20190624-IMAGE-7c25e09888e0f1069a1dafcae2eaca985d1088adf14f8.jpg" alt="">
-                    </div>
+                    @foreach($vendors as $vendor)
+                        <div class="item">
+                            <a href="{{ route('shop.vendor.show', $vendor->slug) }}" class="">
+                                <img src="{{ $vendor->image }}" alt="">
+                            </a>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -150,51 +136,50 @@
     <div class="proses-leasing">
         <div class="container">
             <div class="text-center">
-                <h1 class="font-weight-bold">Proses Leasing di sobat CNAF</h1>
-                <p class="mt-xl-5 mt-lg-4 mt-md-3">Masih baru dalam leasing? Jangan khawatir, kami bisa menjelaskannya dengan mudah</p>
+                <h3 class="font-weight-bold">Langkah mudah memanfaatkan Kredit Multi Guna melalui Sobat CNAF</h3>
             </div>
             <div class="row mt-xl-5 mt-lg-4 mt-md-3">
                 <div class="col-md-3 col-sm-6 item">
                     <div class="text-center">
-                        <img src="{{ asset('public/images/home/proses1.png') }}" alt="" class="img-fluid">
+                        <img src="{{ asset('public/images/home/simulasi.png') }}" alt="" class="img-fluid">
                         <div class="text-center">
                             <h6 class="font-weight-bold text-danger">Tahap 1</h6>
-                            <h4 class="font-weight-bold mt-xl-3 mt-lg-2 mt-md-1">Simulasi</h4>
+                            <h6 class="font-weight-bold mt-xl-3 mt-lg-2 mt-md-1">Simulasi</h6>
                         </div>
-                        <p class="text-justify mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut beatae cum deleniti, dolores eveniet, ipsam laborum mollitia necessitatibus nemo nesciunt, odit officia officiis quidem saepe velit veniam voluptatum. Dicta, tenetur!</p>
+                        <p class="text-justify mt-4">Untuk mengetahui nilai kendaraan, maksimum pagu kredit, besarnya cicilan dll. Silahkan isi data kendaraan Anda dan sesuaikan kebutuhan finansial Anda pada table simulasi, Silahkan sesuai jangka waktu cicilan dengan kebutuhan dan kemampuan Anda.</p>
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 item">
                     <div class="text-center">
-                        <img src="{{ asset('public/images/home/proses2.png') }}" alt="" class="img-fluid">
+                        <img src="{{ asset('public/images/home/credit.png') }}" alt="" class="img-fluid">
                         <div class="text-center">
                             <h6 class="font-weight-bold text-danger">Tahap 2</h6>
-                            <h4 class="font-weight-bold mt-xl-3 mt-lg-2 mt-md-1">Pengajuan Kredit</h4>
+                            <h6 class="font-weight-bold mt-xl-3 mt-lg-2 mt-md-1">Pengajuan</h6>
                         </div>
-                        <p class="text-justify mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut beatae cum deleniti, dolores eveniet, ipsam laborum mollitia necessitatibus nemo nesciunt, odit officia officiis quidem saepe velit veniam voluptatum. Dicta, tenetur!</p>
+                        <p class="text-justify mt-4">Apabila sudah sesuai dengan kebutuhan Anda, silahkan isi formulir pengajuan kredit sesuai petunjuk. Pastikan Anda mengisi data dengan lengkap dan benar. Pastikan juga Anda melampirkan (unggah/upload) dokumentasi yang diminta. Bila sudah, silahkan klik tombol pengajuan kredit. Anda dapat melihat status pengajuan Anda pada website sobatcnaf.</p>
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 item">
                     <div class="text-center">
-                        <img src="{{ asset('public/images/home/proses3.png') }}" alt="" class="img-fluid">
+                        <img src="{{ asset('public/images/home/verify.png') }}" alt="" class="img-fluid">
                         <div class="text-center">
                             <h6 class="font-weight-bold text-danger">Tahap 3</h6>
-                            <h4 class="font-weight-bold mt-xl-3 mt-lg-2 mt-md-1">Kunjungan oleh CNAF</h4>
+                            <h6 class="font-weight-bold mt-xl-3 mt-lg-2 mt-md-1">Persetujuan dan Verifikasi</h6>
                         </div>
-                        <p class="text-justify mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut beatae cum deleniti, dolores eveniet, ipsam laborum mollitia necessitatibus nemo nesciunt, odit officia officiis quidem saepe velit veniam voluptatum. Dicta, tenetur!</p>
+                        <p class="text-justify mt-4">CIMB Niaga Auto Finance akan melakukan proses pengajuan kredit Anda sesuai dengan ketentuan. Setelah disetujui, Anda akan dihubungi untuk jadwal kunjungan untuk verifikasi dokumen dan penandatanganan kontrak. Pastikan Anda telah menyiapkan dokumen kendaraan yang disyaratkan serta dokumen pendukung.</p>
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 item">
                     <div class="text-center">
-                        <img src="{{ asset('public/images/home/proses4.png') }}" alt="" class="img-fluid">
+                        <img src="{{ asset('public/images/home/money.png') }}" alt="" class="img-fluid">
                         <div class="text-center">
                             <h6 class="font-weight-bold text-danger">Tahap 4</h6>
-                            <h4 class="font-weight-bold mt-xl-3 mt-lg-2 mt-md-1">Uang Cair</h4>
+                            <h6 class="font-weight-bold mt-xl-3 mt-lg-2 mt-md-1">Pencairan Dana</h6>
                         </div>
-                        <p class="text-justify mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut beatae cum deleniti, dolores eveniet, ipsam laborum mollitia necessitatibus nemo nesciunt, odit officia officiis quidem saepe velit veniam voluptatum. Dicta, tenetur!</p>
+                        <p class="text-justify mt-4">Setelah kontrak kredit ditandatangani dan dokumen dilengkapi, CIMB Niaga Auto Finance akan segera mencairkan dana Anda. Selamat memenuhi impian / Kebutuhan Anda.</p>
                     </div>
                 </div>
             </div>
