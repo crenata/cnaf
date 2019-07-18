@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('phone');
             $table->string('address');
             $table->string('credit')->nullable();
+            $table->boolean('is_vendor')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

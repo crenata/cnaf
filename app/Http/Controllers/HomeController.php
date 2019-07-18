@@ -51,6 +51,10 @@ class HomeController extends Controller
         return view('pages.home')->withBlogs($blogs)->withCarRegions($carregions)->withVendors($vendors);
     }
 
+    public function account() {
+        return view('pages.user.account');
+    }
+
     public function tentangkami() {
         return view('pages.tentangkami');
     }
@@ -201,7 +205,7 @@ class HomeController extends Controller
     }
 
     public function maps() {
-        return view('pages.testing.success');
+        return view('pages.testing.maps');
     }
 
     public function invoice() {

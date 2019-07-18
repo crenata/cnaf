@@ -54,6 +54,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'phone' => ['required', 'numeric', 'min:10'],
             'address' => ['required', 'string'],
+            'is_vendor' => [],
         ]);
     }
 
@@ -71,6 +72,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'phone' => $data['phone'],
             'address' => $data['address'],
+            'is_vendor' => empty($data['is_vendor']) ? false : true,
         ]);
     }
 }
