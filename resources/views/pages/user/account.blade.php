@@ -101,7 +101,7 @@
                 <ul class="nacc list-unstyled">
                     <li class="active w-100">
                         <div class="rounded p-4">
-                            <h5 class="font-weight-bold">Anda belum memiliki pengajuan, klik <a href="{{ route('simulasi') }}" class="">disini</a> untuk melakukan pengajuan.</h5>
+                            {{--<h5 class="font-weight-bold">Anda belum memiliki pengajuan, klik <a href="{{ route('simulasi') }}" class="">disini</a> untuk melakukan pengajuan.</h5>--}}
                             <h5 class="font-weight-bold">Status Pengajuan Anda</h5>
                             <div class="border rounded p-3">
                                 <div class="row">
