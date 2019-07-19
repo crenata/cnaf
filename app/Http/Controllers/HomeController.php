@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 use App\Helpers\Helper;
@@ -20,6 +21,8 @@ use App\Models\Admin\CarYear;
 use App\Models\Admin\FlatRate;
 use App\Models\Admin\AssuranceType;
 use App\Models\Admin\AssuranceRate;
+
+use App\Models\User\Transaction;
 
 use Session;
 use Validator;
@@ -52,7 +55,9 @@ class HomeController extends Controller
     }
 
     public function account() {
-        return view('pages.user.account');
+        $user = Auth::user();
+        $transactions = Transaction::where('user_id', $user->id)->get();
+        return view('pages.user.account')->withTransactions($transactions);
     }
 
     public function tentangkami() {

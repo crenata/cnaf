@@ -18,7 +18,7 @@
     <div class="banner d-flex" id="banner">
         <div class="container align-self-center">
             <div class="banner-content">
-                <h1 class="text-white">Kebutuhan apapun, Leasing dibuat jadi mudah</h1>
+                <h1 class="text-white">Apapun kebutuhan Anda, <br> CNAF membantu mewujudkannya</h1>
             </div>
         </div>
     </div>

@@ -20,4 +20,8 @@ class TransactionVendor extends Model
     public function vendor() {
         return $this->belongsTo('App\Models\Admin\Vendor');
     }
+
+    public function transaction_vendor_details() {
+        return $this->hasMany('App\Models\User\TransactionVendorDetail');
+    }
 }
