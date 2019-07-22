@@ -3,7 +3,7 @@
 <head>
     @include('partials.body.head')
 </head>
-<body>
+<body style="min-height: 100vh; display: block; position: relative;">
     <div class="shadow">
         <div class="container">
             @include('partials.attributs.nav')

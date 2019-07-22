@@ -128,6 +128,14 @@ class HomeController extends Controller
         return view('pages.shop.home')->withVendors($vendors);
     }
 
+    public function shopLogin() {
+        return view('pages.shop.login');
+    }
+
+    public function howToShop() {
+        return view('pages.shop.howtoshop');
+    }
+
     public function shopVendorDetails($slug) {
         $vendor = Vendor::where('slug', $slug)->firstOrFail();
         $brands = Brand::where('vendor_id', $vendor->id)->paginate(7);
@@ -210,7 +218,7 @@ class HomeController extends Controller
     }
 
     public function maps() {
-        return view('pages.testing.maps');
+        return view('pages.testing.sticky');
     }
 
     public function invoice() {

@@ -214,7 +214,7 @@
                                     <img src="{{ $blog->image }}" class="card-img-top" alt="">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ $blog->name }}</h5>
-                                        <div class="card-text">{!! $blog->body !!}</div>
+                                        <div class="card-text">{{ substr(strip_tags($blog->body), 0, 300) }}{{ strlen(strip_tags($blog->body)) > 300 ? "..." : "" }}</div>
                                         <a href="#" class="btn bg-881a1b py-xl-3 py-lg-2 py-md-1 px-xl-5 px-lg-4 px-md-3 font-weight-bold selengkapnya">Selengkapnya &emsp; <i class="fas fa-arrow-right"></i></a>
                                     </div>
                                 </div>

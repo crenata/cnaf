@@ -86,7 +86,7 @@
                         @auth
                             <button class="btn bg-881a1b d-inline-block px-5 ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2 add-to-cart">Add to Cart</button>
                         @else
-                            <button class="btn bg-881a1b d-inline-block px-5 ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2 auth-fail">Add to Cart</button>
+                            <a href="{{ route('shop.login') }}" class="btn bg-881a1b d-inline-block px-5 ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2">Add to Cart</a>
                         @endauth
                     @else
                         <button class="btn bg-881a1b d-inline-block px-5 ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2 stock-habis">Add to Cart</button>
@@ -191,10 +191,10 @@
                 });
         });
 
-        $('.auth-fail').click(function (e) {
+        /*$('.auth-fail').click(function (e) {
             toastr.error('Silahkan login terlebih dahulu!', 'Error Alert', {timeOut: 5000});
             $(this).attr('disabled', true);
-        });
+        });*/
 
         $('.stock-habis').click(function (e) {
             toastr.error('Maaf, Stock saat ini belum tersedia!', 'Error Alert', {timeOut: 5000});

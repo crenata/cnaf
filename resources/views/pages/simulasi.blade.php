@@ -266,64 +266,64 @@
                     </div>
                 </div>
             </div>
+
+            <div class="bg-881a1b p-4 p-sm-4 p-md-4 p-lg-4 p-xl-4 mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3 rounded">
+                <h4 class="font-weight-bold">Hasil</h4>
+                <div class="row small">
+                    <div class="col-6"><p class="m-0">Harga Kendaraan</p></div>
+                    <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-nilai-kendaraan"></p><p class="d-inline-block m-0">,-</p></div>
+
+                    <div class="col-6"><p class="m-0">Pinjaman yang di Ajukan</p></div>
+                    <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-ajukan-pinjaman"></p><p class="d-inline-block m-0">,-</p></div>
+
+                    <div class="col-6"><p class="m-0">Bunga</p></div>
+                    <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0" id="result-bunga"></p></div>
+
+                    <div class="col-6"><p class="m-0">Tenor</p></div>
+                    <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0" id="result-tenor"></p></div>
+                </div>
+
+                <div class="row small mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">
+                    <div class="col-6"><p class="m-0">Potongan Asuransi</p></div>
+                    <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-potongan-asuransi"></p><p class="d-inline-block m-0">,-</p></div>
+
+                    <div class="col-6"><p class="m-0">Potongan Admin</p></div>
+                    <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-potongan-admin"></p><p class="d-inline-block m-0">,-</p></div>
+
+                    <div class="col-6"><p class="m-0">Potongan Provisi</p></div>
+                    <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-potongan-provisi"></p><p class="d-inline-block m-0">,-</p></div>
+
+                    <div class="col-6"><p class="m-0">Potongan Polis</p></div>
+                    <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-potongan-polis"></p><p class="d-inline-block m-0">,-</p></div>
+
+                    <div class="col-6"><p class="mb-0 mt-1">Total Potongan</p></div>
+                    <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block mb-0 mt-1">Rp. &nbsp;</p><p class="d-inline-block mb-0 mt-1" id="result-total-potongan"></p><p class="d-inline-block mb-0 mt-1">,-</p></div>
+                </div>
+
+                <div class="row small mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">
+                    <div class="col-6"><p class="m-0">Disbursement</p></div>
+                    <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-disbursement"></p><p class="d-inline-block m-0">,-</p></div>
+                </div>
+
+                <div class="row small mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">
+                    <div class="col-6"><p class="m-0">Total PH</p></div>
+                    <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-total-ph"></p><p class="d-inline-block m-0">,-</p></div>
+
+                    <div class="col-6"><p class="m-0">Cicilan per Bulan</p></div>
+                    <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-cicilan-perbulan"></p><p class="d-inline-block m-0">,-</p></div>
+                </div>
+            </div>
+
+            <div class="mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-4">
+                <h6 class="font-weight-bold">Hal yang mungkin perlu anda ketahui</h6>
+                <p class="m-0"><a href="{{ route('faq') }}" class="text-body small"><ins>Baca FAQ (Pertanyaan umum)</ins></a></p>
+                <p class="m-0"><a href="{{ route('terms.and.condition') }}" class="text-body small"><ins>Baca Syarat dan Ketentuan</ins></a></p>
+            </div>
+
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-sm bg-881a1b rounded-pill px-3">AJUKAN SEKARANG &nbsp; <i class="fas fa-arrow-right"></i></button>
+            </div>
         </form>
-
-        <div class="bg-881a1b p-4 p-sm-4 p-md-4 p-lg-4 p-xl-4 mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3 rounded">
-            <h4 class="font-weight-bold">Hasil</h4>
-            <div class="row small">
-                <div class="col-6"><p class="m-0">Harga Kendaraan</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-nilai-kendaraan"></p><p class="d-inline-block m-0">,-</p></div>
-
-                <div class="col-6"><p class="m-0">Pinjaman yang di Ajukan</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-ajukan-pinjaman"></p><p class="d-inline-block m-0">,-</p></div>
-
-                <div class="col-6"><p class="m-0">Bunga</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0" id="result-bunga"></p></div>
-
-                <div class="col-6"><p class="m-0">Tenor</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0" id="result-tenor"></p></div>
-            </div>
-
-            <div class="row small mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">
-                <div class="col-6"><p class="m-0">Potongan Asuransi</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-potongan-asuransi"></p><p class="d-inline-block m-0">,-</p></div>
-
-                <div class="col-6"><p class="m-0">Potongan Admin</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-potongan-admin"></p><p class="d-inline-block m-0">,-</p></div>
-
-                <div class="col-6"><p class="m-0">Potongan Provisi</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-potongan-provisi"></p><p class="d-inline-block m-0">,-</p></div>
-
-                <div class="col-6"><p class="m-0">Potongan Polis</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-potongan-polis"></p><p class="d-inline-block m-0">,-</p></div>
-
-                <div class="col-6"><p class="mb-0 mt-1">Total Potongan</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block mb-0 mt-1">Rp. &nbsp;</p><p class="d-inline-block mb-0 mt-1" id="result-total-potongan"></p><p class="d-inline-block mb-0 mt-1">,-</p></div>
-            </div>
-
-            <div class="row small mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">
-                <div class="col-6"><p class="m-0">Disbursement</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-disbursement"></p><p class="d-inline-block m-0">,-</p></div>
-            </div>
-
-            <div class="row small mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-3">
-                <div class="col-6"><p class="m-0">Total PH</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-total-ph"></p><p class="d-inline-block m-0">,-</p></div>
-
-                <div class="col-6"><p class="m-0">Cicilan per Bulan</p></div>
-                <div class="col-6"><p class="semicolon-result d-inline-block m-0">: &nbsp;</p><p class="d-inline-block m-0">Rp. &nbsp;</p><p class="d-inline-block m-0" id="result-cicilan-perbulan"></p><p class="d-inline-block m-0">,-</p></div>
-            </div>
-        </div>
-
-        <div class="mt-3 mt-sm-3 mt-md-3 mt-lg-3 mt-xl-4">
-            <h6 class="font-weight-bold">Hal yang mungkin perlu anda ketahui</h6>
-            <p class="m-0"><a href="{{ route('faq') }}" class="text-body small"><ins>Baca FAQ (Pertanyaan umum)</ins></a></p>
-            <p class="m-0"><a href="{{ route('terms.and.condition') }}" class="text-body small"><ins>Baca Syarat dan Ketentuan</ins></a></p>
-        </div>
-
-        <div class="text-center mt-3">
-            <a href="#" class="btn btn-sm bg-881a1b rounded-pill px-3">AJUKAN SEKARANG &nbsp; <i class="fas fa-arrow-right"></i></a>
-        </div>
     </div>
 @endsection
 

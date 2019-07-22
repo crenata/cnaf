@@ -243,34 +243,36 @@
         });
 
         $('.delete').click(function() {
-            let id = $(this).data('id');
-            let price = $(this).data('price');
-            let item_id = $(this).data('itemid');
-            let index = $(this).data('index');
-            $.ajax({
-                type: 'DELETE',
-                url: '{!! url("cart") !!}' + '/' + id,
-                beforeSend: function() {
-                    $('.loading').css('display', 'block');
-                    $('.container').css('display', 'none');
-                },
-                success: function(data) {
-                    $('.loading').css('display', 'none');
-                    // $('.container').css('display', 'block');
-                    $('#cart-id-' + id).remove();
-                    exec_item_id.splice(index, 1);
-                    exec_item_qty.splice(index, 1);
-                    exec_index.splice(index, 1);
-                    // count_price(id, price, item_id, index);
-                    toastr.success('Successfully remove Item from Cart!', 'Success Alert', {timeOut: 5000});
-                    location.reload(); /* Change this to recount data */
-                },
-                error: function(data) {
-                    $('.loading').css('display', 'none');
-                    $('.container').css('display', 'block');
-                    toastr.error('Failed remove Item from Cart!', 'Error Alert', {timeOut: 5000});
-                }
-            });
+            if (confirm('Are you sure?')) {
+                let id = $(this).data('id');
+                let price = $(this).data('price');
+                let item_id = $(this).data('itemid');
+                let index = $(this).data('index');
+                $.ajax({
+                    type: 'DELETE',
+                    url: '{!! url("cart") !!}' + '/' + id,
+                    beforeSend: function() {
+                        $('.loading').css('display', 'block');
+                        $('.container').css('display', 'none');
+                    },
+                    success: function(data) {
+                        $('.loading').css('display', 'none');
+                        // $('.container').css('display', 'block');
+                        $('#cart-id-' + id).remove();
+                        exec_item_id.splice(index, 1);
+                        exec_item_qty.splice(index, 1);
+                        exec_index.splice(index, 1);
+                        // count_price(id, price, item_id, index);
+                        toastr.success('Successfully remove Item from Cart!', 'Success Alert', {timeOut: 5000});
+                        location.reload(); /* Change this to recount data */
+                    },
+                    error: function(data) {
+                        $('.loading').css('display', 'none');
+                        $('.container').css('display', 'block');
+                        toastr.error('Failed remove Item from Cart!', 'Error Alert', {timeOut: 5000});
+                    }
+                });
+            }
         });
 
         $('.exec-cart').click(function (e) {
@@ -338,7 +340,12 @@
             $('.total-item' + id).bind('keyup mouseup', function() {
                 let current_item = $(this).val();
                 if (current_item <= qty) {
-                    count_price(id, price, item_id, index);
+                    if (current_item >= 1) {
+                        count_price(id, price, item_id, index);
+                    } else {
+                        $(this).val(1);
+                        count_price(id, price, item_id, index);
+                    }
                 } else {
                     $(this).val(qty);
                     count_price(id, price, item_id, index);

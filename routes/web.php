@@ -23,9 +23,10 @@ Route::get('contact', 'HomeController@contact')->name('contact');
 Route::get('faq', 'HomeController@faq')->name('faq');
 Route::get('privacy-policy', 'HomeController@privacypolicy')->name('privacy.policy');
 Route::get('terms-and-condition', 'HomeController@termsandcondition')->name('terms.and.condition');
+Route::get('how-to-shop', 'HomeController@howToShop')->name('how.to.shop');
 
 Route::get('shop', 'HomeController@shop')->name('shop');
-//Route::get('cart', 'HomeController@cart')->name('cart');
+Route::get('shop/login', 'HomeController@shopLogin')->name('shop.login');
 Route::get('shop/{slug}', 'HomeController@shopVendorDetails')->name('shop.vendor.show');
 Route::get('shop/{slug}/{slugbrand}', 'HomeController@products')->name('products');
 Route::get('shop/{slug}/{slugbrand}/{slugitem}', 'HomeController@itemDetail')->name('item.detail');
@@ -42,6 +43,6 @@ Route::get('simulasi/assurancerate/{id}/{assurancetypeid}', 'HomeController@assu
 Route::get('maps', 'HomeController@maps')->name('maps');
 Route::get('invoice', 'HomeController@invoice')->name('invoice');
 
-Route::middleware(array('web', 'auth'))->group(function () {
+Route::middleware(array('web', 'auth', 'verified'))->group(function () {
     Route::get('account', 'HomeController@account')->name('account');
 });

@@ -28,6 +28,16 @@
             }
         });
     }
+
+    footer_height();
+    $(window).resize(function () {
+        footer_height();
+    });
+
+    function footer_height() {
+        let footer_height = $('footer').height();
+        $('body').css('padding-bottom', footer_height);
+    }
 </script>
 
 @yield('scripts')
