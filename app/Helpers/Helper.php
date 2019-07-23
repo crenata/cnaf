@@ -40,24 +40,30 @@ class Helper {
         return $path;
     }
 
-    public static function interventionUploadImage($picture, $size = array('width', 'height'), $directory = 'items') {
-        $random_name = Helper::getRandomName();
-        $extension = $picture->getClientOriginalExtension();
-        $filename = $random_name . '.' . $extension;
-        $location = Helper::setDirectoryUpload($directory);
+    public static function interventionUploadImage($picture = null, $size = array('width', 'height'), $directory = 'items') {
+        if ($picture != null) {
+            $random_name = Helper::getRandomName();
+            $extension = $picture->getClientOriginalExtension();
+            $filename = $random_name . '.' . $extension;
+            $location = Helper::setDirectoryUpload($directory);
 
-        // $width = $size['width'];
-        // $height = $size['height'];
+            // $width = $size['width'];
+            // $height = $size['height'];
 
-        $picture->move($location, $filename);
+            $picture->move($location, $filename);
 
-        /*if ($width != null || $width != '' && $height != null || $height != '') {
-        	Image::make($picture)->resize($width, $height)->save($location);
+            /*if ($width != null || $width != '' && $height != null || $height != '') {
+                Image::make($picture)->resize($width, $height)->save($location);
+            } else {
+                Image::make($picture)->save($location);
+            }*/
+
+            return env('LINK_PATH') . "$directory/$filename";
         } else {
-        	Image::make($picture)->save($location);
-        }*/
+            return null;
+        }
 
-        return env('LINK_PATH') . "$directory/$filename";
+        /* Sebelumnya ga pake statement if else, langsung execute */
     }
 
     public static function number_format($n, $precision = 1) {

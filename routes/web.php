@@ -39,6 +39,10 @@ Route::get('simulasi/flatrate/{id}', 'HomeController@flatRateByCarRegion')->name
 Route::get('simulasi/assurancetype', 'HomeController@getAssuranceType')->name('simulasi.get.assurancetype');
 Route::get('simulasi/assurancerate/{id}/{assurancetypeid}', 'HomeController@assuranceRateByCarRegionAndAssuranceType')->name('simulasi.get.assurancerate');
 
+/* Apply */
+Route::post('apply-start', 'User\LeasingController@start')->name('apply.start');
+Route::any('apply/{step}/{code}', 'User\LeasingController@apply')->name('apply');
+
 /* Testing */
 Route::get('maps', 'HomeController@maps')->name('maps');
 Route::get('invoice', 'HomeController@invoice')->name('invoice');

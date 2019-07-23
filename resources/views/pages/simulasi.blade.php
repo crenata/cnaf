@@ -21,7 +21,7 @@
 @section('content-container')
     <h3 class="font-weight-bold mt-4 mt-sm-4 mt-md-4 mt-lg-4 mt-xl-4">Simulasi Kredit</h3>
     <div class="simulasi border rounded p-4 p-sm-4 p-md-4 p-lg-4 p-xl-4 my-4">
-        <form class="form-horizontal" id="simulasi-form">
+        {{ Form::open(['route' => 'apply.start', 'class' => 'form-horizontal', 'id' => 'simulasi-form']) }}
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group row">
@@ -323,7 +323,7 @@
             <div class="text-center mt-3">
                 <button type="submit" class="btn btn-sm bg-881a1b rounded-pill px-3">AJUKAN SEKARANG &nbsp; <i class="fas fa-arrow-right"></i></button>
             </div>
-        </form>
+        {{ Form::close() }}
     </div>
 @endsection
 

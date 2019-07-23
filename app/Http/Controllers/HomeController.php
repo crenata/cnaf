@@ -218,7 +218,7 @@ class HomeController extends Controller
     }
 
     public function maps() {
-        return view('pages.testing.sticky');
+        return view('pages.testing.maps');
     }
 
     public function invoice() {

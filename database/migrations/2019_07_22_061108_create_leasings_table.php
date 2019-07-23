@@ -36,6 +36,10 @@ class CreateLeasingsTable extends Migration
             $table->string('picture5')->nullable(); /* Picture 5 kendaraan */
             $table->string('picture6')->nullable(); /* Picture 6 kendaraan */
             $table->string('status')->nullable(); /* ? */
+            $table->string('car_brand')->nullable(); /* ? */
+            $table->string('car_model')->nullable(); /* ? */
+            $table->string('car_type')->nullable(); /* ? */
+            $table->string('car_year')->nullable(); /* ? */
             $table->bigInteger('car_brand_id')->unsigned()->nullable();
             $table->bigInteger('car_model_id')->unsigned()->nullable();
             $table->bigInteger('car_type_id')->unsigned()->nullable();
