@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Config;
 
 use App\Helpers\Helper;
 
@@ -148,7 +149,7 @@ class ItemController extends Controller
             $item->brand_id = $request->brand_id;
 
             if ($request->hasFile('image1')) {
-                $image_path1 = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $item->image1);
+                $image_path1 = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $item->image1);
 
                 if (file_exists($image_path1)) {
                     unlink($image_path1);
@@ -156,7 +157,7 @@ class ItemController extends Controller
                 $item->image1 = Helper::interventionUploadImage($request->file('image1'), null, 'items');
             }
             if ($request->hasFile('image2')) {
-                $image_path2 = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $item->image2);
+                $image_path2 = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $item->image2);
 
                 if (file_exists($image_path2)) {
                     unlink($image_path2);
@@ -164,7 +165,7 @@ class ItemController extends Controller
                 $item->image2 = Helper::interventionUploadImage($request->file('image2'), null, 'items');
             }
             if ($request->hasFile('image3')) {
-                $image_path3 = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $item->image3);
+                $image_path3 = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $item->image3);
 
                 if (file_exists($image_path3)) {
                     unlink($image_path3);
@@ -172,7 +173,7 @@ class ItemController extends Controller
                 $item->image3 = Helper::interventionUploadImage($request->file('image3'), null, 'items');
             }
             if ($request->hasFile('image4')) {
-                $image_path4 = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $item->image4);
+                $image_path4 = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $item->image4);
 
                 if (file_exists($image_path4)) {
                     unlink($image_path4);
@@ -198,10 +199,10 @@ class ItemController extends Controller
     {
         $item = Item::findOrFail($id);
 
-        $image_path1 = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $item->image1);
-        $image_path2 = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $item->image2);
-        $image_path3 = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $item->image3);
-        $image_path4 = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $item->image4);
+        $image_path1 = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $item->image1);
+        $image_path2 = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $item->image2);
+        $image_path3 = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $item->image3);
+        $image_path4 = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $item->image4);
         
         if (file_exists($image_path1)) {
             unlink($image_path1);

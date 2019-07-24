@@ -48,7 +48,7 @@ class LeasingController extends Controller
                 $tenor = FlatRate::findOrFail($this->request->tenor_id);
 
                 $leasing_id = DB::table('leasings')->insertGetId([
-//                    'user_id' => (Auth::check()) ? Auth::user()->id : '',
+                    'user_id' => ((Auth::check()) ? Auth::user()->id : null),
                     'leasing_value' => $car_year->price,
                     'max_value' => ($car_year->price * 80 / 100),
                     'total_loan' => $this->request->ajukan_pinjaman,
@@ -95,21 +95,54 @@ class LeasingController extends Controller
         if ($step == 1) {
             return view('pages.apply.step1')->withLeasing($leasing)->withCode($code);
         } else if ($step == 2) {
+            if ($leasing->ktp_type == null || $leasing->ktp_type == '') {
+                $this->validate($request, [
+                    'ktp_type' => 'required'
+                ]);
+            }
+
+            if ($leasing->ktp_picture == null || $leasing->ktp_picture == '') {
+                $this->validate($request, [
+                    'ktp_picture' => 'required|image'
+                ]);
+            }
+
+            if ($leasing->selfie_picture == null || $leasing->selfie_picture == '') {
+                $this->validate($request, [
+                    'selfie_picture' => 'required|image',
+                ]);
+            }
+
             try {
                 DB::transaction(function () {
                     $now = Carbon::now();
-                    DB::table('leasings')->where('id', $this->leasing_id)->update([
-                        'ktp_type' => $this->request->ktp_type,
-                        'ktp_picture' => Helper::interventionUploadImage($this->request->file('ktp_picture'), null, 'leasings/ktp'),
-                        'selfie_picture' => Helper::interventionUploadImage($this->request->file('selfie_picture'), null, 'leasings/selfie'),
-                        'updated_at' => $now
-                    ]);
+
+                    if ($this->request->ktp_type != null || $this->request->ktp_type != '' || $this->request->ktp_type > 0) {
+                        DB::table('leasings')->where('id', $this->leasing_id)->update([
+                            'ktp_type' => $this->request->ktp_type,
+                            'updated_at' => $now
+                        ]);
+                    }
+
+                    if ($this->request->hasFile('ktp_picture')) {
+                        DB::table('leasings')->where('id', $this->leasing_id)->update([
+                            'ktp_picture' => Helper::interventionUploadImage($this->request->file('ktp_picture'), null, 'leasings/ktp'),
+                            'updated_at' => $now
+                        ]);
+                    }
+
+                    if ($this->request->hasFile('selfie_picture')) {
+                        DB::table('leasings')->where('id', $this->leasing_id)->update([
+                            'selfie_picture' => Helper::interventionUploadImage($this->request->file('selfie_picture'), null, 'leasings/selfie'),
+                            'updated_at' => $now
+                        ]);
+                    }
                 });
 
                 $leasing_up = Leasing::where('leasing_code', $code)->firstOrFail();
 
                 if ($leasing_up->ktp_picture != null && $leasing_up->selfie_picture != null && $leasing_up->ktp_type != null) {
-                    return view('pages.apply.step2')->withLeasing($leasing)->withCode($code);
+                    return view('pages.apply.step2')->withLeasing($leasing_up)->withCode($code);
                 } else {
                     return redirect()->route('apply', [1, $code]);
                 }
@@ -117,8 +150,239 @@ class LeasingController extends Controller
                 return abort(500);
             }
         } else if ($step == 3) {
-            return 3;
+            if ($leasing->name == null || $leasing->name == '') {
+                $this->validate($request, [
+                    'name' => 'required'
+                ]);
+            }
+
+            if ($leasing->email == null || $leasing->email == '') {
+                $this->validate($request, [
+                    'email' => 'email'
+                ]);
+            }
+
+            if ($leasing->address == null || $leasing->address == '') {
+                $this->validate($request, [
+                    'address' => 'required',
+                ]);
+            }
+
+            if ($leasing->npwp == null || $leasing->npwp == '') {
+                $this->validate($request, [
+                    'npwp' => 'required|numeric',
+                ]);
+            }
+
+            if ($leasing->ktp_ocr_dob == null || $leasing->ktp_ocr_dob == '') {
+                $this->validate($request, [
+                    'ktp_ocr_dob' => 'required|date',
+                ]);
+            }
+
+            if ($leasing->phone == null || $leasing->phone == '') {
+                $this->validate($request, [
+                    'phone' => 'required|numeric|min:10',
+                ]);
+            }
+
+            if ($leasing->ktp == null || $leasing->ktp == '') {
+                $this->validate($request, [
+                    'ktp' => 'required|numeric|min:10',
+                ]);
+            }
+
+            try {
+                DB::transaction(function () {
+                    $now = Carbon::now();
+
+                    if ($this->request->name != null || $this->request->name != '') {
+                        DB::table('leasings')->where('id', $this->leasing_id)->update([
+                            'name' => $this->request->name,
+                            'updated_at' => $now
+                        ]);
+                    }
+
+                    if ($this->request->email != null || $this->request->email != '') {
+                        DB::table('leasings')->where('id', $this->leasing_id)->update([
+                            'email' => $this->request->email,
+                            'updated_at' => $now
+                        ]);
+                    }
+
+                    if ($this->request->address != null || $this->request->address != '') {
+                        DB::table('leasings')->where('id', $this->leasing_id)->update([
+                            'address' => $this->request->address,
+                            'updated_at' => $now
+                        ]);
+                    }
+
+                    if ($this->request->npwp != null || $this->request->npwp != '') {
+                        DB::table('leasings')->where('id', $this->leasing_id)->update([
+                            'npwp' => $this->request->npwp,
+                            'updated_at' => $now
+                        ]);
+                    }
+
+                    if ($this->request->ktp_ocr_dob != null || $this->request->ktp_ocr_dob != '') {
+                        DB::table('leasings')->where('id', $this->leasing_id)->update([
+                            'ktp_ocr_dob' => $this->request->ktp_ocr_dob,
+                            'updated_at' => $now
+                        ]);
+                    }
+
+                    if ($this->request->phone != null || $this->request->phone != '') {
+                        DB::table('leasings')->where('id', $this->leasing_id)->update([
+                            'phone' => $this->request->phone,
+                            'updated_at' => $now
+                        ]);
+                    }
+
+                    if ($this->request->ktp != null || $this->request->ktp != '') {
+                        DB::table('leasings')->where('id', $this->leasing_id)->update([
+                            'ktp' => $this->request->ktp,
+                            'updated_at' => $now
+                        ]);
+                    }
+                });
+
+                $leasing_up = Leasing::where('leasing_code', $code)->firstOrFail();
+
+                if ($leasing_up->ktp_picture != null && $leasing_up->selfie_picture != null && $leasing_up->ktp_type != null) {
+                    if ($leasing_up->name != null && $leasing_up->email != null && $leasing_up->address != null && $leasing_up->npwp != null && $leasing_up->phone != null && $leasing_up->ktp != null) {
+                        return view('pages.apply.step3')->withLeasing($leasing_up)->withCode($code);
+                    } else {
+                        return redirect()->route('apply', [2, $code]);
+                    }
+                } else {
+                    return redirect()->route('apply', [1, $code]);
+                }
+            } catch (Exception $e) {
+                return abort(500);
+            }
+        } else if ($step == 4) {
+            if ($leasing->bpkb_picture == null || $leasing->bpkb_picture == '') {
+                $this->validate($request, [
+                    'bpkb_picture' => 'required|image'
+                ]);
+            }
+
+            if ($leasing->picture1 == null || $leasing->picture1 == '') {
+                $this->validate($request, [
+                    'picture1' => 'required|image'
+                ]);
+            }
+
+            if ($leasing->picture2 == null || $leasing->picture2 == '') {
+                $this->validate($request, [
+                    'picture2' => 'required|image',
+                ]);
+            }
+
+            if ($leasing->picture3 == null || $leasing->picture3 == '') {
+                $this->validate($request, [
+                    'picture3' => 'required|image',
+                ]);
+            }
+
+            if ($leasing->picture4 == null || $leasing->picture4 == '') {
+                $this->validate($request, [
+                    'picture4' => 'required|image',
+                ]);
+            }
+
+            if ($leasing->picture5 == null || $leasing->picture5 == '') {
+                $this->validate($request, [
+                    'picture5' => 'required|image',
+                ]);
+            }
+
+            if ($leasing->picture6 == null || $leasing->picture6 == '') {
+                $this->validate($request, [
+                    'picture6' => 'required|image',
+                ]);
+            }
+
+            try {
+                DB::transaction(function () {
+                    $now = Carbon::now();
+
+                    if ($this->request->hasFile('bpkb_picture')) {
+                        DB::table('leasings')->where('id', $this->leasing_id)->update([
+                            'bpkb_picture' => Helper::interventionUploadImage($this->request->file('bpkb_picture'), null, 'leasings/bpkb'),
+                            'updated_at' => $now
+                        ]);
+                    }
+
+                    if ($this->request->hasFile('picture1')) {
+                        DB::table('leasings')->where('id', $this->leasing_id)->update([
+                            'picture1' => Helper::interventionUploadImage($this->request->file('picture1'), null, 'leasings/pictures'),
+                            'updated_at' => $now
+                        ]);
+                    }
+
+                    if ($this->request->hasFile('picture2')) {
+                        DB::table('leasings')->where('id', $this->leasing_id)->update([
+                            'picture2' => Helper::interventionUploadImage($this->request->file('picture2'), null, 'leasings/pictures'),
+                            'updated_at' => $now
+                        ]);
+                    }
+
+                    if ($this->request->hasFile('picture3')) {
+                        DB::table('leasings')->where('id', $this->leasing_id)->update([
+                            'picture3' => Helper::interventionUploadImage($this->request->file('picture3'), null, 'leasings/pictures'),
+                            'updated_at' => $now
+                        ]);
+                    }
+
+                    if ($this->request->hasFile('picture4')) {
+                        DB::table('leasings')->where('id', $this->leasing_id)->update([
+                            'picture4' => Helper::interventionUploadImage($this->request->file('picture4'), null, 'leasings/pictures'),
+                            'updated_at' => $now
+                        ]);
+                    }
+
+                    if ($this->request->hasFile('picture5')) {
+                        DB::table('leasings')->where('id', $this->leasing_id)->update([
+                            'picture5' => Helper::interventionUploadImage($this->request->file('picture5'), null, 'leasings/pictures'),
+                            'updated_at' => $now
+                        ]);
+                    }
+
+                    if ($this->request->hasFile('picture6')) {
+                        DB::table('leasings')->where('id', $this->leasing_id)->update([
+                            'picture6' => Helper::interventionUploadImage($this->request->file('picture6'), null, 'leasings/pictures'),
+                            'updated_at' => $now
+                        ]);
+                    }
+                });
+
+                $leasing_up = Leasing::where('leasing_code', $code)->firstOrFail();
+
+                if ($leasing_up->ktp_picture != null && $leasing_up->selfie_picture != null && $leasing_up->ktp_type != null) {
+                    if ($leasing_up->name != null && $leasing_up->email != null && $leasing_up->address != null && $leasing_up->npwp != null && $leasing_up->phone != null && $leasing_up->ktp != null) {
+                        if ($leasing_up->bpkb_picture != null && $leasing_up->picture1 != null && $leasing_up->picture2 != null && $leasing_up->picture3 != null && $leasing_up->picture4 != null && $leasing_up->picture5 != null && $leasing_up->picture6 != null) {
+                            return view('pages.apply.confirm')->withLeasing($leasing_up)->withCode($code);
+                        } else {
+                            return redirect()->route('apply', [3, $code]);
+                        }
+                    } else {
+                        return redirect()->route('apply', [2, $code]);
+                    }
+                } else {
+                    return redirect()->route('apply', [1, $code]);
+                }
+            } catch (Exception $e) {
+                return abort(500);
+            }
+        } else {
+            return abort(404);
         }
+    }
+
+    public function success()
+    {
+        return view('pages.apply.success');
     }
 
 

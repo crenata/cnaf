@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Config;
 
 use App\Helpers\Helper;
 
@@ -114,7 +115,7 @@ class BrandController extends Controller
             $brand->slug = str_slug($request->name, '-');
 
             if ($request->hasFile('image')) {
-                $image_path = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $brand->image);
+                $image_path = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $brand->image);
 
                 if (file_exists($image_path)) {
                     unlink($image_path);
@@ -140,17 +141,17 @@ class BrandController extends Controller
     {
         $brand = Brand::findOrFail($id);
 
-        $image_path = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $brand->image);
+        $image_path = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $brand->image);
         
         if (file_exists($image_path)) {
             unlink($image_path);
         }
 
         foreach ($brand->items as $item) {
-            $item_image1 = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $item->image1);
-            $item_image2 = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $item->image2);
-            $item_image3 = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $item->image3);
-            $item_image4 = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $item->image4);
+            $item_image1 = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $item->image1);
+            $item_image2 = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $item->image2);
+            $item_image3 = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $item->image3);
+            $item_image4 = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $item->image4);
 
             if (file_exists($item_image1)) {
                 unlink($item_image1);

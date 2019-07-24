@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Config;
 
 use App\Helpers\Helper;
 
@@ -115,7 +116,7 @@ class VendorController extends Controller
             $vendor->phone = $request->phone;
 
             if ($request->hasFile('image')) {
-                $image_path = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $vendor->image);
+                $image_path = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $vendor->image);
 
                 if (file_exists($image_path)) {
                     unlink($image_path);
@@ -123,7 +124,7 @@ class VendorController extends Controller
                 $vendor->image = Helper::interventionUploadImage($request->file('image'), null, 'vendors');
             }
             if ($request->hasFile('image_logo')) {
-                $image_logo_path = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $vendor->image_logo);
+                $image_logo_path = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $vendor->image_logo);
 
                 if (file_exists($image_logo_path)) {
                     unlink($image_logo_path);
@@ -147,8 +148,8 @@ class VendorController extends Controller
     {
         $vendor = Vendor::findOrFail($id);
 
-        $image_path = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $vendor->image);
-        $image_logo_path = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $vendor->image_logo);
+        $image_path = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $vendor->image);
+        $image_logo_path = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $vendor->image_logo);
         
         if (file_exists($image_path)) {
             unlink($image_path);
@@ -158,17 +159,17 @@ class VendorController extends Controller
         }
 
         foreach ($vendor->brands as $brand) {
-            $brand_image_path = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $brand->image);
+            $brand_image_path = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $brand->image);
 
             if (file_exists($brand_image_path)) {
                 unlink($brand_image_path);
             }
 
             foreach ($brand->items as $item) {
-                $item_image1 = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $item->image1);
-                $item_image2 = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $item->image2);
-                $item_image3 = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $item->image3);
-                $item_image4 = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $item->image4);
+                $item_image1 = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $item->image1);
+                $item_image2 = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $item->image2);
+                $item_image3 = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $item->image3);
+                $item_image4 = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $item->image4);
 
                 if (file_exists($item_image1)) {
                     unlink($item_image1);

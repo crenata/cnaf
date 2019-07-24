@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Config;
 
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -119,7 +120,7 @@ class BlogController extends Controller
             $blog->body = $request->body;
 
             if ($request->hasFile('image')) {
-                $image_path = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $blog->image);
+                $image_path = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $blog->image);
                 if (file_exists($image_path)) {
                     unlink($image_path);
                 }
@@ -142,7 +143,7 @@ class BlogController extends Controller
     {
         $blog = Blog::findOrFail($id);
 
-        $image_path = str_replace(env('LINK_PATH'), env('UPLOAD_PATH'), $blog->image);
+        $image_path = str_replace(Config::get('constants')['LINK_PATH'], Config::get('constants')['UPLOAD_PATH'], $blog->image);
 
         if (file_exists($image_path)) {
             unlink($image_path);

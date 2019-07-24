@@ -58,7 +58,7 @@ class Helper {
                 Image::make($picture)->save($location);
             }*/
 
-            return env('LINK_PATH') . "$directory/$filename";
+            return Config::get('constants')['LINK_PATH'] . "$directory/$filename";
         } else {
             return null;
         }

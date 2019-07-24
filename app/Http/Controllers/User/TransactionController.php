@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
@@ -165,17 +166,17 @@ class TransactionController extends Controller
                                         'price' => $this->price,
                                         'total_price' => $this->total_price
                                     ])
-                                    ->save(env('UPLOAD_PATH') . "invoice/$random_name.pdf");
+                                    ->save(Config::get('constants')['UPLOAD_PATH'] . "invoice/$random_name.pdf");
 
                                 Mail::send('pages.shop.invoice.mail', [
                                     'user' => $this->user,
                                     'item' => $this->item,
                                     'items_id' => $this->items_id
                                 ], function ($message) use ($random_name) {
-                                    $message->from(env('MAIL_USERNAME'), env('MAIL_INITIAL'))
+                                    $message->from(Config::get('constants')['MAIL_USERNAME'], Config::get('constants')['MAIL_INITIAL'])
                                         ->to($this->user->email)
                                         ->subject('Invoice')
-                                        ->attach(env('UPLOAD_PATH') . "invoice/$random_name.pdf");
+                                        ->attach(Config::get('constants')['UPLOAD_PATH'] . "invoice/$random_name.pdf");
                                 });
                             });
                             return response()->json(array('success' => 'Permintaan Anda sedang dikirimkan!', 'html' => view('pages.shop.success')->render(), 'credit' => $this->user->credit));

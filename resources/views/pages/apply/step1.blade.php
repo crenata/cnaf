@@ -1,6 +1,6 @@
 @extends('template')
 
-@section('title', 'Simulasi')
+@section('title', 'Pengajuan')
 
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('public/css/user/simulasi/xs.css') }}" media="screen and (max-width: 575.98px)">
@@ -75,11 +75,11 @@
                 <h6 class="font-weight-bold">Unggah Data Diri Anda</h6>
                 <p class="mt-3 mb-0">Pilih jenis KTP Anda *</p>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="ktp_type" id="exampleRadios1" value="EKTP" checked>
+                    <input class="form-check-input" type="radio" name="ktp_type" id="exampleRadios1" value="EKTP" {{ ($leasing->ktp_type == 'EKTP') ? 'checked' : '' }} required>
                     <label class="form-check-label small" for="exampleRadios1">E-KTP</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="ktp_type" id="exampleRadios2" value="KTP">
+                    <input class="form-check-input" type="radio" name="ktp_type" id="exampleRadios2" value="KTP" {{ ($leasing->ktp_type == 'KTP') ? 'checked' : '' }} required>
                     <label class="form-check-label small" for="exampleRadios2">KTP</label>
                 </div>
             </div>
@@ -90,7 +90,7 @@
                         <div class="form-group row">
                             {{ Form::label('ktp_picture', 'Upload Copy KTP *', array('class' => 'col-sm-6 col-form-label')) }}
                             <div class="input-group col-sm-12">
-                                <input type="file" name="ktp_picture" class="ktp-picture dropify" data-default-file="">
+                                <input type="file" name="ktp_picture" class="ktp-picture dropify" data-default-file="{{ $leasing->ktp_picture }}" {{ ($leasing->ktp_picture == null || $leasing->ktp_picture == '') ? 'required' : '' }}>
                             </div>
                         </div>
                     </div>
@@ -98,7 +98,7 @@
                         <div class="form-group row">
                             {{ Form::label('selfie_picture', 'Upload Foto Diri Anda *', array('class' => 'col-sm-6 col-form-label')) }}
                             <div class="input-group col-sm-12">
-                                <input type="file" name="selfie_picture" class="selfie-picture dropify" data-default-file="">
+                                <input type="file" name="selfie_picture" class="selfie-picture dropify" data-default-file="{{ $leasing->selfie_picture }}" {{ ($leasing->selfie_picture == null || $leasing->selfie_picture == '') ? 'required' : '' }}>
                             </div>
                         </div>
                     </div>
