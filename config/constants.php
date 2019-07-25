@@ -21,5 +21,12 @@ return [
     'MAIL_ENCRYPTION' => env('MAIL_ENCRYPTION', 'tls'),
     'MAIL_INITIAL' => env('MAIL_INITIAL', 'Scranaver'),
 
-    'GOOGLE_MAPS_API_KEY' => env('GOOGLE_MAPS_API_KEY', 'AIzaSyATw_FSgimf5vX9WsaTCgNAv_YMjkpdcqM')
+    'GOOGLE_MAPS_API_KEY' => env('GOOGLE_MAPS_API_KEY', 'AIzaSyATw_FSgimf5vX9WsaTCgNAv_YMjkpdcqM'),
+
+    'ADVANCE_AI_API_KEY' => env('ADVANCE_AI_API_KEY', '346b76a58f959271'),
+    'ADVANCE_AI_SECRET_KEY' => env('ADVANCE_AI_SECRET_KEY', '346b76a58f959271'),
+    'ADVANCE_AI_HOST' => env('ADVANCE_AI_HOST', 'https://api.advance.ai'),
+    'ADVANCE_AI_OCR_CHECK' => env('ADVANCE_AI_OCR_CHECK', '/openapi/face-recognition/v2/ocr-check'),
+    'ADVANCE_AI_OCR_KTP_CHECK' => env('ADVANCE_AI_OCR_KTP_CHECK', '/openapi/face-recognition/v1/ocr-ktp-check'),
+    'ADVANCE_AI_FACE_COMPARISON' => env('ADVANCE_AI_FACE_COMPARISON', '/openapi/face-recognition/v3/check')
 ];

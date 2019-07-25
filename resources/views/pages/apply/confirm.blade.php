@@ -23,7 +23,7 @@
 @section('content-container')
     <h3 class="font-weight-bold mt-4 mt-sm-4 mt-md-4 mt-lg-4 mt-xl-4">Aplikasi Kredit</h3>
     <div class="simulasi border rounded p-4 p-sm-4 p-md-4 p-lg-4 p-xl-4 my-4">
-        {{ Form::model($leasing, ['route' => 'apply.success', 'method' => 'PUT', 'class' => 'form-horizontal', 'id' => 'simulasi-form', 'files' => true, 'enctype' => 'multipart/form-data']) }}
+        {{ Form::model($leasing, ['route' => ['apply.success', $code], 'method' => 'PUT', 'class' => 'form-horizontal', 'id' => 'simulasi-form', 'files' => true, 'enctype' => 'multipart/form-data']) }}
         <div class="bg-881a1b p-4 p-sm-4 p-md-4 p-lg-4 p-xl-4 rounded">
             <h4 class="font-weight-bold">Rangkuman Data</h4>
             <div class="row small">
@@ -31,7 +31,7 @@
                 <div class="col-6"><p class="m-0">: Rp. {{ number_format($leasing->leasing_value) }},-</p></div>
 
                 <div class="col-6"><p class="m-0">Pinjaman yang di Ajukan</p></div>
-                <div class="col-6"><p class="m-0">: Rp. {{ $leasing->total_loan }},-</p></div>
+                <div class="col-6"><p class="m-0">: Rp. {{ number_format($leasing->total_loan) }},-</p></div>
 
                 <div class="col-6"><p class="m-0">Bunga</p></div>
                 <div class="col-6"><p class="m-0">: {{ $leasing->rate }}%</p></div>
@@ -220,11 +220,11 @@
 
                 <div class="col-12">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="ktp_type" id="exampleRadios1" value="EKTP" {{ ($leasing->ktp_type == 'EKTP') ? 'checked' : '' }} required>
+                        <input class="form-check-input" type="checkbox" name="ktp_type" id="exampleRadios1" value="data" required>
                         <label class="form-check-label small" for="exampleRadios1">Pernyataan Kebenaran Data *</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="ktp_type" id="exampleRadios2" value="KTP" {{ ($leasing->ktp_type == 'KTP') ? 'checked' : '' }} required>
+                        <input class="form-check-input" type="checkbox" name="ktp_type" id="exampleRadios2" value="sdk" required>
                         <label class="form-check-label small" for="exampleRadios2">Menyetujui Syarat & Ketentuan pengajuan fasilitas pembiayaan (CNAF) *</label>
                     </div>
                 </div>

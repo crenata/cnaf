@@ -25,6 +25,9 @@ use App\Models\Admin\AssuranceRate;
 
 use App\Models\User\Transaction;
 
+use App\Http\Controllers\ai\advance\ApiClientFile;
+use App\Http\Controllers\ai\advance\CurlClient;
+
 use Session;
 use Validator;
 
@@ -241,5 +244,14 @@ class HomeController extends Controller
 
         return $pdf->stream();
 //        return $pdf->download('invoice.pdf');
+    }
+
+    public function ocr() {
+        $client = new CurlClient(Config::get('constants')['ADVANCE_AI_HOST'], Config::get('constants')['ADVANCE_AI_API_KEY'], Config::get('constants')['ADVANCE_AI_SECRET_KEY']);
+        $result = $client->request(Config::get('constants')['ADVANCE_AI_OCR_KTP_CHECK'], null, array(
+            'ocrImage' => "/home/degadai-dev/Downloads/ktp.jpeg"
+        ));
+
+        return response($result);
     }
 }

@@ -29,7 +29,7 @@
                 <div class="col-6"><p class="m-0">: Rp. {{ number_format($leasing->leasing_value) }},-</p></div>
 
                 <div class="col-6"><p class="m-0">Pinjaman yang di Ajukan</p></div>
-                <div class="col-6"><p class="m-0">: Rp. {{ $leasing->total_loan }},-</p></div>
+                <div class="col-6"><p class="m-0">: Rp. {{ number_format($leasing->total_loan) }},-</p></div>
 
                 <div class="col-6"><p class="m-0">Bunga</p></div>
                 <div class="col-6"><p class="m-0">: {{ $leasing->rate }}%</p></div>
@@ -86,6 +86,9 @@
                         {{ Form::label('email', 'Email *', array('class' => 'col-sm-6 col-form-label')) }}
                         <div class="col-sm-12">
                             {{ Form::email('email', null, array('class' => 'form-control', 'id' => 'email', 'placeholder' => 'user@example.com', ($leasing->email == null || $leasing->email == '') ? 'required' : '')) }}
+                            @if(session('error_email'))
+                                <div class="alert alert-danger error-add-name py-1 px-2 mt-2">{{ session('error_email') }}</div>
+                            @endif
                         </div>
                     </div>
                 </div>

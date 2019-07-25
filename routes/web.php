@@ -42,12 +42,13 @@ Route::get('simulasi/assurancerate/{id}/{assurancetypeid}', 'HomeController@assu
 /* Apply */
 Route::post('apply-start', 'User\LeasingController@start')->name('apply.start');
 Route::any('apply/{step}/{code}', 'User\LeasingController@apply')->name('apply');
-Route::any('apply/success', 'User\LeasingController@success')->name('apply.success');
+Route::any('apply-success/{code}', 'User\LeasingController@success')->name('apply.success');
 
 /* Testing */
 Route::get('maps', 'HomeController@maps')->name('maps');
 Route::get('priceterbilang', 'HomeController@priceterbilang')->name('priceterbilang');
 Route::get('invoice', 'HomeController@invoice')->name('invoice');
+Route::get('ocr', 'HomeController@ocr')->name('ocr');
 
 Route::middleware(array('web', 'auth', 'verified'))->group(function () {
     Route::get('account', 'HomeController@account')->name('account');

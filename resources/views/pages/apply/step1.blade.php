@@ -31,7 +31,7 @@
                     <div class="col-6"><p class="m-0">: Rp. {{ number_format($leasing->leasing_value) }},-</p></div>
 
                     <div class="col-6"><p class="m-0">Pinjaman yang di Ajukan</p></div>
-                    <div class="col-6"><p class="m-0">: Rp. {{ $leasing->total_loan }},-</p></div>
+                    <div class="col-6"><p class="m-0">: Rp. {{ number_format($leasing->total_loan) }},-</p></div>
 
                     <div class="col-6"><p class="m-0">Bunga</p></div>
                     <div class="col-6"><p class="m-0">: {{ $leasing->rate }}%</p></div>
