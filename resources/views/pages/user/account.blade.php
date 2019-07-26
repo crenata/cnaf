@@ -370,6 +370,10 @@
                         }
                     } else {
                         toastr.success('Profile was successfully updated!', 'Success Alert', {timeOut: 5000});
+
+                        if (data.name) {
+                            $('.username-nav').text(data.name);
+                        }
                     }
                 },
                 error: function(data) {

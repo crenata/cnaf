@@ -43,6 +43,8 @@ Route::get('simulasi/assurancerate/{id}/{assurancetypeid}', 'HomeController@assu
 Route::post('apply-start', 'User\LeasingController@start')->name('apply.start');
 Route::any('apply/{step}/{code}', 'User\LeasingController@apply')->name('apply');
 Route::any('apply-success/{code}', 'User\LeasingController@success')->name('apply.success');
+Route::any('apply-verify/{email}/{code}', 'User\LeasingController@verify')->name('apply.verify');
+Route::any('apply-change/{email}/{code}', 'User\LeasingController@change_password')->name('apply.change');
 
 /* Testing */
 Route::get('maps', 'HomeController@maps')->name('maps');

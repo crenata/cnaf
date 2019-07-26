@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers\User;
 
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 
 use App\Helpers\Helper;
 
@@ -40,7 +46,7 @@ use Validator;
 
 class LeasingController extends Controller
 {
-    private $leasing_code = '', $request, $leasing_id;
+    private $leasing_code = '', $request, $leasing_id, $user, $user_duplicate = false;
     public function start(Request $request)
     {
         $this->request = $request;
@@ -683,13 +689,28 @@ class LeasingController extends Controller
                     'updated_at' => $now
                 ]);*/
 
-                User::create([
-                    'name' => $leasing_user_register->name,
-                    'email' => $leasing_user_register->email,
-                    'password' => Hash::make('1234567890'),
-                    'phone' => $leasing_user_register->phone,
-                    'address' => $leasing_user_register->address,
-                ])->sendEmailVerificationNotification();
+                try {
+                    $user = User::create([
+                        'name' => $leasing_user_register->name,
+                        'email' => $leasing_user_register->email,
+                        'password' => Hash::make('1234567890'),
+                        'phone' => $leasing_user_register->phone,
+                        'address' => $leasing_user_register->address,
+                    ])/*->sendEmailVerificationNotification()*/;
+
+                    $this->user = $user;
+                } catch (QueryException $e) {
+                    $error_code = $e->errorInfo[1];
+                    if ($error_code == 1062) {
+                        $this->user_duplicate = true;
+                        return back()->with('error_email', 'This email already registered, Please login first!'); /* not executed, execute move into bottom */
+                    }
+                }
+
+                DB::table('leasings')->where('id', $this->leasing_id)->update([
+                    'user_id' => $user->id,
+                    'updated_at' => $now
+                ]);
             });
 
             $leasing_up = Leasing::where('leasing_code', $code)->firstOrFail();
@@ -697,7 +718,21 @@ class LeasingController extends Controller
             if ($leasing_up->ktp_picture != null && $leasing_up->selfie_picture != null && $leasing_up->ktp_type != null) {
                 if ($leasing_up->name != null && $leasing_up->email != null && $leasing_up->address != null && $leasing_up->npwp != null && $leasing_up->phone != null && $leasing_up->ktp != null) {
                     if ($leasing_up->bpkb_picture != null && $leasing_up->picture1 != null && $leasing_up->picture2 != null && $leasing_up->picture3 != null && $leasing_up->picture4 != null && $leasing_up->picture5 != null && $leasing_up->picture6 != null) {
-                        return view('pages.apply.success')->withLeasing($leasing_up)->withCode($code);
+                        if (!$this->user_duplicate) {
+                            $verification_url = route('apply.verify', [$this->user->email, $code]);
+                            Mail::send('pages.apply.mail', [
+                                'user' => $this->user,
+                                'verification_url' => $verification_url
+                            ], function ($message) {
+                                $message->from(Config::get('constants')['MAIL_USERNAME'], Config::get('constants')['MAIL_INITIAL'])
+                                    ->to($this->user->email)
+                                    ->subject('Verify');
+                            });
+
+                            return view('pages.apply.success')->withUrl($verification_url)->withUser($this->user);
+                        } else {
+                            return back()->with('error_email', 'This email already registered, Please login first!'); /* executed */
+                        }
                     } else {
                         return redirect()->route('apply', [3, $code]);
                     }
@@ -712,6 +747,40 @@ class LeasingController extends Controller
         }
     }
 
+    public function verify($email, $code) {
+        $user = User::where('email', $email)->firstOrFail();
+        $leasing = Leasing::where('leasing_code', $code)->firstOrFail();
+
+        if ($leasing->user_id == $user->id) {
+            return view('pages.apply.changepassword')->withUser($user)->withCode($code);
+        } else {
+            return abort(404);
+        }
+    }
+
+    public function change_password(Request $request, $email, $code)
+    {
+        $user = User::where('email', $email)->firstOrFail();
+        $leasing = Leasing::where('leasing_code', $code)->firstOrFail();
+
+        if ($leasing->user_id == $user->id) {
+            $validator = Validator::make($request->all(), [
+                'new_password' => '',
+                'confirm_password' => 'same:new_password'
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+            } else {
+                $user->password = Hash::make($request->new_password);
+                $user->save();
+
+                return response()->json($user);
+            }
+        } else {
+            return abort(404);
+        }
+    }
 
     /**
      * Display a listing of the resource.

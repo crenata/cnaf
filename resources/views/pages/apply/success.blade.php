@@ -11,10 +11,10 @@
 @endsection
 
 @section('content-container')
-    <div class="text-center rounded border my-5">
-        <h4 class="font-weight-bold">Pendaftaran Berhasil</h4>
-        <p>Email telah dikirimkan ke <b>dummy@gmail.com</b></p>
-        <p>Mohom konfirmasikan email Anda untuk melengkapi proses pendaftaran dan pengajuan.</p>
-        <p class="mt-3">Periksa Juga spam / junk Anda, jika belum menerima email.</p>
+    <div class="text-center rounded shadow border my-5 p-5" style="background-color: #F2F2F2;">
+        <h3 class="font-weight-bold">Pendaftaran Berhasil</h3>
+        <p class="mt-4">Email telah dikirimkan ke <b>{{ $user->email }}</b></p>
+        <p class="mt-4 mb-0">Mohom konfirmasikan email Anda untuk melengkapi proses pendaftaran dan pengajuan.</p>
+        <p class="mt-2">Periksa Juga spam / junk Anda, jika belum menerima email.</p>
     </div>
 @endsection

@@ -88,6 +88,9 @@
                         {{ Form::label('email', 'Email *', array('class' => 'col-sm-6 col-form-label')) }}
                         <div class="col-sm-12">
                             {{ Form::email('email', null, array('class' => 'form-control', 'id' => 'email', 'placeholder' => 'user@example.com', ($leasing->email == null || $leasing->email == '') ? 'required' : '')) }}
+                            @if(session('error_email'))
+                                <div class="alert alert-danger error-add-name py-1 px-2 mt-2">{{ session('error_email') }}</div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -220,11 +223,11 @@
 
                 <div class="col-12">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="ktp_type" id="exampleRadios1" value="data" required>
+                        <input class="form-check-input" type="checkbox" name="a" id="exampleRadios1" value="data" required>
                         <label class="form-check-label small" for="exampleRadios1">Pernyataan Kebenaran Data *</label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="ktp_type" id="exampleRadios2" value="sdk" required>
+                        <input class="form-check-input" type="checkbox" name="b" id="exampleRadios2" value="sdk" required>
                         <label class="form-check-label small" for="exampleRadios2">Menyetujui Syarat & Ketentuan pengajuan fasilitas pembiayaan (CNAF) *</label>
                     </div>
                 </div>
@@ -232,7 +235,7 @@
         </div>
 
         <div class="clearfix mt-3">
-            <a href="{{ route('apply', [2, $code]) }}" class="btn btn-sm bg-881a1b float-left rounded-pill px-3"><i class="fas fa-arrow-left"></i> &nbsp; KEMBALI</a>
+            <a href="{{ route('apply', [3, $code]) }}" class="btn btn-sm bg-881a1b float-left rounded-pill px-3"><i class="fas fa-arrow-left"></i> &nbsp; KEMBALI</a>
             <button type="submit" class="btn btn-sm bg-881a1b float-right rounded-pill px-3">AJUKAN KREDIT &nbsp; <i class="fas fa-arrow-right"></i></button>
         </div>
         {{ Form::close() }}
