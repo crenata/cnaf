@@ -310,6 +310,9 @@
 		$(document).on('click', '.add-brand', function() {
 			$('#add-form').trigger('reset');
 			$(".dropify-clear").trigger("click");
+			$('.error-add-name').addClass('hidden');
+			$('.error-add-image').addClass('hidden');
+			$('.error-add-vendor').addClass('hidden');
 			$('#add-modal').modal('show');
 		});
 
@@ -341,6 +344,9 @@
             $('#edit-name').val($(this).data('name'));
             edit_image_preview('.edit-image', $(this).data('image'));
             $('#edit-vendor').val($(this).data('vendor')).prop('selected', true);
+			$('.error-edit-name').addClass('hidden');
+			$('.error-edit-image').addClass('hidden');
+			$('.error-edit-vendor').addClass('hidden');
             $('#edit-modal').modal('show');
             
             id_edit = $(this).data('id');
@@ -411,26 +417,30 @@
 					$('.error-add-image').addClass('hidden');
 					$('.error-add-vendor').addClass('hidden');
 					if (data.errors) {
-						setTimeout(function() {
-							$('#add-modal').modal('show');
-							toastr.error('Validation Error!', 'Error Alert', {timeOut: 5000});
-						}, 500);
-
-						/*if (data.errors.name) {
-							toastr.error('Name Error!', 'Error Alert', {timeOut: 5000});
+						if (data.errors.name) {
+							setTimeout(function() {
+								$('#add-modal').modal('show');
+								toastr.error(data.errors.name, 'Error Alert', {timeOut: 5000});
+							}, 500);
 							$('.error-add-name').removeClass('hidden');
 							$('.error-add-name').text(data.errors.name);
 						}
 						if (data.errors.image) {
-							toastr.error('Image Error!', 'Error Alert', {timeOut: 5000});
+							setTimeout(function() {
+								$('#add-modal').modal('show');
+								toastr.error(data.errors.image, 'Error Alert', {timeOut: 5000});
+							}, 500);
 							$('.error-add-image').removeClass('hidden');
 							$('.error-add-image').text(data.errors.image);
 						}
 						if (data.errors.vendor_id) {
-							toastr.error('Vendor Error!', 'Error Alert', {timeOut: 5000});
+							setTimeout(function() {
+								$('#add-modal').modal('show');
+								toastr.error(data.errors.vendor_id, 'Error Alert', {timeOut: 5000});
+							}, 500);
 							$('.error-add-vendor').removeClass('hidden');
 							$('.error-add-vendor').text(data.errors.vendor_id);
-						}*/
+						}
 					} else {
 						toastr.success('Successfully added Brand!', 'Success Alert', {timeOut: 5000});
 						$('#datatable').append(
@@ -488,26 +498,30 @@
 					$('.error-edit-image').addClass('hidden');
 					$('.error-edit-vendor').addClass('hidden');
 					if (data.errors) {
-						setTimeout(function() {
-							$('#edit-modal').modal('show');
-							toastr.error('Validation Error!', 'Error Alert', {timeOut: 5000});
-						}, 500);
-
-						/*if (data.errors.name) {
-							toastr.error('Name Error!', 'Error Alert', {timeOut: 5000});
+						if (data.errors.name) {
+							setTimeout(function() {
+								$('#edit-modal').modal('show');
+								toastr.error(data.errors.name, 'Error Alert', {timeOut: 5000});
+							}, 500);
 							$('.error-edit-name').removeClass('hidden');
 							$('.error-edit-name').text(data.errors.name);
 						}
 						if (data.errors.image) {
-							toastr.error('Image Error!', 'Error Alert', {timeOut: 5000});
+							setTimeout(function() {
+								$('#edit-modal').modal('show');
+								toastr.error(data.errors.image, 'Error Alert', {timeOut: 5000});
+							}, 500);
 							$('.error-edit-image').removeClass('hidden');
 							$('.error-edit-image').text(data.errors.image);
 						}
 						if (data.errors.vendor_id) {
-							toastr.error('Vendor Error!', 'Error Alert', {timeOut: 5000});
+							setTimeout(function() {
+								$('#edit-modal').modal('show');
+								toastr.error(data.errors.vendor_id, 'Error Alert', {timeOut: 5000});
+							}, 500);
 							$('.error-edit-vendor').removeClass('hidden');
 							$('.error-edit-vendor').text(data.errors.vendor_id);
-						}*/
+						}
 					} else {
 						toastr.success('Successfully updated brand!', 'Success Alert', {timeOut: 5000});
 						$('#brand-id-' + data.id).replaceWith(

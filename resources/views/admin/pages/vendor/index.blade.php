@@ -332,6 +332,10 @@
 		$(document).on('click', '.add-vendor', function() {
 			$('#add-form').trigger('reset');
 			$(".dropify-clear").trigger("click");
+			$('.error-add-name').addClass('hidden');
+			$('.error-add-phone').addClass('hidden');
+			$('.error-add-image').addClass('hidden');
+			$('.error-add-image-logo').addClass('hidden');
 			$('#add-modal').modal('show');
 		});
 
@@ -366,6 +370,10 @@
             $('#edit-phone').val($(this).data('phone'));
             edit_image_preview('.edit-image', $(this).data('image'));
             edit_image_preview('.edit-image-logo', $(this).data('imagelogo'));
+			$('.error-edit-name').addClass('hidden');
+			$('.error-edit-phone').addClass('hidden');
+			$('.error-edit-image').addClass('hidden');
+			$('.error-edit-image-logo').addClass('hidden');
             $('#edit-modal').modal('show');
             
             id_edit = $(this).data('id');
@@ -439,31 +447,38 @@
 					$('.error-add-image').addClass('hidden');
 					$('.error-add-image-logo').addClass('hidden');
 					if (data.errors) {
-						setTimeout(function() {
-							$('#add-modal').modal('show');
-							toastr.error('Validation Error!', 'Error Alert', {timeOut: 5000});
-						}, 500);
-
-						/*if (data.errors.name) {
-							toastr.error('Name Error!', 'Error Alert', {timeOut: 5000});
+						if (data.errors.name) {
+							setTimeout(function() {
+								$('#add-modal').modal('show');
+								toastr.error(data.errors.name, 'Error Alert', {timeOut: 5000});
+							}, 500);
 							$('.error-add-name').removeClass('hidden');
 							$('.error-add-name').text(data.errors.name);
 						}
 						if (data.errors.phone) {
-							toastr.error('Phone Error!', 'Error Alert', {timeOut: 5000});
+							setTimeout(function() {
+								$('#add-modal').modal('show');
+								toastr.error(data.errors.phone, 'Error Alert', {timeOut: 5000});
+							}, 500);
 							$('.error-add-phone').removeClass('hidden');
 							$('.error-add-phone').text(data.errors.phone);
 						}
 						if (data.errors.image) {
-							toastr.error('Image Error!', 'Error Alert', {timeOut: 5000});
+							setTimeout(function() {
+								$('#add-modal').modal('show');
+								toastr.error(data.errors.image, 'Error Alert', {timeOut: 5000});
+							}, 500);
 							$('.error-add-image').removeClass('hidden');
 							$('.error-add-image').text(data.errors.image);
 						}
 						if (data.errors.image_logo) {
-							toastr.error('Image Logo Error!', 'Error Alert', {timeOut: 5000});
+							setTimeout(function() {
+								$('#add-modal').modal('show');
+								toastr.error(data.errors.image_logo, 'Error Alert', {timeOut: 5000});
+							}, 500);
 							$('.error-add-image-logo').removeClass('hidden');
 							$('.error-add-image-logo').text(data.errors.image_logo);
-						}*/
+						}
 					} else {
 						toastr.success('Successfully added Vendor!', 'Success Alert', {timeOut: 5000});
 						$('#datatable').append(
@@ -529,31 +544,38 @@
 					$('.error-edit-image').addClass('hidden');
 					$('.error-edit-image-logo').addClass('hidden');
 					if (data.errors) {
-						setTimeout(function() {
-							$('#edit-modal').modal('show');
-							toastr.error('Validation Error!', 'Error Alert', {timeOut: 5000});
-						}, 500);
-
-						/*if (data.errors.name) {
-							toastr.error('Name Error!', 'Error Alert', {timeOut: 5000});
+						if (data.errors.name) {
+							setTimeout(function() {
+								$('#edit-modal').modal('show');
+								toastr.error(data.errors.name, 'Error Alert', {timeOut: 5000});
+							}, 500);
 							$('.error-edit-name').removeClass('hidden');
 							$('.error-edit-name').text(data.errors.name);
 						}
 						if (data.errors.phone) {
-							toastr.error('Phone Error!', 'Error Alert', {timeOut: 5000});
+							setTimeout(function() {
+								$('#edit-modal').modal('show');
+								toastr.error(data.errors.phone, 'Error Alert', {timeOut: 5000});
+							}, 500);
 							$('.error-edit-phone').removeClass('hidden');
 							$('.error-edit-phone').text(data.errors.phone);
 						}
 						if (data.errors.image) {
-							toastr.error('Image Error!', 'Error Alert', {timeOut: 5000});
+							setTimeout(function() {
+								$('#edit-modal').modal('show');
+								toastr.error(data.errors.image, 'Error Alert', {timeOut: 5000});
+							}, 500);
 							$('.error-edit-image').removeClass('hidden');
 							$('.error-edit-image').text(data.errors.image);
 						}
 						if (data.errors.image_logo) {
-							toastr.error('Image Logo Error!', 'Error Alert', {timeOut: 5000});
+							setTimeout(function() {
+								$('#edit-modal').modal('show');
+								toastr.error(data.errors.image_logo, 'Error Alert', {timeOut: 5000});
+							}, 500);
 							$('.error-add-image-logo').removeClass('hidden');
 							$('.error-add-image-logo').text(data.errors.image_logo);
-						}*/
+						}
 					} else {
 						toastr.success('Successfully updated vendor!', 'Success Alert', {timeOut: 5000});
 						$('#vendor-id-' + data.id).replaceWith(

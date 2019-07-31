@@ -291,6 +291,9 @@
         $(document).on('click', '.add-blog', function() {
             $('#add-form').trigger('reset');
             $(".dropify-clear").trigger("click");
+            $('.error-add-name').addClass('hidden');
+            $('.error-add-image').addClass('hidden');
+            $('.error-add-body').addClass('hidden');
             $('#add-modal').modal('show');
         });
 
@@ -323,6 +326,10 @@
             edit_image_preview('#edit-image', $(this).data('image'));
 
             $('#edit-body').val($(this).data('content'));
+
+            $('.error-edit-name').addClass('hidden');
+            $('.error-edit-image').addClass('hidden');
+            $('.error-edit-body').addClass('hidden');
 
             ClassicEditor.create(document.querySelector('#edit-body'))
                 .then(editor => {
@@ -409,10 +416,33 @@
                     $('.error-add-body').addClass('hidden');
 
                     if (data.errors) {
-                        setTimeout(function () {
-                            $('#add-modal').modal('show');
-                            toastr.error('Validation error!', 'Error Alert', {timeOut: 5000});
-                        }, 500);
+                        if (data.errors.name) {
+                            setTimeout(function() {
+                                $('#add-modal').modal('show');
+                                toastr.error(data.errors.name, 'Error Alert', {timeOut: 5000});
+                            }, 500);
+                            toastr.error('Total Error!', 'Error Alert', {timeOut: 5000});
+                            $('.error-add-name').removeClass('hidden');
+                            $('.error-add-name').text(data.errors.name);
+                        }
+                        if (data.errors.image) {
+                            setTimeout(function() {
+                                $('#add-modal').modal('show');
+                                toastr.error(data.errors.image, 'Error Alert', {timeOut: 5000});
+                            }, 500);
+                            toastr.error('Total Error!', 'Error Alert', {timeOut: 5000});
+                            $('.error-add-image').removeClass('hidden');
+                            $('.error-add-image').text(data.errors.image);
+                        }
+                        if (data.errors.body) {
+                            setTimeout(function() {
+                                $('#add-modal').modal('show');
+                                toastr.error(data.errors.body, 'Error Alert', {timeOut: 5000});
+                            }, 500);
+                            toastr.error('Total Error!', 'Error Alert', {timeOut: 5000});
+                            $('.error-add-body').removeClass('hidden');
+                            $('.error-add-body').text(data.errors.body);
+                        }
                     } else {
                         toastr.success('Successfully added Post!', 'Success Alert', {timeOut: 5000});
                         $('#datatable').append(
@@ -472,10 +502,33 @@
                     $('.error-edit-body').addClass('hidden');
 
                     if (data.errors) {
-                        setTimeout(function() {
-                            $('#edit-modal').modal('show');
-                            toastr.error('Validation error!', 'Error Alert', {timeOut: 5000});
-                        }, 500);
+                        if (data.errors.name) {
+                            setTimeout(function() {
+                                $('#edit-modal').modal('show');
+                                toastr.error(data.errors.name, 'Error Alert', {timeOut: 5000});
+                            }, 500);
+                            toastr.error('Total Error!', 'Error Alert', {timeOut: 5000});
+                            $('.error-edit-name').removeClass('hidden');
+                            $('.error-edit-name').text(data.errors.name);
+                        }
+                        if (data.errors.image) {
+                            setTimeout(function() {
+                                $('#edit-modal').modal('show');
+                                toastr.error(data.errors.image, 'Error Alert', {timeOut: 5000});
+                            }, 500);
+                            toastr.error('Total Error!', 'Error Alert', {timeOut: 5000});
+                            $('.error-edit-image').removeClass('hidden');
+                            $('.error-edit-image').text(data.errors.image);
+                        }
+                        if (data.errors.body) {
+                            setTimeout(function() {
+                                $('#edit-modal').modal('show');
+                                toastr.error(data.errors.body, 'Error Alert', {timeOut: 5000});
+                            }, 500);
+                            toastr.error('Total Error!', 'Error Alert', {timeOut: 5000});
+                            $('.error-edit-body').removeClass('hidden');
+                            $('.error-edit-body').text(data.errors.body);
+                        }
                     } else {
                         toastr.success('Successfully updated Post!', 'Success Alert', {timeOut: 5000});
                         $('#blog-id-' + data.id).replaceWith(
