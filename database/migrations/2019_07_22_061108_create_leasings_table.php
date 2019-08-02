@@ -22,7 +22,7 @@ class CreateLeasingsTable extends Migration
             $table->string('total_loan')->nullable(); /* pinjaman dana yg diajukan */
             $table->string('name')->nullable(); /* nama user */
             $table->string('phone')->nullable(); /* phone user */
-            $table->string('email')->unique()->nullable(); /* phone user */
+            $table->string('email')->nullable(); /* phone user */
             $table->string('address')->nullable(); /* address user */
             $table->string('npwp')->nullable(); /* NPWP user */
             $table->string('ktp')->nullable(); /* KTP user */

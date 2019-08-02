@@ -546,7 +546,7 @@
 									</tr>
 								</thead>
 								<tbody id="items-crud">
-									
+
 								</tbody>
 							</table>
 						</div>
@@ -645,7 +645,7 @@
             $('#edit-price-after-discount').val($(this).data('priceafterdiscount'));
             $('#edit-vendor').val($(this).data('vendor')).prop('selected', true);
             // $('#edit-brand').val(data_brand).prop('selected', true);
-            
+
             edit_image_preview('.edit-image1', $(this).data('image1'));
             edit_image_preview('.edit-image2', $(this).data('image2'));
             edit_image_preview('.edit-image3', $(this).data('image3'));
@@ -684,7 +684,7 @@
                 contentType: false,
                 success: function(data) {
                     if (data.errors) {
-                        
+
                     } else {
                         $('#edit-brand').replaceWith(
                         	"<select name='brand_id' id='edit-brand' class='form-control' required=''>" +
@@ -708,7 +708,7 @@
                 	toastr.error('Failed', 'Error Alert', {timeOut: 5000});
                 }
             });
-            
+
             id_edit = $(this).data('id');
         });
 
@@ -757,7 +757,7 @@
                 contentType: false,
                 success: function(data) {
                     if (data.errors) {
-                        
+
                     } else {
                         // toastr.success('Successfully loaded Brand!', 'Success Alert', {timeOut: 5000});
                         $('#add-brand').replaceWith(
@@ -788,7 +788,7 @@
                 contentType: false,
                 success: function(data) {
                     if (data.errors) {
-                        
+
                     } else {
                         // toastr.success('Successfully loaded Brand!', 'Success Alert', {timeOut: 5000});
                         $('#edit-brand').replaceWith(
@@ -877,87 +877,82 @@
 							}, 500);
 							$('.error-add-name').removeClass('hidden');
 							$('.error-add-name').text(data.errors.name);
-						}
-						if (data.errors.qty) {
+						} else if (data.errors.qty) {
 							setTimeout(function() {
 								$('#add-modal').modal('show');
 								toastr.error(data.errors.qty, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-add-qty').removeClass('hidden');
 							$('.error-add-qty').text(data.errors.qty);
-						}
-						if (data.errors.normal_price) {
+						} else if (data.errors.normal_price) {
 							setTimeout(function() {
 								$('#add-modal').modal('show');
 								toastr.error(data.errors.normal_price, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-add-normal-price').removeClass('hidden');
 							$('.error-add-normal-price').text(data.errors.normal_price);
-						}
-						if (data.errors.price_after_discount) {
+						} else if (data.errors.price_after_discount) {
 							setTimeout(function() {
 								$('#add-modal').modal('show');
 								toastr.error(data.errors.price_after_discount, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-add-price-after-discount').removeClass('hidden');
 							$('.error-add-price-after-discount').text(data.errors.price_after_discount);
-						}
-						if (data.errors.vendor_id) {
+						} else if (data.errors.vendor_id) {
 							setTimeout(function() {
 								$('#add-modal').modal('show');
 								toastr.error(data.errors.vendor_id, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-add-vendor').removeClass('hidden');
 							$('.error-add-vendor').text(data.errors.vendor_id);
-						}
-						if (data.errors.brand_id) {
+						} else if (data.errors.brand_id) {
 							setTimeout(function() {
 								$('#add-modal').modal('show');
 								toastr.error(data.errors.brand_id, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-add-brand').removeClass('hidden');
 							$('.error-add-brand').text(data.errors.brand_id);
-						}
-						if (data.errors.image1) {
+						} else if (data.errors.image1) {
 							setTimeout(function() {
 								$('#add-modal').modal('show');
 								toastr.error(data.errors.image1, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-add-image1').removeClass('hidden');
 							$('.error-add-image1').text(data.errors.image1);
-						}
-						if (data.errors.image2) {
+						} else if (data.errors.image2) {
 							setTimeout(function() {
 								$('#add-modal').modal('show');
 								toastr.error(data.errors.image2, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-add-image2').removeClass('hidden');
 							$('.error-add-image2').text(data.errors.image2);
-						}
-						if (data.errors.image3) {
+						} else if (data.errors.image3) {
 							setTimeout(function() {
 								$('#add-modal').modal('show');
 								toastr.error(data.errors.image3, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-add-image3').removeClass('hidden');
 							$('.error-add-image3').text(data.errors.image3);
-						}
-						if (data.errors.image4) {
+						} else if (data.errors.image4) {
 							setTimeout(function() {
 								$('#add-modal').modal('show');
 								toastr.error(data.errors.image4, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-add-image4').removeClass('hidden');
 							$('.error-add-image4').text(data.errors.image4);
-						}
-						if (data.errors.description) {
+						} else if (data.errors.description) {
 							setTimeout(function() {
 								$('#add-modal').modal('show');
 								toastr.error(data.errors.description, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-add-description').removeClass('hidden');
 							$('.error-add-description').text(data.errors.description);
-						}
+						} else {
+                            setTimeout(function() {
+                                $('#add-modal').modal('show');
+                                toastr.error(data.errors, 'Error Alert', {timeOut: 5000});
+                            }, 500);
+                        }
 					} else {
 						toastr.success('Successfully added item!', 'Success Alert', {timeOut: 5000});
 
@@ -1051,87 +1046,82 @@
 							}, 500);
 							$('.error-edit-name').removeClass('hidden');
 							$('.error-edit-name').text(data.errors.name);
-						}
-						if (data.errors.qty) {
+						} else if (data.errors.qty) {
 							setTimeout(function() {
 								$('#edit-modal').modal('show');
 								toastr.error(data.errors.qty, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-edit-qty').removeClass('hidden');
 							$('.error-edit-qty').text(data.errors.qty);
-						}
-						if (data.errors.normal_price) {
+						} else if (data.errors.normal_price) {
 							setTimeout(function() {
 								$('#edit-modal').modal('show');
 								toastr.error(data.errors.normal_price, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-edit-normal-price').removeClass('hidden');
 							$('.error-edit-normal-price').text(data.errors.normal_price);
-						}
-						if (data.errors.price_after_discount) {
+						} else if (data.errors.price_after_discount) {
 							setTimeout(function() {
 								$('#edit-modal').modal('show');
 								toastr.error(data.errors.price_after_discount, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-edit-price-after-discount').removeClass('hidden');
 							$('.error-edit-price-after-discount').text(data.errors.price_after_discount);
-						}
-						if (data.errors.vendor_id) {
+						} else if (data.errors.vendor_id) {
 							setTimeout(function() {
 								$('#edit-modal').modal('show');
 								toastr.error(data.errors.vendor_id, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-edit-vendor').removeClass('hidden');
 							$('.error-edit-vendor').text(data.errors.vendor_id);
-						}
-						if (data.errors.brand_id) {
+						} else if (data.errors.brand_id) {
 							setTimeout(function() {
 								$('#edit-modal').modal('show');
 								toastr.error(data.errors.brand_id, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-edit-brand').removeClass('hidden');
 							$('.error-edit-brand').text(data.errors.brand_id);
-						}
-						if (data.errors.image1) {
+						} else if (data.errors.image1) {
 							setTimeout(function() {
 								$('#edit-modal').modal('show');
 								toastr.error(data.errors.image1, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-edit-image1').removeClass('hidden');
 							$('.error-edit-image1').text(data.errors.image1);
-						}
-						if (data.errors.image2) {
+						} else if (data.errors.image2) {
 							setTimeout(function() {
 								$('#edit-modal').modal('show');
 								toastr.error(data.errors.image2, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-edit-image2').removeClass('hidden');
 							$('.error-edit-image2').text(data.errors.image2);
-						}
-						if (data.errors.image3) {
+						} else if (data.errors.image3) {
 							setTimeout(function() {
 								$('#edit-modal').modal('show');
 								toastr.error(data.errors.image3, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-edit-image3').removeClass('hidden');
 							$('.error-edit-image3').text(data.errors.image3);
-						}
-						if (data.errors.image4) {
+						} else if (data.errors.image4) {
 							setTimeout(function() {
 								$('#edit-modal').modal('show');
 								toastr.error(data.errors.image4, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-edit-image4').removeClass('hidden');
 							$('.error-edit-image4').text(data.errors.image4);
-						}
-						if (data.errors.description) {
+						} else if (data.errors.description) {
 							setTimeout(function() {
 								$('#edit-modal').modal('show');
 								toastr.error(data.errors.description, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-edit-description').removeClass('hidden');
 							$('.error-edit-description').text(data.errors.description);
-						}
+						} else {
+                            setTimeout(function() {
+                                $('#edit-modal').modal('show');
+                                toastr.error(data.errors, 'Error Alert', {timeOut: 5000});
+                            }, 500);
+                        }
 					} else {
 						toastr.success('Successfully updated item!', 'Success Alert', {timeOut: 5000});
 						$('#item-id-' + data.id).replaceWith(

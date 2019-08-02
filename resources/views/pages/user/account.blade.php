@@ -100,24 +100,28 @@
             <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-9">
                 <ul class="nacc list-unstyled">
                     <li class="active w-100">
-                        <div class="rounded p-4">
+                        <div class="rounded border p-4">
                             {{--<h5 class="font-weight-bold">Anda belum memiliki pengajuan, klik <a href="{{ route('simulasi') }}" class="">disini</a> untuk melakukan pengajuan.</h5>--}}
                             <h5 class="font-weight-bold">Status Pengajuan Anda</h5>
                             <div class="border rounded p-3">
-                                <div class="row">
-                                    <div class="col-6 border-right">
-                                        <p class="m-0">Fri, 18 July 2019 - 15:05:11</p>
-                                        <p class="m-0">Dummy User</p>
-                                        <p class="m-0">AUDI 1.8 AT A4 2013</p>
-                                        <p class="m-0">Rp. 238,387,000,-</p>
+                                @foreach($leasings as $leasing)
+                                    <div class="row">
+                                        <div class="col-6 border-right">
+                                            <p class="m-0">Fri, 18 July 2019 - 15:05:11</p>
+                                            <p class="m-0">{{ Auth::user()->name }}</p>
+                                            <p class="m-0">{{ $leasing->car_brand }} {{ $leasing->car_model }} {{ $leasing->car_type }} {{ $leasing->car_year }}</p>
+                                            <p class="m-0">Rp. {{ number_format($leasing->total_loan) }},-</p>
+                                        </div>
+                                        <div class="col-6 border-left">
+                                            <p class="m-0 d-inline-block">Status</p><p class="w-75 m-0 d-inline-block text-right"><i class="fas fa-sync-alt"></i></p>
+                                            @if($leasing->status == null)
+                                                <p class="m-0">Dalam proses</p>
+                                                <p class="m-0">Mohon menunggu, tim kami akan memverifikasi data</p>
+                                                <p class="m-0">Anda akan segera dihubungi kembali</p>
+                                            @endif
+                                        </div>
                                     </div>
-                                    <div class="col-6 border-left">
-                                        <p class="m-0 d-inline-block">Status</p><p class="w-75 m-0 d-inline-block text-right"><i class="fas fa-sync-alt"></i></p>
-                                        <p class="m-0">Dalam proses</p>
-                                        <p class="m-0">Mohon menunggu, tim kami akan memverifikasi data</p>
-                                        <p class="m-0">Anda akan segera dihubungi kembali</p>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </li>

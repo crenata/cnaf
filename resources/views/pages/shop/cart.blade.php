@@ -7,11 +7,11 @@
 @endphp
 
 @section('stylesheets')
-    {{--<link rel="stylesheet" href="{{ asset('public/css/user/shop/xs.css') }}" media="screen and (max-width: 575.98px)">
-    <link rel="stylesheet" href="{{ asset('public/css/user/shop/sm.css') }}" media="screen and (min-width: 576px) and (max-width: 767.98px)">
-    <link rel="stylesheet" href="{{ asset('public/css/user/shop/md.css') }}" media="screen and (min-width: 768px) and (max-width: 991.98px)">
-    <link rel="stylesheet" href="{{ asset('public/css/user/shop/lg.css') }}" media="screen and (min-width: 992px) and (max-width: 1199.98px)">
-    <link rel="stylesheet" href="{{ asset('public/css/user/shop/xl.css') }}" media="screen and (min-width: 1200px)">--}}
+    <link rel="stylesheet" href="{{ asset('public/css/user/shop/productlist/xs.css') }}" media="screen and (max-width: 575.98px)">
+    <link rel="stylesheet" href="{{ asset('public/css/user/shop/productlist/sm.css') }}" media="screen and (min-width: 576px) and (max-width: 767.98px)">
+    <link rel="stylesheet" href="{{ asset('public/css/user/shop/productlist/md.css') }}" media="screen and (min-width: 768px) and (max-width: 991.98px)">
+    <link rel="stylesheet" href="{{ asset('public/css/user/shop/productlist/lg.css') }}" media="screen and (min-width: 992px) and (max-width: 1199.98px)">
+    <link rel="stylesheet" href="{{ asset('public/css/user/shop/productlist/xl.css') }}" media="screen and (min-width: 1200px)">
 
     <style type="text/css">
         .loading {
@@ -59,7 +59,9 @@
                             exec_index.push({!! $index !!});
                         </script>
                         <tr id="cart-id-{{ $cart->id }}">
-                            <td style="width: 6rem;"><img src="{{ $cart->item->image1 }}" alt="" class="w-100"></td>
+                            <td>
+                                <img src="{{ $cart->item->image1 }}" alt="" class="w-100">
+                            </td>
                             <td>{{ $cart->item->name }}</td>
                             <td>{{ $cart->item->vendor->name }}</td>
                             @if($cart->item->price_after_discount != null || $cart->item->price_after_discount != 0)
@@ -77,6 +79,10 @@
                                 <button class="min{{ $cart->id }}">-</button>
                                 <input type="number" name="" value="{{ $cart->qty }}" class="total-item{{ $cart->id }}" max="{{ $cart->item->qty }}" min="1">
                                 <button class="plus{{ $cart->id}}">+</button>
+                                @if($cart->qty > $cart->item->qty)
+                                    <br>
+                                    <i class="fas fa-exclamation-triangle text-warning mt-2"></i>
+                                @endif
                                 @if($cart->item->price_after_discount != null || $cart->item->price_after_discount != 0)
                                     <script type="text/javascript">
                                         total_price[{!! $cart->id !!}] = ({!! $cart->item->price_after_discount !!} * {!! $cart->qty !!});

@@ -424,8 +424,7 @@
                             toastr.error('Total Error!', 'Error Alert', {timeOut: 5000});
                             $('.error-add-name').removeClass('hidden');
                             $('.error-add-name').text(data.errors.name);
-                        }
-                        if (data.errors.image) {
+                        } else if (data.errors.image) {
                             setTimeout(function() {
                                 $('#add-modal').modal('show');
                                 toastr.error(data.errors.image, 'Error Alert', {timeOut: 5000});
@@ -433,8 +432,7 @@
                             toastr.error('Total Error!', 'Error Alert', {timeOut: 5000});
                             $('.error-add-image').removeClass('hidden');
                             $('.error-add-image').text(data.errors.image);
-                        }
-                        if (data.errors.body) {
+                        } else if (data.errors.body) {
                             setTimeout(function() {
                                 $('#add-modal').modal('show');
                                 toastr.error(data.errors.body, 'Error Alert', {timeOut: 5000});
@@ -442,6 +440,11 @@
                             toastr.error('Total Error!', 'Error Alert', {timeOut: 5000});
                             $('.error-add-body').removeClass('hidden');
                             $('.error-add-body').text(data.errors.body);
+                        } else {
+                            setTimeout(function() {
+                                $('#add-modal').modal('show');
+                                toastr.error(data.errors, 'Error Alert', {timeOut: 5000});
+                            }, 500);
                         }
                     } else {
                         toastr.success('Successfully added Post!', 'Success Alert', {timeOut: 5000});
@@ -510,8 +513,7 @@
                             toastr.error('Total Error!', 'Error Alert', {timeOut: 5000});
                             $('.error-edit-name').removeClass('hidden');
                             $('.error-edit-name').text(data.errors.name);
-                        }
-                        if (data.errors.image) {
+                        } else if (data.errors.image) {
                             setTimeout(function() {
                                 $('#edit-modal').modal('show');
                                 toastr.error(data.errors.image, 'Error Alert', {timeOut: 5000});
@@ -519,8 +521,7 @@
                             toastr.error('Total Error!', 'Error Alert', {timeOut: 5000});
                             $('.error-edit-image').removeClass('hidden');
                             $('.error-edit-image').text(data.errors.image);
-                        }
-                        if (data.errors.body) {
+                        } else if (data.errors.body) {
                             setTimeout(function() {
                                 $('#edit-modal').modal('show');
                                 toastr.error(data.errors.body, 'Error Alert', {timeOut: 5000});
@@ -528,6 +529,11 @@
                             toastr.error('Total Error!', 'Error Alert', {timeOut: 5000});
                             $('.error-edit-body').removeClass('hidden');
                             $('.error-edit-body').text(data.errors.body);
+                        } else {
+                            setTimeout(function() {
+                                $('#edit-modal').modal('show');
+                                toastr.error(data.errors, 'Error Alert', {timeOut: 5000});
+                            }, 500);
                         }
                     } else {
                         toastr.success('Successfully updated Post!', 'Success Alert', {timeOut: 5000});

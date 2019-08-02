@@ -46,7 +46,7 @@ use Validator;
 
 class LeasingController extends Controller
 {
-    private $leasing_code = '', $request, $leasing_id, $user, $user_duplicate = false;
+    private $leasing_code = '', $request, $leasing_id, $user, $user_duplicate = false, $generate_password;
     public function start(Request $request)
     {
         $this->request = $request;
@@ -65,7 +65,7 @@ class LeasingController extends Controller
                     'leasing_value' => $car_year->price,
                     'max_value' => ($car_year->price * 80 / 100),
                     'total_loan' => str_replace(',', '', $this->request->ajukan_pinjaman),
-                    'car_brand' => $car_region->name,
+                    'car_brand' => $car_brand->name,
                     'car_model' => $car_model->name,
                     'car_type' => $car_type->name,
                     'car_year' => $car_year->name,
@@ -679,10 +679,13 @@ class LeasingController extends Controller
 
                 $leasing_user_register = Leasing::findOrFail($this->leasing_id);
 
+                $generate_password = substr(md5(uniqid(rand(1, 6))), 0, 8);
+                $this->generate_password = $generate_password;
+
                 /*$user_id = DB::table('users')->insertGetId([
                     'name' => $leasing_user_register->name,
                     'email' => $leasing_user_register->email,
-                    'password' => Hash::make('1234567890'),
+                    'password' => Hash::make($generate_password),
                     'phone' => $leasing_user_register->phone,
                     'address' => $leasing_user_register->address,
                     'created_at' => $now,
@@ -693,7 +696,7 @@ class LeasingController extends Controller
                     $user = User::create([
                         'name' => $leasing_user_register->name,
                         'email' => $leasing_user_register->email,
-                        'password' => Hash::make('1234567890'),
+                        'password' => Hash::make($generate_password),
                         'phone' => $leasing_user_register->phone,
                         'address' => $leasing_user_register->address,
                     ])/*->sendEmailVerificationNotification()*/;
@@ -722,6 +725,7 @@ class LeasingController extends Controller
                             $verification_url = route('apply.verify', [$this->user->email, $code]);
                             Mail::send('pages.apply.mail', [
                                 'user' => $this->user,
+                                'generate_password' => $this->generate_password,
                                 'verification_url' => $verification_url
                             ], function ($message) {
                                 $message->from(Config::get('constants')['MAIL_USERNAME'], Config::get('constants')['MAIL_INITIAL'])
@@ -749,6 +753,9 @@ class LeasingController extends Controller
 
     public function verify($email, $code) {
         $user = User::where('email', $email)->firstOrFail();
+        $user->email_verified_at = Carbon::now();
+        $user->save();
+
         $leasing = Leasing::where('leasing_code', $code)->firstOrFail();
 
         if ($leasing->user_id == $user->id) {

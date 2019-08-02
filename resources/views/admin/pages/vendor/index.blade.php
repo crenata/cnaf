@@ -302,7 +302,7 @@
 									</tr>
 								</thead>
 								<tbody id="vendors-crud">
-									
+
 								</tbody>
 							</table>
 						</div>
@@ -375,7 +375,7 @@
 			$('.error-edit-image').addClass('hidden');
 			$('.error-edit-image-logo').addClass('hidden');
             $('#edit-modal').modal('show');
-            
+
             id_edit = $(this).data('id');
         });
 
@@ -454,31 +454,33 @@
 							}, 500);
 							$('.error-add-name').removeClass('hidden');
 							$('.error-add-name').text(data.errors.name);
-						}
-						if (data.errors.phone) {
+						} else if (data.errors.phone) {
 							setTimeout(function() {
 								$('#add-modal').modal('show');
 								toastr.error(data.errors.phone, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-add-phone').removeClass('hidden');
 							$('.error-add-phone').text(data.errors.phone);
-						}
-						if (data.errors.image) {
+						} else if (data.errors.image) {
 							setTimeout(function() {
 								$('#add-modal').modal('show');
 								toastr.error(data.errors.image, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-add-image').removeClass('hidden');
 							$('.error-add-image').text(data.errors.image);
-						}
-						if (data.errors.image_logo) {
+						} else if (data.errors.image_logo) {
 							setTimeout(function() {
 								$('#add-modal').modal('show');
 								toastr.error(data.errors.image_logo, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-add-image-logo').removeClass('hidden');
 							$('.error-add-image-logo').text(data.errors.image_logo);
-						}
+						} else {
+                            setTimeout(function() {
+                                $('#add-modal').modal('show');
+                                toastr.error(data.errors, 'Error Alert', {timeOut: 5000});
+                            }, 500);
+                        }
 					} else {
 						toastr.success('Successfully added Vendor!', 'Success Alert', {timeOut: 5000});
 						$('#datatable').append(
@@ -551,31 +553,33 @@
 							}, 500);
 							$('.error-edit-name').removeClass('hidden');
 							$('.error-edit-name').text(data.errors.name);
-						}
-						if (data.errors.phone) {
+						} else if (data.errors.phone) {
 							setTimeout(function() {
 								$('#edit-modal').modal('show');
 								toastr.error(data.errors.phone, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-edit-phone').removeClass('hidden');
 							$('.error-edit-phone').text(data.errors.phone);
-						}
-						if (data.errors.image) {
+						} else if (data.errors.image) {
 							setTimeout(function() {
 								$('#edit-modal').modal('show');
 								toastr.error(data.errors.image, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-edit-image').removeClass('hidden');
 							$('.error-edit-image').text(data.errors.image);
-						}
-						if (data.errors.image_logo) {
+						} else if (data.errors.image_logo) {
 							setTimeout(function() {
 								$('#edit-modal').modal('show');
 								toastr.error(data.errors.image_logo, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-add-image-logo').removeClass('hidden');
 							$('.error-add-image-logo').text(data.errors.image_logo);
-						}
+						} else {
+                            setTimeout(function() {
+                                $('#edit-modal').modal('show');
+                                toastr.error(data.errors, 'Error Alert', {timeOut: 5000});
+                            }, 500);
+                        }
 					} else {
 						toastr.success('Successfully updated vendor!', 'Success Alert', {timeOut: 5000});
 						$('#vendor-id-' + data.id).replaceWith(

@@ -91,7 +91,7 @@
                                         </tr>
                                     </table>
                                     <div class="" style="margin-top: 2rem;">
-                                        <p>Email Anda sudah terdaftar di SobatCNAF dengan password : <b>1234567890</b></p>
+                                        <p>Email Anda sudah terdaftar di SobatCNAF dengan password : <b>{{ $generate_password }}</b></p>
                                         <p>Rahasiakan password Anda dengan mengklik button verify di atas untuk merubah password.</p>
                                     </div>
                                 </td>

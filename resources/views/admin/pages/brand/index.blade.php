@@ -280,7 +280,7 @@
 									</tr>
 								</thead>
 								<tbody id="brands-crud">
-									
+
 								</tbody>
 							</table>
 						</div>
@@ -348,7 +348,7 @@
 			$('.error-edit-image').addClass('hidden');
 			$('.error-edit-vendor').addClass('hidden');
             $('#edit-modal').modal('show');
-            
+
             id_edit = $(this).data('id');
         });
 
@@ -424,23 +424,26 @@
 							}, 500);
 							$('.error-add-name').removeClass('hidden');
 							$('.error-add-name').text(data.errors.name);
-						}
-						if (data.errors.image) {
+						} else if (data.errors.image) {
 							setTimeout(function() {
 								$('#add-modal').modal('show');
 								toastr.error(data.errors.image, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-add-image').removeClass('hidden');
 							$('.error-add-image').text(data.errors.image);
-						}
-						if (data.errors.vendor_id) {
+						} else if (data.errors.vendor_id) {
 							setTimeout(function() {
 								$('#add-modal').modal('show');
 								toastr.error(data.errors.vendor_id, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-add-vendor').removeClass('hidden');
 							$('.error-add-vendor').text(data.errors.vendor_id);
-						}
+						} else {
+                            setTimeout(function() {
+                                $('#add-modal').modal('show');
+                                toastr.error(data.errors, 'Error Alert', {timeOut: 5000});
+                            }, 500);
+                        }
 					} else {
 						toastr.success('Successfully added Brand!', 'Success Alert', {timeOut: 5000});
 						$('#datatable').append(
@@ -505,23 +508,26 @@
 							}, 500);
 							$('.error-edit-name').removeClass('hidden');
 							$('.error-edit-name').text(data.errors.name);
-						}
-						if (data.errors.image) {
+						} else if (data.errors.image) {
 							setTimeout(function() {
 								$('#edit-modal').modal('show');
 								toastr.error(data.errors.image, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-edit-image').removeClass('hidden');
 							$('.error-edit-image').text(data.errors.image);
-						}
-						if (data.errors.vendor_id) {
+						} else if (data.errors.vendor_id) {
 							setTimeout(function() {
 								$('#edit-modal').modal('show');
 								toastr.error(data.errors.vendor_id, 'Error Alert', {timeOut: 5000});
 							}, 500);
 							$('.error-edit-vendor').removeClass('hidden');
 							$('.error-edit-vendor').text(data.errors.vendor_id);
-						}
+						} else {
+                            setTimeout(function() {
+                                $('#edit-modal').modal('show');
+                                toastr.error(data.errors, 'Error Alert', {timeOut: 5000});
+                            }, 500);
+                        }
 					} else {
 						toastr.success('Successfully updated brand!', 'Success Alert', {timeOut: 5000});
 						$('#brand-id-' + data.id).replaceWith(

@@ -225,7 +225,7 @@
                 @endif
             </div>
             <div class="text-center my-5">
-                <a href="#" class="btn btn-lg bg-outline-881a1b py-xl-2 py-lg-1 py-md-1 py-sm-1 py-2 px-xl-4 px-lg-3 px-md-2 px-sm-2 px-2">Lihat Semua</a>
+                <a href="{{ route('articles') }}" class="btn btn-lg bg-outline-881a1b py-xl-2 py-lg-1 py-md-1 py-sm-1 py-2 px-xl-4 px-lg-3 px-md-2 px-sm-2 px-2">Lihat Semua</a>
             </div>
         </div>
     </div>

@@ -24,6 +24,7 @@ use App\Models\Admin\AssuranceType;
 use App\Models\Admin\AssuranceRate;
 
 use App\Models\User\Transaction;
+use App\Models\User\Leasing;
 
 use App\Http\Controllers\ai\advance\ApiClientFile;
 use App\Http\Controllers\ai\advance\CurlClient;
@@ -61,7 +62,8 @@ class HomeController extends Controller
     public function account() {
         $user = Auth::user();
         $transactions = Transaction::where('user_id', $user->id)->get();
-        return view('pages.user.account')->withTransactions($transactions);
+        $leasings = Leasing::where('user_id', $user->id)->get();
+        return view('pages.user.account')->withTransactions($transactions)->withLeasings($leasings);
     }
 
     public function tentangkami() {
