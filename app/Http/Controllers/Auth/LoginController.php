@@ -29,7 +29,7 @@ class LoginController extends Controller
 //    protected $redirectTo = '/';
 
     protected function redirectTo() {
-        if (Auth::user()->is_vendor) return route('shop');
+        if (Auth::user()->is_vendor) return route('account.vendor');
         else return route('account');
     }
 

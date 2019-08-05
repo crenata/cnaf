@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User\TransactionVendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -64,6 +65,15 @@ class HomeController extends Controller
         $transactions = Transaction::where('user_id', $user->id)->get();
         $leasings = Leasing::where('user_id', $user->id)->get();
         return view('pages.user.account')->withTransactions($transactions)->withLeasings($leasings);
+    }
+
+    public function accountVendor() {
+        $user = Auth::user();
+//        $transactions = TransactionVendor::where('vendor_id', $user->is_vendor)->get();
+        $transactions = TransactionVendor::all();
+        $items = Item::where('vendor_id', $user->vendor_id)->get();
+        $leasings = Leasing::where('user_id', $user->id)->get();
+        return view('pages.user.vendor.dashboard')->withTransactions($transactions)->withItems($items)->withLeasings($leasings);
     }
 
     public function tentangkami() {

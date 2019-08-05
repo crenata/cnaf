@@ -16,9 +16,17 @@
             <li class="nav-item {{ Request::is('simulasi') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('simulasi') }}">Simulasi</a>
             </li>
-            <li class="nav-item {{ Request::is('shop') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('shop') }}">Shop</a>
-            </li>
+            @auth
+                @if(!Auth::user()->is_vendor)
+                    <li class="nav-item {{ Request::is('shop') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('shop') }}">Shop</a>
+                    </li>
+                @endif
+            @else
+                <li class="nav-item {{ Request::is('shop') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('shop') }}">Shop</a>
+                </li>
+            @endauth
             <li class="nav-item {{ Request::is('tentang-kami') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('tentangkami') }}">Tentang Kami</a>
             </li>
@@ -26,10 +34,12 @@
         <ul class="navbar-nav ml-auto">
             @auth
                 <li class="nav-item">
-                    @if(Auth::user()->credit == null || Auth::user()->credit == '')
-                        <a class="nav-link credit">Credit Rp. 0,-</a>
-                    @else
-                        <a class="nav-link credit">Credit Rp. {{ number_format(Auth::user()->credit) }},-</a>
+                    @if(!Auth::user()->is_vendor)
+                        @if(Auth::user()->credit == null || Auth::user()->credit == '')
+                            <a class="nav-link credit">Credit Rp. 0,-</a>
+                        @else
+                            <a class="nav-link credit">Credit Rp. {{ number_format(Auth::user()->credit) }},-</a>
+                        @endif
                     @endif
                 </li>
                 <li class="nav-item dropdown">
@@ -37,8 +47,12 @@
                         {{ Auth::user()->name }}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a href="{{ route('account') }}" class="dropdown-item">Account</a>
-                        <a href="{{ route('cart.index') }}" class="dropdown-item">Cart</a>
+                        @if(Auth::user()->is_vendor)
+                            <a href="{{ route('account.vendor') }}" class="dropdown-item">Dashboard</a>
+                        @else
+                            <a href="{{ route('account') }}" class="dropdown-item">Account</a>
+                            <a href="{{ route('cart.index') }}" class="dropdown-item">Cart</a>
+                        @endif
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}

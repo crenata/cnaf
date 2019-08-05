@@ -55,6 +55,7 @@ class RegisterController extends Controller
             'phone' => ['required', 'numeric', 'min:10'],
             'address' => ['required', 'string'],
             'is_vendor' => [],
+            'vendor_id' => [],
         ]);
     }
 
@@ -73,6 +74,7 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'address' => $data['address'],
             'is_vendor' => empty($data['is_vendor']) ? false : true,
+            'vendor_id' => empty($data['vendor_id']) ? null : $data['vendor_id'],
         ]);
     }
 }

@@ -23,8 +23,13 @@ class CreateUsersTable extends Migration
             $table->string('address');
             $table->string('credit')->nullable();
             $table->boolean('is_vendor')->default(false);
+            $table->bigInteger('vendor_id')->unsigned()->nullable();
             $table->rememberToken();
             $table->timestamps();
+        });
+
+        Schema::table('users', function ($table) {
+            $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
         });
     }
 

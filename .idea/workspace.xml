@@ -3,18 +3,26 @@
   <component name="ChangeListManager">
     <list default="true" id="576dedf7-eaca-4227-8693-c9e20d6cdd2b" name="Default Changelist" comment="First Commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/User/LeasingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/User/LeasingController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_07_22_061108_create_leasings_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_07_22_061108_create_leasings_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/pages/blog/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/pages/blog/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/pages/brand/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/pages/brand/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ai/advance/AbstractClient.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ai/advance/AbstractClient.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ai/advance/CurlClient.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ai/advance/CurlClient.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ai/advance/Encoder.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ai/advance/Encoder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ai/advance/HttpClient.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ai/advance/HttpClient.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ai/advance/test.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ai/advance/test.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/pages/item/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/pages/item/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/pages/vendor/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/pages/vendor/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/apply/changepassword.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/apply/changepassword.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/apply/confirm.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/apply/confirm.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/pages/apply/mail.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/apply/mail.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/shop/cart.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/shop/cart.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/shop/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/shop/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/user/account.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/user/account.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/apply/step3.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/apply/step3.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/apply/success.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/apply/success.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/testing/priceterbilang.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/testing/priceterbilang.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/partials/attributs/nav.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/attributs/nav.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -149,7 +157,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../achievement" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../recursive" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -270,7 +278,9 @@
       <workItem from="1564634416884" duration="136000" />
       <workItem from="1564649252958" duration="54000" />
       <workItem from="1564714173422" duration="1181000" />
-      <workItem from="1564716139936" duration="12921000" />
+      <workItem from="1564716139936" duration="13581000" />
+      <workItem from="1564970625562" duration="21367000" />
+      <workItem from="1565001071626" duration="1292000" />
     </task>
     <servers />
   </component>

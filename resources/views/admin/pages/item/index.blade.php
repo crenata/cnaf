@@ -617,7 +617,7 @@
 		/* Show */
 		$(document).on('click', '.show-item', function() {
 			$('.show-name').text($(this).data('name'));
-			$('.show-qty').text($(this).data('qty'));
+			$('.show-qty').text(format_money($(this).data('qty')));
 			$('.show-normal-price').text('Rp. ' + format_money($(this).data('normalprice')) + ',-');
 			$('.show-price-after-discount').text('Rp. ' + format_money($(this).data('priceafterdiscount')) + ',-');
 			$('.show-vendor').text($(this).data('vendor'));
@@ -739,7 +739,7 @@
                 type: 'DELETE',
                 url: 'item/' + id,
                 success: function(data) {
-                    toastr.success('Successfully deleted item!', 'Success Alert', {timeOut: 5000});
+                    toastr.success('Successfully deleted Item!', 'Success Alert', {timeOut: 5000});
                     $('#item-id-' + id).remove();
                 }
             });
