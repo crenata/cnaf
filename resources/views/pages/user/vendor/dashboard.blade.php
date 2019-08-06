@@ -91,7 +91,84 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
+                    <div class="{{--table-responsive--}}" id="order-detail">
+                        <table class="ui table table-bordered table-striped table-hover" id="datatable">
+                            <tbody>
+                            <tr class="bg-881a1b">
+                                <td colspan="4">
+                                    <div class="row">
+                                        <div class="col-6">Transaksi #UN32NB3RB8</div>
+                                        <div class="col-6 text-right">Fri, 2 August 2019 - 07:30:00</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="m-0">Customer</p>
+                                    <p class="m-0"><small><b>#Fiizhghuls</b></small></p>
+                                </td>
+                                <td>
+                                    <p class="m-0">Email</p>
+                                    <p class="m-0"><small><b>hafiizh.ghulam@gmail.com</b></small></p>
+                                </td>
+                                <td>
+                                    <p class="m-0">Phone</p>
+                                    <p class="m-0"><small><b>087849143248</b></small></p>
+                                </td>
+                                <td rowspan="2" style="vertical-align: middle;">
+                                    <p class="m-0">Status</p>
+                                    <select class="form-control form-control-sm">
+                                        <option>-- Select Status --</option>
+                                        <option value="1">Menunggu Vendor</option>
+                                        <option value="2">Diproses</option>
+                                        <option value="3">Dikirim</option>
+                                        <option value="4">Selesai</option>
+                                        <option value="5">Dibatalkan</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <p class="m-0">Address</p>
+                                    <p class="m-0"><small><b>Jl. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita, rem.</b></small></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="p-2" colspan="4"></td>
+                            </tr>
+                            <tr>
+                                <td><img src="http://localhost/storage/cnaf/items/CNAF-20190710-IMAGE-c63038d20ab1c88687f09d952935f0015d2569878b555.png" alt="" width="100" class=""></td>
+                                <td colspan="2" style="vertical-align: middle;">
+                                    <p class="m-0">Ariston Built-In Oven HIHGYUI</p>
+                                    <p class="m-0">Rp. 100,000,000,- x 1 Items</p>
+                                </td>
+                                <td>
+                                    <p class="m-0">Sub Total</p>
+                                    <p class="m-0"><small><b>Rp. 100,000,000,-</b></small></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><img src="http://localhost/storage/cnaf/items/CNAF-20190710-IMAGE-c63038d20ab1c88687f09d952935f0015d2569878b555.png" alt="" width="100" class=""></td>
+                                <td colspan="2" style="vertical-align: middle;">
+                                    <p class="m-0">Ariston Built-In Oven HIHGYUI</p>
+                                    <p class="m-0">Rp. 100,000,000,- x 1 Items</p>
+                                </td>
+                                <td>
+                                    <p class="m-0">Sub Total</p>
+                                    <p class="m-0"><small><b>Rp. 100,000,000,-</b></small></p>
+                                </td>
+                            </tr>
+                            <tr class="bg-outline-881a1b">
+                                <td colspan="4">
+                                    <div class="row">
+                                        <div class="col-6">Total</div>
+                                        <div class="col-6 text-right">Rp. 100,000,000,-</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -279,12 +356,12 @@
                                 <table class="ui table table-bordered table-striped table-hover" id="datatable">
                                     <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Name</th>
-                                        <th>Tanggal</th>
-                                        <th>Status</th>
-                                        <th>Total</th>
-                                        <th>Action</th>
+                                        <th width="5%">#</th>
+                                        <th width="25%">Name</th>
+                                        <th width="20%">Tanggal</th>
+                                        <th width="20%">Status</th>
+                                        <th width="20%">Total</th>
+                                        <th width="10%">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody id="transactions-crud">
@@ -296,7 +373,7 @@
                                             <td>{{ $transaction->status }}</td>
                                             <td>Rp. {{ number_format($transaction->total) }},-</td>
                                             <td class="actions">
-                                                <a href="javascript:void(0)" class="btn btn-info btn-sm show-detail">
+                                                <a href="javascript:void(0)" data-id="{{ $transaction->transaction_id }}" class="btn btn-info btn-sm show-detail">
                                                     <i class="fas fa-info-circle"></i>
                                                 </a>
                                             </td>
@@ -313,13 +390,13 @@
                                 <table class="ui table table-bordered table-striped table-hover" id="datatable">
                                     <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Item Name</th>
-                                        <th>Qty</th>
-                                        <th>Price (Normal)</th>
-                                        <th>Price (After Discount)</th>
-                                        <th>Image</th>
-                                        <th>Action</th>
+                                        <th width="5%">#</th>
+                                        <th width="20%">Item Name</th>
+                                        <th width="10%">Qty</th>
+                                        <th width="20%">Price (Normal)</th>
+                                        <th width="20%">Price (After Discount)</th>
+                                        <th width="5%">Image</th>
+                                        <th width="20%">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody id="items-crud">
@@ -327,7 +404,7 @@
                                         <tr id="item-id-{{ $item->id }}">
                                             <td>{{ $index += 1 }}</td>
                                             <td>{{ $item->name }}</td>
-                                            <td>{{ $item->qty }}</td>
+                                            <td id="qty-{{ $item->id }}">{{ number_format($item->qty) }}</td>
                                             <td>Rp. {{ number_format($item->normal_price) }},-</td>
                                             <td>Rp. {{ number_format($item->price_after_discount) }},-</td>
                                             <td>
@@ -391,6 +468,108 @@
         /* Show */
         $(document).on('click', '.show-detail', function() {
             $('#detail-modal').modal('show');
+
+            $.ajax({
+                type: 'GET',
+                url: 'vendor/dashboard/order/detail/' + $(this).data('id'),
+                beforeSend: function() {
+                    $('.loading').css('display', 'block');
+                    $('.container').css('display', 'none');
+                },
+                success: function(data) {
+                    $('.loading').css('display', 'none');
+                    $('.container').css('display', 'block');
+                    console.log(data);
+
+                    if (data.errors) {
+                        console.log('errors');
+                    } else {
+                        $('#order-detail').replaceWith(
+                            "<div class='{{--table-responsive--}}' id='order-detail'>" +
+                                "<table class='ui table table-bordered table-striped table-hover' id='datatable'>" +
+                                    "<tbody id='tbody-detail'>" +
+                                        "<tr class='bg-881a1b'>" +
+                                            "<td colspan='4'>" +
+                                                "<div class='row'>" +
+                                                    "<div class='col-6'>Transaksi #UN32NB3RB8</div>" +
+                                                    "<div class='col-6 text-right'>Fri, 2 August 2019 - 07:30:00</div>" +
+                                                "</div>" +
+                                            "</td>" +
+                                        "</tr>" +
+                                        "<tr>" +
+                                            "<td>" +
+                                                "<p class='m-0'>Customer</p>" +
+                                                "<p class='m-0'><small><b>#" + data.user.name + "</b></small></p>" +
+                                            "</td>" +
+                                            "<td>" +
+                                                "<p class='m-0'>Email</p>" +
+                                                "<p class='m-0'><small><b>" + data.user.email + "</b></small></p>" +
+                                            "</td>" +
+                                            "<td>" +
+                                                "<p class='m-0'>Phone</p>" +
+                                                "<p class='m-0'><small><b>" + data.user.phone + "</b></small></p>" +
+                                            "</td>" +
+                                            "<td rowspan='2' style='vertical-align: middle;'>" +
+                                                "<p class='m-0'>Status</p>" +
+                                                "<select class='form-control form-control-sm'>" +
+                                                    "<option>-- Select Status --</option>" +
+                                                    "<option value='1'>Menunggu Vendor</option>" +
+                                                    "<option value='2'>Diproses</option>" +
+                                                    "<option value='3'>Dikirim</option>" +
+                                                    "<option value='4'>Selesai</option>" +
+                                                    "<option value='5'>Dibatalkan</option>" +
+                                                "</select>" +
+                                            "</td>" +
+                                        "</tr>" +
+                                        "<tr>" +
+                                            "<td colspan='3'>" +
+                                                "<p class='m-0'>Address</p>" +
+                                                "<p class='m-0'><small><b>" + data.user.address + "</b></small></p>" +
+                                            "</td>" +
+                                        "</tr>" +
+                                        "<tr>" +
+                                            "<td class='p-2' colspan='4'></td>" +
+                                        "</tr>" +
+                                    "</tbody>" +
+                                "</table>" +
+                            "</div>"
+                        );
+
+                        $.each(data.transaction.transaction_vendor_details, function (index, value) {
+                            console.log(value);
+                            $('#tbody-detail').append(
+                                "<tr>" +
+                                    "<td><img src='http://localhost/storage/cnaf/items/CNAF-20190710-IMAGE-c63038d20ab1c88687f09d952935f0015d2569878b555.png' alt='' width='100' class=''></td>" +
+                                    "<td colspan='2' style='vertical-align: middle;'>" +
+                                        "<p class='m-0'>Ariston Built-In Oven HIHGYUI</p>" +
+                                        "<p class='m-0'>Rp. " + format_money(parseFloat(value.price)) + ",- x " + value.qty + " Items</p>" +
+                                    "</td>" +
+                                    "<td>" +
+                                        "<p class='m-0'>Sub Total</p>" +
+                                        "<p class='m-0'><small><b>Rp. " + format_money(value.price * value.qty) + ",-</b></small></p>" +
+                                    "</td>" +
+                                "</tr>"
+                            );
+                        });
+
+                        $('#tbody-detail').append(
+                            "<tr class='bg-outline-881a1b'>" +
+                                "<td colspan='4'>" +
+                                    "<div class='row'>" +
+                                        "<div class='col-6'>Total</div>" +
+                                        "<div class='col-6 text-right'>Rp. " + format_money(data.transaction.total) + ",-</div>" +
+                                    "</div>" +
+                                "</td>" +
+                            "</tr>"
+                        );
+                    }
+                },
+                error: function(data) {
+                    $('.loading').css('display', 'none');
+                    $('.container').css('display', 'block');
+                    toastr.error('Failed remove Item from Cart!', 'Error Alert', {timeOut: 5000});
+                }
+            });
         });
 
         /* Show */
@@ -426,6 +605,18 @@
             id_edit = $(this).data('id');
         });
 
+        $('.modal-footer').on('click', '.edit', function() {
+            edit_submit();
+        });
+
+        $('#edit-form').keydown(function (e) {
+            if (e.which == 13 && e.target.id != '') {
+                e.preventDefault();
+                edit_submit();
+                $('#edit-modal').modal('hide');
+            }
+        });
+
         /* Delete */
         $(document).on('click', '.delete-item', function() {
             $('#delete-modal').modal('show');
@@ -434,7 +625,7 @@
         $('.modal-footer').on('click', '.delete', function() {
             $.ajax({
                 type: 'DELETE',
-                url: '{!! url('admin/item') !!}' + '/' + id,
+                url: 'vendor/dashboard/' + id,
                 success: function(data) {
                     toastr.success('Successfully deleted Item!', 'Success Alert', {timeOut: 5000});
                     $('#item-id-' + id).remove();
@@ -442,6 +633,49 @@
             });
         });
 
+        function edit_submit() {
+            let edit_form_data = new FormData();
+
+            let id = $('#id-edit').val();
+            let qty = $('#edit-qty').val();
+
+            edit_form_data.append('id', id);
+            edit_form_data.append('qty', qty);
+            edit_form_data.append('_method', 'PUT');
+
+            $.ajax({
+                type: 'POST',
+                url: 'vendor/dashboard/' + id_edit,
+                data: edit_form_data,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    $('.error-edit-qty').addClass('hidden');
+                    if (data.errors) {
+                        if (data.errors.qty) {
+                            setTimeout(function() {
+                                $('#edit-modal').modal('show');
+                                toastr.error(data.errors.qty, 'Error Alert', {timeOut: 5000});
+                            }, 500);
+                            $('.error-edit-qty').removeClass('hidden');
+                            $('.error-edit-qty').text(data.errors.qty);
+                        } else {
+                            setTimeout(function() {
+                                $('#edit-modal').modal('show');
+                                toastr.error(data.errors, 'Error Alert', {timeOut: 5000});
+                            }, 500);
+                        }
+                    } else {
+                        toastr.success('Successfully updated item!', 'Success Alert', {timeOut: 5000});
+                        $('#qty-' + data.id).replaceWith("<td id='qty-" + data.id + "'>" + format_money(parseFloat(data.qty)) + "</td>");
+                    }
+                },
+                error: function(data) {
+                    toastr.error(data.errors, 'Error Alert', {timeOut: 5000});
+                }
+            });
+        }
 
         function format_money(n) {
             return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '');

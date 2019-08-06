@@ -55,4 +55,6 @@ Route::get('ocr', 'HomeController@ocr')->name('ocr');
 Route::middleware(array('web', 'auth', 'verified'))->group(function () {
     Route::get('account', 'HomeController@account')->name('account');
     Route::get('account/vendor', 'HomeController@accountVendor')->name('account.vendor');
+    Route::resource('account/vendor/dashboard', 'User\VendorDashboardController');
+    Route::get('account/vendor/dashboard/order/detail/{id}', 'User\VendorDashboardController@orderDetail')->name('account.vendor.order.detail');
 });
