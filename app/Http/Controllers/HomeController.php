@@ -62,18 +62,26 @@ class HomeController extends Controller
 
     public function account() {
         $user = Auth::user();
-        $transactions = Transaction::where('user_id', $user->id)->get();
-        $leasings = Leasing::where('user_id', $user->id)->get();
-        return view('pages.user.account')->withTransactions($transactions)->withLeasings($leasings);
+        if (!$user->is_vendor) {
+            $transactions = Transaction::where('user_id', $user->id)->get();
+            $leasings = Leasing::where('user_id', $user->id)->get();
+            return view('pages.user.account')->withTransactions($transactions)->withLeasings($leasings);
+        } else {
+            return abort(403);
+        }
     }
 
     public function accountVendor() {
         $user = Auth::user();
-//        $transactions = TransactionVendor::where('vendor_id', $user->is_vendor)->get();
-        $transactions = TransactionVendor::all();
-        $items = Item::where('vendor_id', $user->vendor_id)->get();
-        $leasings = Leasing::where('user_id', $user->id)->get();
-        return view('pages.user.vendor.dashboard')->withTransactions($transactions)->withItems($items)->withLeasings($leasings);
+        if ($user->is_vendor) {
+            // $transactions = TransactionVendor::where('vendor_id', $user->is_vendor)->get();
+            $transactions = TransactionVendor::where('vendor_id', $user->vendor_id)->get();
+            $items = Item::where('vendor_id', $user->vendor_id)->get();
+            $leasings = Leasing::where('user_id', $user->id)->get();
+            return view('pages.user.vendor.dashboard')->withTransactions($transactions)->withItems($items)->withLeasings($leasings);
+        } else {
+            return abort(403);
+        }
     }
 
     public function tentangkami() {

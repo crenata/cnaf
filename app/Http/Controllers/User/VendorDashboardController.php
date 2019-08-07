@@ -138,7 +138,28 @@ class VendorDashboardController extends Controller
 
     public function orderDetail($id)
     {
-        $transaction_vendor = TransactionVendor::where('transaction_id', $id)->firstOrFail();
-        return response()->json(['transaction' => $transaction_vendor->load('transaction')->load('transaction_vendor_details'), 'user' => $transaction_vendor->transaction->user]);
+        $transaction_vendor = TransactionVendor::where('id', $id)->firstOrFail();
+        return response()->json(['transaction_vendor' => $transaction_vendor->load('transaction')->load('transaction_vendor_details'), 'transaction_vendor_details' => $transaction_vendor->transaction_vendor_details->load('item'), 'user' => $transaction_vendor->transaction->user]);
+    }
+
+    public function updateOrderStatus(Request $request, $id)
+    {
+        if (Auth::check()) {
+            if (Auth::user()->is_vendor) {
+                $rules = ['status' => 'required|numeric'];
+
+                $validator = Validator::make($request->all(), $rules);
+
+                if ($validator->fails()) {
+                    return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+                } else {
+                    $transaction = TransactionVendor::findOrFail($id);
+                    $transaction->status = $request->status;
+                    $transaction->save();
+
+                    return response()->json($transaction);
+                }
+            }
+        }
     }
 }

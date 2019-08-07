@@ -57,4 +57,5 @@ Route::middleware(array('web', 'auth', 'verified'))->group(function () {
     Route::get('account/vendor', 'HomeController@accountVendor')->name('account.vendor');
     Route::resource('account/vendor/dashboard', 'User\VendorDashboardController');
     Route::get('account/vendor/dashboard/order/detail/{id}', 'User\VendorDashboardController@orderDetail')->name('account.vendor.order.detail');
+    Route::put('account/vendor/dashboard/order/update/{id}', 'User\VendorDashboardController@updateOrderStatus')->name('account.vendor.order.update');
 });

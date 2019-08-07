@@ -15,6 +15,8 @@ use App\Helpers\Helper;
 use App\Models\User\Cart;
 use App\Models\Admin\Item;
 
+use App\User;
+
 use Session;
 use Validator;
 use PDF;
@@ -178,6 +180,44 @@ class TransactionController extends Controller
                                         ->subject('Invoice')
                                         ->attach(Config::get('constants')['UPLOAD_PATH'] . "invoice/$random_name.pdf");
                                 });
+
+                                foreach ($this->data_per_vendor as $per_vendor) {
+                                    $item_by_vendor = [];
+                                    $qty_by_vendor = [];
+                                    $total_price_by_vendor = 0;
+                                    foreach ($this->items_id as $index => $item_id) {
+                                        if ($this->item[$item_id]->vendor_id == $per_vendor['vendor_id']) {
+                                            array_push($item_by_vendor, $this->item[$item_id]);
+                                            array_push($qty_by_vendor, $this->qty[$index]);
+                                            $total_price_by_vendor += $this->price[$item_id];
+                                        }
+                                    }
+                                    $po_random_name = Helper::getPORandomName();
+                                    $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true, 'defaultFont' => 'sans-serif'])
+                                        ->loadView('pages.shop.po.invoice', [
+                                            'user' => $this->user,
+                                            'items' => $item_by_vendor,
+                                            'items_id' => $this->items_id,
+                                            'qty' => $qty_by_vendor,
+                                            'price' => $this->price,
+                                            'total_price' => $total_price_by_vendor
+                                        ])
+                                        ->save(Config::get('constants')['UPLOAD_PATH'] . "po/$po_random_name.pdf");
+
+                                    $vendor = User::where('vendor_id', $per_vendor['vendor_id'])->first();
+                                    if ($vendor != null) {
+                                        Mail::send('pages.shop.po.mail', [
+                                            'user' => $this->user,
+                                            'item' => $this->item,
+                                            'items_id' => $this->items_id
+                                        ], function ($message) use ($po_random_name) {
+                                            $message->from(Config::get('constants')['MAIL_USERNAME'], Config::get('constants')['MAIL_INITIAL'])
+                                                ->to('hafiizh.ghulam@gmail.com')
+                                                ->subject('Purchase Order')
+                                                ->attach(Config::get('constants')['UPLOAD_PATH'] . "po/$po_random_name.pdf");
+                                        });
+                                    }
+                                }
                             });
                             return response()->json(array('success' => 'Permintaan Anda sedang dikirimkan!', 'html' => view('pages.shop.success')->render(), 'credit' => $this->user->credit));
                         } catch (Exception $e) {

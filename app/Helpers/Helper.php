@@ -23,6 +23,10 @@ class Helper {
         return 'INVOICE-' . date('Ymd') . '-SCR-' . substr(md5(uniqid(rand(), true)), -6);
     }
 
+    public static function getPORandomName() {
+        return 'PO-' . date('Ymd') . '-SCR-' . substr(md5(uniqid(rand(), true)), -6);
+    }
+
     /**
      * set location for public directory
      * @param String $directory

@@ -11,6 +11,8 @@
 
     {{ Html::style('public/plugin/lightbox/dist/css/lightbox.min.css') }}
 
+    {{ Html::style('public/plugin/DataTables-Bootstrap4/css/dataTables.bootstrap4.min.css') }}
+
     <style type="text/css">
         td a img {
             width: 36px;
@@ -91,9 +93,16 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <input type="text" name="" id="id-status" hidden>
+                    <div class="text-center">
+                        <button class="btn btn-primary loading-detail" type="button" disabled>
+                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            Loading...
+                        </button>
+                    </div>
                     <div class="{{--table-responsive--}}" id="order-detail">
                         <table class="ui table table-bordered table-striped table-hover" id="datatable">
-                            <tbody>
+                            <tbody id="tbody-detail">
                             <tr class="bg-881a1b">
                                 <td colspan="4">
                                     <div class="row">
@@ -117,13 +126,13 @@
                                 </td>
                                 <td rowspan="2" style="vertical-align: middle;">
                                     <p class="m-0">Status</p>
-                                    <select class="form-control form-control-sm">
+                                    <select class="form-control form-control-sm" id="order-status">
                                         <option>-- Select Status --</option>
-                                        <option value="1">Menunggu Vendor</option>
-                                        <option value="2">Diproses</option>
-                                        <option value="3">Dikirim</option>
-                                        <option value="4">Selesai</option>
-                                        <option value="5">Dibatalkan</option>
+                                        <option value="{{ Config::get('constants')['TRANSACTION_VENDOR_STATUS_MENUNGGU_VENDOR'] }}">Menunggu Vendor</option>
+                                        <option value="{{ Config::get('constants')['TRANSACTION_VENDOR_STATUS_DIPROSES'] }}">Diproses</option>
+                                        <option value="{{ Config::get('constants')['TRANSACTION_VENDOR_STATUS_DIKIRIM'] }}">Dikirim</option>
+                                        <option value="{{ Config::get('constants')['TRANSACTION_VENDOR_STATUS_SELESAI'] }}">Selesai</option>
+                                        <option value="{{ Config::get('constants')['TRANSACTION_VENDOR_STATUS_DIBATALKAN'] }}">Dibatalkan</option>
                                     </select>
                                 </td>
                             </tr>
@@ -172,6 +181,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn bg-881a1b update-order-status" data-dismiss="modal">Update</button>
                 </div>
             </div>
         </div>
@@ -353,7 +363,7 @@
                     <li class="w-100 small">
                         <div class="rounded border p-4">
                             <div class="table-responsive">
-                                <table class="ui table table-bordered table-striped table-hover" id="datatable">
+                                <table class="ui table table-bordered table-striped table-hover datatable" id="">
                                     <thead>
                                     <tr>
                                         <th width="5%">#</th>
@@ -370,10 +380,10 @@
                                             <td>{{ $index += 1 }}</td>
                                             <td>{{ $transaction->transaction->user->name }}</td>
                                             <td>{{ date('D, j F Y', strtotime($transaction->created_at)) }}</td>
-                                            <td>{{ $transaction->status }}</td>
+                                            <td id="status-{{ $transaction->id }}">{{ get_status($transaction->status) }}</td>
                                             <td>Rp. {{ number_format($transaction->total) }},-</td>
                                             <td class="actions">
-                                                <a href="javascript:void(0)" data-id="{{ $transaction->transaction_id }}" class="btn btn-info btn-sm show-detail">
+                                                <a href="javascript:void(0)" data-id="{{ $transaction->id }}" class="btn btn-info btn-sm show-detail">
                                                     <i class="fas fa-info-circle"></i>
                                                 </a>
                                             </td>
@@ -387,7 +397,7 @@
                     <li class="w-100 small">
                         <div class="rounded border p-4">
                             <div class="table-responsive">
-                                <table class="ui table table-bordered table-striped table-hover" id="datatable">
+                                <table class="ui table table-bordered table-striped table-hover datatable" id="">
                                     <thead>
                                     <tr>
                                         <th width="5%">#</th>
@@ -434,12 +444,27 @@
             </div>
         </div>
     </div>
+
+    @php
+        function get_status($status) {
+            if ($status == Config::get('constants')['TRANSACTION_VENDOR_STATUS_MENUNGGU_VENDOR']) return 'Menunggu Vendor';
+            else if ($status == Config::get('constants')['TRANSACTION_VENDOR_STATUS_DIPROSES']) return 'Diproses';
+            else if ($status == Config::get('constants')['TRANSACTION_VENDOR_STATUS_DIKIRIM']) return 'Dikirim';
+            else if ($status == Config::get('constants')['TRANSACTION_VENDOR_STATUS_SELESAI']) return 'Selesai';
+            else if ($status == Config::get('constants')['TRANSACTION_VENDOR_STATUS_DIBATALKAN']) return 'Dibatalkan';
+        }
+    @endphp
 @endsection
 
 @section('scripts')
     {{ Html::script('public/plugin/lightbox/dist/js/lightbox.min.js') }}
 
+    {{ Html::script('public/js/jquery.dataTables.min.js') }}
+    {{ Html::script('public/plugin/DataTables-Bootstrap4/js/dataTables.bootstrap4.min.js') }}
+
     <script type="text/javascript">
+        // $('.datatable').DataTable();
+
         $(document).ready(function() {
             $.ajaxSetup({
                 headers: {
@@ -467,18 +492,19 @@
 
         /* Show */
         $(document).on('click', '.show-detail', function() {
+            $('#id-status').val($(this).data('id'));
             $('#detail-modal').modal('show');
 
             $.ajax({
                 type: 'GET',
                 url: 'vendor/dashboard/order/detail/' + $(this).data('id'),
                 beforeSend: function() {
-                    $('.loading').css('display', 'block');
-                    $('.container').css('display', 'none');
+                    $('.loading-detail').css('display', 'block');
+                    $('#order-detail').css('display', 'none');
                 },
                 success: function(data) {
-                    $('.loading').css('display', 'none');
-                    $('.container').css('display', 'block');
+                    $('.loading-detail').css('display', 'none');
+                    $('#order-detail').css('display', 'block');
                     console.log(data);
 
                     if (data.errors) {
@@ -492,7 +518,7 @@
                                             "<td colspan='4'>" +
                                                 "<div class='row'>" +
                                                     "<div class='col-6'>Transaksi #UN32NB3RB8</div>" +
-                                                    "<div class='col-6 text-right'>Fri, 2 August 2019 - 07:30:00</div>" +
+                                                    "<div class='col-6 text-right'>" + get_date(data.transaction_vendor.created_at) + "</div>" +
                                                 "</div>" +
                                             "</td>" +
                                         "</tr>" +
@@ -511,13 +537,13 @@
                                             "</td>" +
                                             "<td rowspan='2' style='vertical-align: middle;'>" +
                                                 "<p class='m-0'>Status</p>" +
-                                                "<select class='form-control form-control-sm'>" +
+                                                "<select class='form-control form-control-sm' id='order-status'>" +
                                                     "<option>-- Select Status --</option>" +
-                                                    "<option value='1'>Menunggu Vendor</option>" +
-                                                    "<option value='2'>Diproses</option>" +
-                                                    "<option value='3'>Dikirim</option>" +
-                                                    "<option value='4'>Selesai</option>" +
-                                                    "<option value='5'>Dibatalkan</option>" +
+                                                    "<option value='" + {!! Config::get('constants')['TRANSACTION_VENDOR_STATUS_MENUNGGU_VENDOR'] !!} + "' " + ((data.transaction_vendor.status === {!! Config::get('constants')['TRANSACTION_VENDOR_STATUS_MENUNGGU_VENDOR'] !!}) ? 'selected' : '') + ">Menunggu Vendor</option>" +
+                                                    "<option value='" + {!! Config::get('constants')['TRANSACTION_VENDOR_STATUS_DIPROSES'] !!} + "' " + ((data.transaction_vendor.status === {!! Config::get('constants')['TRANSACTION_VENDOR_STATUS_DIPROSES'] !!}) ? 'selected' : '') + ">Diproses</option>" +
+                                                    "<option value='" + {!! Config::get('constants')['TRANSACTION_VENDOR_STATUS_DIKIRIM'] !!} + "' " + ((data.transaction_vendor.status === {!! Config::get('constants')['TRANSACTION_VENDOR_STATUS_DIKIRIM'] !!}) ? 'selected' : '') + ">Dikirim</option>" +
+                                                    "<option value='" + {!! Config::get('constants')['TRANSACTION_VENDOR_STATUS_SELESAI'] !!} + "' " + ((data.transaction_vendor.status === {!! Config::get('constants')['TRANSACTION_VENDOR_STATUS_SELESAI'] !!}) ? 'selected' : '') + ">Selesai</option>" +
+                                                    "<option value='" + {!! Config::get('constants')['TRANSACTION_VENDOR_STATUS_DIBATALKAN'] !!} + "' " + ((data.transaction_vendor.status === {!! Config::get('constants')['TRANSACTION_VENDOR_STATUS_DIBATALKAN'] !!}) ? 'selected' : '') + ">Dibatalkan</option>" +
                                                 "</select>" +
                                             "</td>" +
                                         "</tr>" +
@@ -535,13 +561,13 @@
                             "</div>"
                         );
 
-                        $.each(data.transaction.transaction_vendor_details, function (index, value) {
+                        $.each(data.transaction_vendor_details, function (index, value) {
                             console.log(value);
                             $('#tbody-detail').append(
                                 "<tr>" +
-                                    "<td><img src='http://localhost/storage/cnaf/items/CNAF-20190710-IMAGE-c63038d20ab1c88687f09d952935f0015d2569878b555.png' alt='' width='100' class=''></td>" +
+                                    "<td><img src='" + value.item.image1 + "' alt='' width='100' class=''></td>" +
                                     "<td colspan='2' style='vertical-align: middle;'>" +
-                                        "<p class='m-0'>Ariston Built-In Oven HIHGYUI</p>" +
+                                        "<p class='m-0'>" + value.item.name + "</p>" +
                                         "<p class='m-0'>Rp. " + format_money(parseFloat(value.price)) + ",- x " + value.qty + " Items</p>" +
                                     "</td>" +
                                     "<td>" +
@@ -557,7 +583,7 @@
                                 "<td colspan='4'>" +
                                     "<div class='row'>" +
                                         "<div class='col-6'>Total</div>" +
-                                        "<div class='col-6 text-right'>Rp. " + format_money(data.transaction.total) + ",-</div>" +
+                                        "<div class='col-6 text-right'>Rp. " + format_money(data.transaction_vendor.total) + ",-</div>" +
                                     "</div>" +
                                 "</td>" +
                             "</tr>"
@@ -565,9 +591,49 @@
                     }
                 },
                 error: function(data) {
-                    $('.loading').css('display', 'none');
-                    $('.container').css('display', 'block');
-                    toastr.error('Failed remove Item from Cart!', 'Error Alert', {timeOut: 5000});
+                    $('.loading-detail').css('display', 'none');
+                    $('#order-detail').css('display', 'block');
+                    toastr.error('Failed for showing order detail!', 'Error Alert', {timeOut: 5000});
+                }
+            });
+        });
+        $('.modal-footer').on('click', '.update-order-status', function() {
+            let update_status = new FormData();
+
+            let id = $('#id-status').val();
+            let status = $('#order-status').val();
+
+            update_status.append('id', id);
+            update_status.append('status', status);
+            update_status.append('_method', 'PUT');
+
+            $.ajax({
+                type: 'POST',
+                url: 'vendor/dashboard/order/update/' + id,
+                data: update_status,
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    if (data.errors) {
+                        if (data.errors.status) {
+                            setTimeout(function() {
+                                $('#detail-modal').modal('show');
+                                toastr.error(data.errors.status, 'Error Alert', {timeOut: 5000});
+                            }, 500);
+                        } else {
+                            setTimeout(function() {
+                                $('#detail-modal').modal('show');
+                                toastr.error(data.errors, 'Error Alert', {timeOut: 5000});
+                            }, 500);
+                        }
+                    } else {
+                        toastr.success('Successfully updated Status Order!', 'Success Alert', {timeOut: 5000});
+                        $('#status-' + data.id).replaceWith("<td id='status-" + data.id + "'>" + get_status(data.status) + "</td>");
+                    }
+                },
+                error: function(data) {
+                    toastr.error(data.errors, 'Error Alert', {timeOut: 5000});
                 }
             });
         });
@@ -679,6 +745,22 @@
 
         function format_money(n) {
             return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,').replace('.00', '');
+        }
+
+        function get_date(date) {
+            console.log(date);
+            date = new Date(date);
+            const month = ['January', 'February', 'March', 'April', 'Mei', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            return day[date.getDay()] + ', ' + date.getDate() + ' ' + month[date.getMonth()] + ' ' + date.getFullYear();
+        }
+
+        function get_status(status) {
+            if (status == {!! Config::get('constants')['TRANSACTION_VENDOR_STATUS_MENUNGGU_VENDOR'] !!}) return 'Menunggu Vendor';
+            else if (status == {!! Config::get('constants')['TRANSACTION_VENDOR_STATUS_DIPROSES'] !!}) return 'Diproses';
+            else if (status == {!! Config::get('constants')['TRANSACTION_VENDOR_STATUS_DIKIRIM'] !!}) return 'Dikirim';
+            else if (status == {!! Config::get('constants')['TRANSACTION_VENDOR_STATUS_SELESAI'] !!}) return 'Selesai';
+            else if (status == {!! Config::get('constants')['TRANSACTION_VENDOR_STATUS_DIBATALKAN'] !!}) return 'Dibatalkan';
         }
     </script>
 @endsection
