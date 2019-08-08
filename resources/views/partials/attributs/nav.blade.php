@@ -13,16 +13,19 @@
             <li class="nav-item {{ Request::is('articles') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('articles') }}">Artikel</a>
             </li>
-            <li class="nav-item {{ Request::is('simulasi') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('simulasi') }}">Simulasi</a>
-            </li>
             @auth
                 @if(!Auth::user()->is_vendor)
+                    <li class="nav-item {{ Request::is('simulasi') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('simulasi') }}">Simulasi</a>
+                    </li>
                     <li class="nav-item {{ Request::is('shop') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('shop') }}">Shop</a>
                     </li>
                 @endif
             @else
+                <li class="nav-item {{ Request::is('simulasi') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('simulasi') }}">Simulasi</a>
+                </li>
                 <li class="nav-item {{ Request::is('shop') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('shop') }}">Shop</a>
                 </li>

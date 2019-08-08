@@ -30,18 +30,18 @@
                                     <div class="card">
                                         <div class="row no-gutters">
                                             <div class="col-md-4 col-lg-5 col-xl-4">
-                                                <a href="#" class=""><img src="{{ $blog->image }}" alt="" class="w-100 h-100"></a>
+                                                <a href="{{ route('article.show', $blog->slug) }}" class=""><img src="{{ $blog->image }}" alt="" class="w-100 h-100"></a>
                                             </div>
                                             <div class="col-md-8 col-lg-7 col-xl-8 align-self-center">
                                                 <div class="card-body">
-                                                    <a href="#" class="text-decoration-none text-body"><h6 class="card-title font-weight-bold m-0">{{ $blog->name }}</h6></a>
+                                                    <a href="{{ route('article.show', $blog->slug) }}" class="text-decoration-none text-body"><h6 class="card-title font-weight-bold m-0">{{ $blog->name }}</h6></a>
                                                     <p class="card-text my-2 small">{{ substr(strip_tags($blog->body), 0, 100) }}{{ strlen(strip_tags($blog->body)) > 100 ? "..." : "" }}</p>
                                                     <div class="row mt-3">
                                                         <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 align-self-center">
                                                             <p class="card-text m-0"><small class="text-muted">Updated at {{ date('D, j F Y', strtotime($blog->updated_at)) }}</small></p>
                                                         </div>
                                                         <div class="col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 align-self-center clearfix">
-                                                            <a href="#" class="btn btn-sm bg-881a1b float-right">Read More</a>
+                                                            <a href="{{ route('article.show', $blog->slug) }}" class="btn btn-sm bg-881a1b float-right">Read More</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -59,10 +59,10 @@
                         <div class="table-responsive">
                             <table class="table m-0">
                                 <tbody>
-                                @foreach($blogs as $index => $blog)
+                                @foreach($newBlogs as $index => $new)
                                     <tr>
                                         <td class="small" style="width: 1rem;">{{ $index + 1 }}</td>
-                                        <td class="small">{{ $blog->name }}</td>
+                                        <td class="small"><a href="{{ route('article.show', $new->slug) }}" class="text-decoration-none text-body">{{ $new->name }}</a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -76,10 +76,10 @@
                         <div class="table-responsive">
                             <table class="table m-0">
                                 <tbody>
-                                @foreach($blogs as $index => $blog)
+                                @foreach($populars as $index => $popular)
                                     <tr>
                                         <td class="small" style="width: 1rem;">{{ $index + 1 }}</td>
-                                        <td class="small">{{ $blog->name }}</td>
+                                        <td class="small"><a href="{{ route('article.show', $popular->slug) }}" class="text-decoration-none text-body">{{ $popular->name }}</a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -99,12 +99,12 @@
                             <div class="row no-gutters" style="height: 15rem;">
                                 <div class="col-md-8 col-lg-7 col-xl-7 align-self-center">
                                     <div class="card-body">
-                                        <a href="#" class="text-decoration-none text-body"><h6 class="card-title font-weight-bold text-black-50 m-0">{{ $blog->name }}</h6></a>
+                                        <a href="{{ route('article.show', $blog->slug) }}" class="text-decoration-none text-body"><h6 class="card-title font-weight-bold text-black-50 m-0">{{ $blog->name }}</h6></a>
                                         <p class="card-text text-black-50 mt-2">{{ substr(strip_tags($blog->body), 0, 150) }}{{ strlen(strip_tags($blog->body)) > 150 ? "..." : "" }}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-4 col-lg-5 col-xl-5">
-                                    <a href="#" class=""><img src="{{ $blog->image }}" alt="" class="w-100 h-100"></a>
+                                    <a href="{{ route('article.show', $blog->slug) }}" class=""><img src="{{ $blog->image }}" alt="" class="w-100 h-100"></a>
                                 </div>
                             </div>
                         </div>

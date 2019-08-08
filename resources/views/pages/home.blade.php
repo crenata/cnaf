@@ -109,14 +109,21 @@
         <div class="container">
             <div class="text-center">
                 <h4 class="font-weight-bold text-danger">Wujudkan impian Anda dengan berbagai penawaran spesial dari rekanan kami</h4>
-                <div class="loop owl-carousel owl-theme mt-4">
-                    @foreach($vendors as $vendor)
-                        <div class="item">
-                            <a href="{{ route('shop.vendor.show', $vendor->slug) }}" class="">
-                                <img src="{{ $vendor->image }}" alt="">
-                            </a>
+                <div class="row">
+                    <div class="col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                        <img src="" alt="" class="">
+                    </div>
+                    <div class="col-12 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                        <div class="loop owl-carousel owl-theme mt-4">
+                            @foreach($vendors as $vendor)
+                                <div class="item">
+                                    <a href="{{ route('shop.vendor.show', $vendor->slug) }}" class="">
+                                        <img src="{{ $vendor->image }}" alt="">
+                                    </a>
+                                </div>
+                            @endforeach
                         </div>
-                    @endforeach
+                    </div>
                 </div>
             </div>
         </div>
@@ -125,9 +132,9 @@
     <div class="banner2 d-flex">
         <div class="container align-self-center">
             <div class="banner2-content text-center">
-                <h1 class="text-white font-weight-bold">Leasing mobil bersama sobat CNAF</h1>
+                <h1 class="text-white font-weight-bold">Kredit Multi Guna Sobat CNAF</h1>
                 <h2 class="text-white mt-5">Kesempatan tidak datang dua kali</h2>
-                <p class="text-white mt-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci consequatur cumque distinctio eaque eos et explicabo fugiat laudantium minus modi molestias.</p>
+                {{--<p class="text-white mt-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci consequatur cumque distinctio eaque eos et explicabo fugiat laudantium minus modi molestias.</p>--}}
                 <a href="#" class="bg-881a1b btn py-xl-3 py-lg-3 py-md-2 px-xl-5 px-lg-5 px-md-4 mt-xl-5 mt-lg-4 mt-md-3 font-weight-bold">Pelajari Lebih Lanjut &emsp; <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
@@ -191,7 +198,7 @@
             <div class="row">
                 <div class="col-12 align-self-center">
                     <div class="text-center p-0 m-0">
-                        <h6 class="text-white">Masih ada pertanyaan?</h6>
+                        <h6 class="text-white">Perlu Informasi lebih lanjut?</h6>
                         <a href="{{ route('faq') }}" class="bg-881a1b btn py-xl-3 py-lg-3 py-md-2 px-xl-5 px-lg-5 px-md-4 mt-4 font-weight-bold">Halaman FAQ &emsp; <i class="fas fa-arrow-right"></i></a>
                         <p class="text-white mt-4 mb-0">atau <a href="{{ route('contact') }}" class="text-white font-weight-bold"><ins>kontak kami</ins></a></p>
                     </div>
@@ -230,7 +237,7 @@
         </div>
     </div>
 
-    <div class="banner4 d-flex">
+    {{--<div class="banner4 d-flex">
         <div class="container align-self-center">
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-12 align-self-center">
@@ -249,7 +256,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--}}
 
     <div class="image-bottom my-xl-5 my-lg-5 my-md-4 my-sm-4 my-4">
         <div class="container">
@@ -264,13 +271,13 @@
     <script type="text/javascript">
         $('.loop').owlCarousel({
             center: true,
-            items: 2,
+            items: 1,
             loop: true,
             margin: 10,
             autoplay: true,
             autoplayTimeout: 2000,
             autoplayHoverPause: true,
-            responsive: {
+            /*responsive: {
                 0: {
                     items: 1
                 },
@@ -286,7 +293,7 @@
                 1200: {
                     items: 2
                 }
-            }
+            }*/
         });
 
         /* Region Selected */

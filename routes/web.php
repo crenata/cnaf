@@ -15,6 +15,7 @@ Auth::routes(['verify' => true]);
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('articles', 'HomeController@articles')->name('articles');
+Route::get('article/{slug}', 'HomeController@showArticle')->name('article.show');
 Route::get('simulasi', 'HomeController@simulasi')->name('simulasi');
 Route::post('simulasi', 'HomeController@simulasiFromHome')->name('simulasi.from.home');
 Route::get('tentang-kami', 'HomeController@tentangkami')->name('tentangkami');

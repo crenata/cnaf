@@ -39,7 +39,7 @@
                 </ul>
             </div>
             <div class="col-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
-                @if(count($items) > 0)
+                {{--@if(count($items) > 0)
                     <div class="change-view col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <div class="row">
                             <div class="col-4 col-sm-2 col-md-1 col-lg-1 col-xl-1">
@@ -53,7 +53,7 @@
                             </div>
                         </div>
                     </div>
-                @endif
+                @endif--}}
                 <div class="row items">
                     @if(count($items) > 0)
                         @foreach($items as $item)

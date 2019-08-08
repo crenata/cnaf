@@ -84,7 +84,9 @@
                     <input type="number" class="d-inline-block ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2 form-control w-25 add-qty" min="1" max="{{ $item->qty }}" value="1">
                     @if($item->qty > 0 || $item->qty != '' || $item->qty != null)
                         @auth
-                            <button class="btn bg-881a1b d-inline-block px-5 ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2 add-to-cart">Add to Cart</button>
+                            @if(!Auth::user()->is_vendor)
+                                <button class="btn bg-881a1b d-inline-block px-5 ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2 add-to-cart">Add to Cart</button>
+                            @endif
                         @else
                             <a href="{{ route('shop.login') }}" class="btn bg-881a1b d-inline-block px-5 ml-2 ml-sm-2 ml-md-2 ml-lg-2 ml-xl-2">Add to Cart</a>
                         @endauth
@@ -200,7 +202,7 @@
             toastr.error('Maaf, Stock saat ini belum tersedia!', 'Error Alert', {timeOut: 5000});
             $(this).attr('disabled', true);
         });
-        
+
         $('.add-to-cart').click(function (e) {
             let add_cart = new FormData();
 

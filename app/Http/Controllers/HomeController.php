@@ -90,7 +90,16 @@ class HomeController extends Controller
 
     public function articles() {
         $blogs = Blog::orderBy('id', 'desc')->paginate(7);
-        return view('pages.articles')->withBlogs($blogs);
+        $new_blogs = Blog::orderBy('id', 'desc')->limit(5)->get();
+        $populars = Blog::popularDay()->get();
+        return view('pages.articles')->withBlogs($blogs)->withNewBlogs($new_blogs)->withPopulars($populars);
+    }
+
+    public function showArticle($slug) {
+        $blog = Blog::where('slug', $slug)->firstOrFail();
+        $new_blogs = Blog::orderBy('id', 'desc')->limit(5)->get();
+        $populars = Blog::popularDay()->get();
+        return view('pages.showarticle')->withBlog($blog)->withNewBlogs($new_blogs)->withPopulars($populars);
     }
 
     public function contact() {
@@ -112,7 +121,15 @@ class HomeController extends Controller
     public function simulasi() {
         $vendors = Vendor::orderBy('name', 'asc')->get();
         $carregions = CarRegion::orderBy('name', 'asc')->get();
-        return view('pages.simulasi')->withVendors($vendors)->withCarRegions($carregions)->withCarBrands(null)->withCurrentRegion(null)->withCurrentBrand(null)->withCurrentType(null);
+        if (Auth::check()) {
+            if (Auth::user()->is_vendor) {
+                return abort(403);
+            } else {
+                return view('pages.simulasi')->withVendors($vendors)->withCarRegions($carregions)->withCarBrands(null)->withCurrentRegion(null)->withCurrentBrand(null)->withCurrentType(null);
+            }
+        } else {
+            return view('pages.simulasi')->withVendors($vendors)->withCarRegions($carregions)->withCarBrands(null)->withCurrentRegion(null)->withCurrentBrand(null)->withCurrentType(null);
+        }
     }
 
     public function simulasiFromHome(Request $request) {
@@ -143,7 +160,15 @@ class HomeController extends Controller
             $carmodels = null;
         }
 
-        return view('pages.simulasi')->withVendors($vendors)->withCarRegions($carregions)->withCarBrands($carbrands)->withCarTypes($cartypes)->withCarModels($carmodels)->withCurrentRegion($current_region)->withCurrentBrand($current_brand)->withCurrentType($current_type);
+        if (Auth::check()) {
+            if (Auth::user()->is_vendor) {
+                return abort(403);
+            } else {
+                return view('pages.simulasi')->withVendors($vendors)->withCarRegions($carregions)->withCarBrands($carbrands)->withCarTypes($cartypes)->withCarModels($carmodels)->withCurrentRegion($current_region)->withCurrentBrand($current_brand)->withCurrentType($current_type);
+            }
+        } else {
+            return view('pages.simulasi')->withVendors($vendors)->withCarRegions($carregions)->withCarBrands($carbrands)->withCarTypes($cartypes)->withCarModels($carmodels)->withCurrentRegion($current_region)->withCurrentBrand($current_brand)->withCurrentType($current_type);
+        }
     }
 
     public function shop() {

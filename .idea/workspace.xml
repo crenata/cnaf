@@ -2,13 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="576dedf7-eaca-4227-8693-c9e20d6cdd2b" name="Default Changelist" comment="First Commit">
+      <change beforePath="$PROJECT_DIR$/.idea/cnaf.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cnaf.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Helpers/Helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helpers/Helper.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/User/TransactionController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/User/TransactionController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/User/VendorDashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/User/VendorDashboardController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/constants.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/constants.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/user/vendor/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/user/vendor/dashboard.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Admin/Blog.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Admin/Blog.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/articles.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/articles.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/shop/product/itemdetail.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/shop/product/itemdetail.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/shop/product/productlist.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/shop/product/productlist.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/partials/attributs/nav.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/partials/attributs/nav.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -137,6 +142,7 @@
       <path value="$PROJECT_DIR$/vendor/phenx/php-font-lib" />
       <path value="$PROJECT_DIR$/vendor/dompdf/dompdf" />
       <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-dompdf" />
+      <path value="$PROJECT_DIR$/vendor/jordanmiguel/laravel-popular" />
     </include_path>
   </component>
   <component name="ProjectId" id="1OntfTYrFs3BVdn7K0yjUu3s4ek" />
@@ -154,6 +160,9 @@
     <property name="settings.editor.selected.configurable" value="preferences.general" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/pages/article" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/views/pages/shop/po" />
       <recent name="$PROJECT_DIR$/resources/views/pages/shop" />
@@ -269,7 +278,8 @@
       <workItem from="1564970625562" duration="21367000" />
       <workItem from="1565001071626" duration="2059000" />
       <workItem from="1565055740699" duration="26376000" />
-      <workItem from="1565141087645" duration="24908000" />
+      <workItem from="1565141087645" duration="27004000" />
+      <workItem from="1565229434802" duration="17800000" />
     </task>
     <servers />
   </component>
