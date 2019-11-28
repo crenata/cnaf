@@ -21,7 +21,7 @@ return [
     'MAIL_ENCRYPTION' => env('MAIL_ENCRYPTION', 'tls'),
     'MAIL_INITIAL' => env('MAIL_INITIAL', 'Scranaver'),
 
-    'GOOGLE_MAPS_API_KEY' => env('GOOGLE_MAPS_API_KEY', 'AIzaSyATw_FSgimf5vX9WsaTCgNAv_YMjkpdcqM'),
+    'GOOGLE_MAPS_API_KEY' => env('GOOGLE_MAPS_API_KEY', ''),
 
     'ADVANCE_AI_API_KEY' => env('ADVANCE_AI_API_KEY', '346b76a58f959271'),
     'ADVANCE_AI_SECRET_KEY' => env('ADVANCE_AI_SECRET_KEY', '346b76a58f959271'),
